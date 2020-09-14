@@ -1,36 +1,41 @@
 
- const main = document.querySelector("main");
+const main = document.querySelector("main");
 
- async function fetchPeople() {
+async function fetchPeople() {
   let response = await fetch("http://127.0.0.1:5500/people.json");
   console.log(response);
   const data = response.json();
   return data;
 }
 
+let birthPerson = [];
+
 async function givePeopleBirthdayList() {
   const birthday = await fetchPeople();
-  const html = birthday.sort((sooner, later) => later.rt_score - sooner.rt_score)
-        .map(birth => {
-          return `
-            <ul data-id="${birth.id}" class="d-flex flex-row justify-content-around list-unstyled">
-              <li class=""><img class="rounded-circle" src="${birth.picture}" alt="images"></li>
-              <li class="names">${birth.lastName} ${birth.firstName}</li>
-              <li class="">${birth.birthday}</li>
-              <li class="edit">
-                <button type="button" class="rounded border-0 bg-white "><svg class="w-6 h-6" width="20px" height="20px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-              </li>
-              <li class="delete">
-                <button type="button" class="rounded border-0 bg-white "><svg class="w-6 h-6"  width="20px" height="20px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-              </button>
-              </li>
-            </ul>
-          `
-      }).join('');
+  const html = birthday
+    .sort((sooner, later) => later.id - sooner.id)
+    .map((birth) => {
+      return `
+        <ul data-id="${birth.id}" class="d-flex flex-row justify-content-around list-unstyled">
+          <li class=""><img class="rounded-circle" src="${birth.picture}" alt="images"></li>
+          <li class="names">${birth.lastName} ${birth.firstName}</li>
+          <li class="">${birth.birthday}</li>
+          <li class="edit">
+            <button type="button" name="edit" class="edit rounded border-0 bg-white "><svg class="w-6 h-6" width="20px" height="20px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+          </li>
+          <li class="delete">
+            <button type="button" class="delete rounded border-0 bg-white "><svg class="w-6 h-6"  width="20px" height="20px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+          </button>
+          </li>
+        </ul>
+      `;
+    })
+    .join("");
   main.innerHTML = html;
 }
 
 const handleClick = e => {
+  console.log("The edit is clicked");
   if(e.target.closest("button.edit")) {
     console.log("You can edit here");
     const parent = e.target.closest("ul");
@@ -43,21 +48,58 @@ const handleClick = e => {
     const id = parent.dataset.id;
     deletePersonBirthday(id);
   }
-}
+};
 
-const editPersonBirthday = id => {
+const editPersonBirthday = (id) => {
   console.log("Edit is clicked");
-  let personToEdit = persons.find((person) => person.id === id);
-  console.log(personToEdit);
-  return new Promise(function (resolve) {
-  const newForm = document.createElement("form");
-  newForm.classList.add('person')
-  newForm.insertAdjacentElement('afterbegin', `
   
-  `);
-})
-}
+  let personToEdit = birthPerson.find((person) => person.id === id);
+  console.log(personToEdit);
 
+  return new Promise(function (resolve) {
+    const newForm = document.createElement("form");
+    newForm.classList.add("person");
+    newForm.insertAdjacentElement(
+      "afterbegin",
+      `
+      <h1>Is this your partner?</h1>
+      <fieldset>
+        <label>Last Name</labe>
+        <input type="text" name="lastName" id="lastname" value="${personToEdit.lastName}">
+      </fieldset>
+      <fieldset>
+        <label>First name</labe>
+        <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}">
+      </fieldset>
+      <fieldset>
+        <label>Job title</labe>
+        <input type="text" name="jobTitle" id="title" value="${personToEdit.jobTitle}">
+      </fieldset>
+      <fieldset>
+        <label>Job area</labe>
+        <input type="text" name="jobArea" id="jobarea" value="${personToEdit.jobArea}">
+      </fieldset>
+      <fieldset>
+        <label>Phone number</labe>
+        <input type="text" name="phone" id="number" value="${personToEdit.phone}">
+      </fieldset>
+      <div class="buttons">
+        <button type="submit">
+          Save
+        </button>
+  `
+    );
+
+    newForm.addEventListener("submit", e => {
+      e.preventDefault();
+      resolve();
+    });
+    
+    resolve(document.body.appendChild(newForm));
+    newForm.classList.add("open");
+
+  });
+};
 
 window.addEventListener("click", handleClick);
 givePeopleBirthdayList();
