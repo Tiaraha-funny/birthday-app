@@ -13,7 +13,7 @@ async function givePeopleBirthdayList() {
   const html = birthday.sort((sooner, later) => later.rt_score - sooner.rt_score)
         .map(birth => {
           return `
-            <ul class="d-flex flex-row justify-content-around list-unstyled">
+            <ul data-id="${birth.id}" class="d-flex flex-row justify-content-around list-unstyled">
               <li class=""><img class="rounded-circle" src="${birth.picture}" alt="images"></li>
               <li class="names">${birth.lastName} ${birth.firstName}</li>
               <li class="">${birth.birthday}</li>
@@ -30,5 +30,34 @@ async function givePeopleBirthdayList() {
   main.innerHTML = html;
 }
 
+const handleClick = e => {
+  if(e.target.closest("button.edit")) {
+    console.log("You can edit here");
+    const parent = e.target.closest("ul");
+    const id = parent.dataset.id;
+    editPersonBirthday(id);
+  }
+  if(e.target.closest("button.delete")) {
+    console.log("You are able to delete");
+    const parent = e.target.closest("ul");
+    const id = parent.dataset.id;
+    deletePersonBirthday(id);
+  }
+}
 
+const editPersonBirthday = id => {
+  console.log("Edit is clicked");
+  let personToEdit = persons.find((person) => person.id === id);
+  console.log(personToEdit);
+  return new Promise(function (resolve) {
+  const newForm = document.createElement("form");
+  newForm.classList.add('person')
+  newForm.insertAdjacentElement('afterbegin', `
+  
+  `);
+})
+}
+
+
+window.addEventListener("click", handleClick);
 givePeopleBirthdayList();
