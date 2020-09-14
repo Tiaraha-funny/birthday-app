@@ -1,0 +1,23 @@
+{
+  "name": "birthday-app",
+  "version": "1.0.0",
+  "description": "Hey team! So the final project here will be a birthday list.",
+  "main": "script.js",
+  "dependencies": {
+    "date-fns": "^2.16.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tiaraha-funny/birthday-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tiaraha-funny/birthday-app/issues"
+  },
+  "homepage": "https://github.com/Tiaraha-funny/birthday-app#readme"
+}
