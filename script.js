@@ -2,6 +2,8 @@
 
 const main = document.querySelector("main");
 
+//Fetch all the people in the lists
+
 async function fetchPeople() {
   let response = await fetch("http://127.0.0.1:5500/people.json");
   console.log(response);
@@ -9,7 +11,7 @@ async function fetchPeople() {
   return data;
 }
 
-let birthPerson = [];
+// Maping all the people in the list from the fetch function
 
 async function givePeopleBirthdayList() {
   const birthday = await fetchPeople();
@@ -35,6 +37,8 @@ async function givePeopleBirthdayList() {
   main.innerHTML = html;
 }
 
+//Handling all some of the click buttons
+
 const handleClick = (e) => {
   console.log("The edit is clicked");
   if (e.target.closest("button.edit")) {
@@ -50,6 +54,8 @@ const handleClick = (e) => {
     deletePersonBirthday(id);
   }
 };
+
+//function of edit people
 
 async function editPersonBirthday(id) {
   console.log("Edit is clicked");
@@ -115,31 +121,57 @@ async function editPersonBirthday(id) {
   });
 }
 
-function destroyModalEditDeleteOrCancel(newForm) {
-  newForm.classList.remove("open");
-  newForm.remove();
-}
+// function of deleting people
 
 async function deletePersonBirthday(id) {
   console.log("Delete button is clicked");
+
   const deleteThisPersonBirthday = await fetchPeople();
-  const personToDelete = deleteThisPersonBirthday.find((person) => person.id === id);
+
+  const personToDelete = deleteThisPersonBirthday.find(
+    (person) => person.id === id
+  );
+
   console.log(personToDelete);
 
   return new Promise(function (resolve) {
     const deleteForm = document.createElement("form");
     deleteForm.classList.add("delPerson");
-      const delHtml = `
-      <h2>Do you want to delete this person</h2>
-      <div class="buttons">
-        <button type="button">YES</button>
-        <button type="button" name="cancel">Cancel</button>
-      <div>
-      `
-      deleteForm.insertAdjacentHTML = delHtml;
-  })
+    const delHtml = `
+      <article>
+        <h2>Do you want to delete this person</h2>
+        <div class="delBtn">
+          <button type="button" name="yes">YES</button>
+          <button type="button" name="cancel">Cancel</button>
+        <div>
+      </article>
+      `;
+    deleteForm.innerHTML = delHtml;
 
-};
+    if (deleteForm.cancel) {
+      console.log("No I don't want to delete");
+      deleteForm.cancel.addEventListener(
+        "click",
+        function () {
+          resolve(null);
+          destroyModalEditDeleteOrCancel(deleteForm);
+        },
+        { once: true }
+      );
+
+      resolve(document.body.appendChild(deleteForm));
+      deleteForm.classList.add("open");
+    }
+  });
+}
+
+//Destroy the function after clicking the buttons
+
+function destroyModalEditDeleteOrCancel(newForm) {
+  newForm.classList.remove("open");
+  newForm.remove();
+}
+
 
 window.addEventListener("click", handleClick);
 givePeopleBirthdayList();
