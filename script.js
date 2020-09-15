@@ -38,7 +38,7 @@ async function givePeopleBirthdayList() {
 const handleClick = (e) => {
   console.log("The edit is clicked");
   if (e.target.closest("button.edit")) {
-    console.log("You can edit here");
+    console.log("You are able to edit anything");
     const parent = e.target.closest("ul");
     const id = parent.dataset.id;
     editPersonBirthday(id);
@@ -62,35 +62,83 @@ async function editPersonBirthday(id) {
   return new Promise(function (resolve) {
     const newForm = document.createElement("form");
     newForm.classList.add("person");
-    const editHtml= `
-    <div class="form">
-          <h1>Do you want to edit something?</h1>
-            <label>Last Name</labe><br>
-            <input type="text" name="lastName" id="lastname" value="${personToEdit.lastName}"><br>
-            <label>First name</labe><br>
-            <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}"><br>
-            <label>Birthday</labe><br>
-            <input type="text" name="birthday" id="birthday" value="${personToEdit.birthday}"><br>
-          <div class="buttons">
-            <button type="submit">
-              Save
-            </button>
-            <button type="button" name="cancel">
-              Cancel
-            </button>
-          </div>
+    const editHtml = `
+      <div class="form">
+        <h1>Do you want to edit something?</h1>
+        <label>URL of the picture:</labe><br>
+        <input type="url" name="picture" id="picture" value="${personToEdit.picture}"><br>
+        <label>Last Name:</labe><br>
+        <input type="text" name="lastName" id="lastname" value="${personToEdit.lastName}"><br>
+        <label>First name:</labe><br>
+        <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}"><br>
+        <label>Birthday:</labe><br>
+        <input type="text" name="birthday" id="birthday" value="${personToEdit.birthday}"><br>
+        <div class="buttons">
+          <button type="submit">Save</button>
+          <button type="button" name="cancel">Cancel</button>
         </div>
-    `
+      </div>
+    `;
     newForm.insertAdjacentHTML("afterbegin", editHtml);
 
-    newForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      resolve();
-    });
+    newForm.addEventListener(
+      "submit",
+      (e) => {
+        e.preventDefault();
+        resolve();
 
-    resolve(document.body.appendChild(newForm));
-    newForm.classList.add("open");
+        personToEdit.picture = newForm.picture.value;
+        personToEdit.lastName = newForm.lastName.value;
+        personToEdit.firstName = newForm.firstName.value;
+        personToEdit.birthday = newForm.birthday.value;
+
+        givePeopleBirthdayList(editBirthday);
+        destroyModalEditDeleteOrCancel(newForm);
+      },
+      { once: true }
+    );
+
+    if (newForm.cancel) {
+      console.log("Cancel button is clicked");
+      newForm.cancel.addEventListener(
+        "click",
+        function () {
+          resolve(null);
+          destroyModalEditDeleteOrCancel(newForm);
+        },
+        { once: true }
+      );
+
+      resolve(document.body.appendChild(newForm));
+      newForm.classList.add("open");
+    }
   });
+}
+
+function destroyModalEditDeleteOrCancel(newForm) {
+  newForm.classList.remove("open");
+  newForm.remove();
+}
+
+async function deletePersonBirthday(id) {
+  console.log("Delete button is clicked");
+  const deleteThisPersonBirthday = await fetchPeople();
+  const personToDelete = deleteThisPersonBirthday.find((person) => person.id === id);
+  console.log(personToDelete);
+
+  return new Promise(function (resolve) {
+    const deleteForm = document.createElement("form");
+    deleteForm.classList.add("delPerson");
+      const delHtml = `
+      <h2>Do you want to delete this person</h2>
+      <div class="buttons">
+        <button type="button">YES</button>
+        <button type="button" name="cancel">Cancel</button>
+      <div>
+      `
+      deleteForm.insertAdjacentHTML = delHtml;
+  })
+
 };
 
 window.addEventListener("click", handleClick);

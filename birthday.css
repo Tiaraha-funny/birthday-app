@@ -40,18 +40,29 @@ li > img {
 }
 
 .form label {
-	line-height: 6rem;
+	line-height: 3rem;
 	font-size: 2rem;
 }
 
-fieldset input {
-	padding: 1rem;
-	font-size: 1.5rem;
-	border-radius: 2rem;
+input {
+	padding: 10px;
+	font-size: 1rem;
+	border-radius: 8px;
 }
 
 .person.open {
 	opacity: 1;
 	pointer-events: all;
 
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1rem;
+}
+button {
+    padding: 10px;
+    font-size: 20px;
 }
