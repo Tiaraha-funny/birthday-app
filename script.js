@@ -66,17 +66,17 @@ async function editPersonBirthday(id) {
     <div class="form">
           <h1>Do you want to edit something?</h1>
             <label>Last Name</labe><br>
-            <input type="text" name="lastName" id="lastname" value="${personToEdit.lastName}">
+            <input type="text" name="lastName" id="lastname" value="${personToEdit.lastName}"><br>
             <label>First name</labe><br>
-            <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}">
+            <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}"><br>
             <label>Birthday</labe><br>
-            <input type="text" name="birthday" id="birthday" value="${personToEdit.birthday}">
+            <input type="text" name="birthday" id="birthday" value="${personToEdit.birthday}"><br>
           <div class="buttons">
             <button type="submit">
               Save
             </button>
             <button type="button" name="cancel">
-              cancel
+              Cancel
             </button>
           </div>
         </div>

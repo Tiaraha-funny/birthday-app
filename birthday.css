@@ -39,7 +39,7 @@ li > img {
     border-radius: 8px;
 }
 
-.person fieldset {
+.form label {
 	line-height: 6rem;
 	font-size: 2rem;
 }
