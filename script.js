@@ -1,21 +1,43 @@
-// const { async } = require("regenerator-runtime");
 
-const main = document.querySelector("main");
-
-//Fetch all the people in the lists
+//Fetch all the people in the list
 
 async function fetchPeople() {
   let response = await fetch("http://127.0.0.1:5500/people.json");
-  console.log(response);
-  const data = response.json();
-  return data;
+  const data = await response.json();
+  let result = data;
+
+
+//Drag the elements from the html
+const main = document.querySelector("main");
+const addBtn = document.querySelector('.add');
+
+//Local storage function
+
+function setItemOfBirthdayToLocalStorage () {
+  localStorage.setItem('birthday', JSON.stringify(result));
+} 
+
+function restoreFromLocalStorage () {
+  console.log('restoring from the local storage');
+  const lsItems = JSON.parse(localStorage.getItem(result));
+
+  //check if the there's something inside the local storage
+  if(lsItems) {
+    lsItems.forEach(item => fetchPeople.push(item));
+  }
+}
+
+//Handling the adding lists
+const addListOfPeople = e => {
+  console.log('I want to add this list');
+
 }
 
 // Maping all the people in the list from the fetch function
 
-async function givePeopleBirthdayList() {
-  const birthday = await fetchPeople();
-  const html = birthday
+function displayPeopleBirthdayList() {
+
+  const html = result
     .sort((sooner, later) => later.id - sooner.id)
     .map((birth) => {
       return `
@@ -40,7 +62,9 @@ async function givePeopleBirthdayList() {
 //Handling all some of the click buttons
 
 const handleClick = (e) => {
-  console.log("The edit is clicked");
+    
+  localStorage.clear();
+
   if (e.target.closest("button.edit")) {
     console.log("You are able to edit anything");
     const parent = e.target.closest("ul");
@@ -53,17 +77,15 @@ const handleClick = (e) => {
     const id = parent.dataset.id;
     deletePersonBirthday(id);
   }
+
 };
 
 //function of edit people
 
-async function editPersonBirthday(id) {
+function editPersonBirthday(id) {
   console.log("Edit is clicked");
 
-  const editBirthday = await fetchPeople();
-
-  const personToEdit = editBirthday.find((person) => person.id === id);
-  console.log(personToEdit);
+  const personToEdit = result.find((person) => person.id === id);
 
   return new Promise(function (resolve) {
     const newForm = document.createElement("form");
@@ -98,7 +120,8 @@ async function editPersonBirthday(id) {
         personToEdit.firstName = newForm.firstName.value;
         personToEdit.birthday = newForm.birthday.value;
 
-        givePeopleBirthdayList(editBirthday);
+        resolve(e.currentTarget.remove());
+        displayPeopleBirthdayList(result);
         destroyModalEditDeleteOrCancel(newForm);
       },
       { once: true }
@@ -118,35 +141,40 @@ async function editPersonBirthday(id) {
       resolve(document.body.appendChild(newForm));
       newForm.classList.add("open");
     }
+    // main.dispatchEvent(new CustomEvent('itemUpdated'));
   });
+
 }
 
 // function of deleting people
-
-async function deletePersonBirthday(id) {
+function deletePersonBirthday(id) {
   console.log("Delete button is clicked");
-
-  const deleteThisPersonBirthday = await fetchPeople();
-
-  const personToDelete = deleteThisPersonBirthday.find(
+  const personToDelete = result.find(
     (person) => person.id === id
   );
-
-  console.log(personToDelete);
 
   return new Promise(function (resolve) {
     const deleteForm = document.createElement("form");
     deleteForm.classList.add("delPerson");
     const delHtml = `
       <article>
-        <h2>Do you want to delete this person</h2>
+        <h2>Do you want to delete this person?</h2>
         <div class="delBtn">
           <button type="button" name="yes">YES</button>
           <button type="button" name="cancel">Cancel</button>
-        <div>
+        </div>
       </article>
       `;
     deleteForm.innerHTML = delHtml;
+
+    // if(deleteForm.yes) {
+    //   console.log("I am ready to delete this one");
+    //   deleteForm.yes.addEventListener("click", 
+    //   function () {
+    //     resolve();
+    //     deleteForm.classList.remove(personToDelete)
+    // }, { once: true })
+    // }
 
     if (deleteForm.cancel) {
       console.log("No I don't want to delete");
@@ -162,6 +190,7 @@ async function deletePersonBirthday(id) {
       resolve(document.body.appendChild(deleteForm));
       deleteForm.classList.add("open");
     }
+    main.dispatchEvent(new CustomEvent('itemUpdated'));
   });
 }
 
@@ -170,8 +199,15 @@ async function deletePersonBirthday(id) {
 function destroyModalEditDeleteOrCancel(newForm) {
   newForm.classList.remove("open");
   newForm.remove();
+  main.dispatchEvent(new CustomEvent('itemUpdated'));
 }
 
-
 window.addEventListener("click", handleClick);
-givePeopleBirthdayList();
+addBtn.addEventListener('click', addListOfPeople);
+displayPeopleBirthdayList();
+main.addEventListener('itemUpdated', setItemOfBirthdayToLocalStorage);
+
+restoreFromLocalStorage();
+}
+
+fetchPeople();

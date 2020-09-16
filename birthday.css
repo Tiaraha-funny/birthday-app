@@ -95,6 +95,17 @@ button {
 	width: 100vw;
 }
 
-.delBtn button {
-	margin-right: 6rem;
+.delBtn {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
 } 
+.container {
+	padding: 0;
+    border-radius: 5px;
+}
+
+.add {
+	padding: 0;
+	text-align: end;
+}
