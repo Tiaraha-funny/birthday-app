@@ -5,6 +5,28 @@ async function fetchPeople() {
   const data = await response.json();
   let result = data;
 
+  function getAge(yearsOld) {
+//     var today = new Date();
+//     var birthDate = new Date(yearsOld);
+//     var age = today.getFullYear() - birthDate.getFullYear();
+//     var month = today.getMonth() - birthDate.getMonth();
+//     var day = today.getDate() - birthDate.getDate();
+//     if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+//         age--;
+//     }
+//     if(month < 0){
+//       month +=12;
+//     }
+//     if(day < 0){
+//       day +=30;
+//     }
+//     return age+" years "+ Math.abs(month) + "months"+ Math.abs(day) + " days";
+// }
+// console.log('age: ' + getAge("1987/08/31")); 
+}
+
+let mydate = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "Aug", "sep", "oct", "nov", "dec"]
+  
   //Local storage function
 
   function setItemOfBirthdayToLocalStorage() {
@@ -23,23 +45,27 @@ async function fetchPeople() {
 
   //Drag the elements from the html
   const main = document.querySelector("main");
+  const addBtn = document.querySelector(".add");
 
   // Maping all the people in the list from the fetch function
 
   function displayPeopleBirthdayList() {
+    const sortedBirthday = result.sort((sooner, later) => later.birthday - sooner.birthday);
+    function getSymboleDate(date) {
+      
+    }
     const html = result
-      .sort((sooner, later) => later.id - sooner.id)
       .map((birth) => {
         return `
         <ul data-id="${birth.id}" class="d-flex flex-row justify-content-around list-unstyled">
           <li class=""><img class="rounded-circle" src="${birth.picture}" alt="images"></li>
-          <li class="names">${birth.lastName} ${birth.firstName}</li>
-          <li class="">${birth.birthday}</li>
+          <li class="names">${birth.lastName} ${birth.firstName}<br>Turns on</li>
+          <li class="">${birth.birthday}<br>Days</li>
           <li class="edit">
             <button type="button" name="edit" class="edit"><svg class="edit" width="20px" height="20px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
           </li>
           <li class="delete">
-            <button type="button" class="delete"><svg class="delete"  width="20px" height="20px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            <button type="button" class="delete"><svg class="delete" width="20px" height="20px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
           </button>
           </li>
         </ul>
@@ -126,6 +152,12 @@ async function fetchPeople() {
           { once: true }
         );
 
+        window.addEventListener("keyup", (e) => {
+          if (e.key === "Escape") {
+            popup.classList.remove("open");
+          }
+        });
+
         resolve(document.body.appendChild(popup));
         popup.classList.add("open");
       }
@@ -181,6 +213,12 @@ async function fetchPeople() {
           { once: true }
         );
 
+        window.addEventListener("keyup", (e) => {
+          if (e.key === "Escape") {
+            popup.classList.remove("open");
+          }
+        });
+
         resolve(document.body.appendChild(popup));
         popup.classList.add("open");
       }
@@ -188,11 +226,8 @@ async function fetchPeople() {
     });
   }
 
-  const addBtn = document.querySelector(".add");
-
   function addListOfPeople(e) {
-    return new Promise( function (resolve) {
-  
+    return new Promise(function (resolve) {
       localStorage.clear();
       console.log("I want to add this list");
       const popup = document.createElement("form");
@@ -209,20 +244,20 @@ async function fetchPeople() {
         <label>Enter the birthday</labe><br>
         <input type="text" name="birthday" id="birthday" value=""><br>
       <div class="buttons">
-        <button type="submit addBtn">
-          Submit
-        </button>
+        <button type="submit addBtn">Submit</button>
+        <button type="button" name="cancel">Cancel</button>
       </div>
+      <small>You are going to see your new list at the end!!</small>
     </div>
   `;
       popup.innerHTML = addHtml;
       resolve();
-  
+
       popup.addEventListener("submit", (e) => {
         e.preventDefault();
         console.log(result);
         const formEl = e.currentTarget;
-  
+
         const newBirthday = {
           picture: formEl.picture.value,
           lastName: formEl.lastName.value,
@@ -235,13 +270,29 @@ async function fetchPeople() {
         destroyModalEditDeleteOrCancel(popup);
         formEl.reset();
       });
-  
-      resolve(document.body.appendChild(popup));
-      popup.classList.add("open");
-      main.dispatchEvent(new CustomEvent("itemUpdated"));
+
+      if (popup.cancel) {
+        console.log("No I don't want to delete");
+        popup.cancel.addEventListener(
+          "click",
+          function () {
+            resolve(null);
+            destroyModalEditDeleteOrCancel(popup);
+          },
+          { once: true }
+        );
+        resolve(document.body.appendChild(popup));
+        popup.classList.add("open");
+        main.dispatchEvent(new CustomEvent("itemUpdated"));
+      }
+      window.addEventListener("keyup", (e) => {
+        if (e.key === "Escape") {
+          popup.classList.remove("open");
+        }
+      });
     });
-  };
-  
+  }
+
   //Destroy the function after clicking the buttons
 
   function destroyModalEditDeleteOrCancel(popup) {
@@ -249,7 +300,7 @@ async function fetchPeople() {
     popup.remove();
     main.dispatchEvent(new CustomEvent("itemUpdated"));
   }
-  
+
   window.addEventListener("click", handleClick);
   addBtn.addEventListener("click", addListOfPeople);
   main.addEventListener("itemUpdated", setItemOfBirthdayToLocalStorage);
@@ -258,4 +309,3 @@ async function fetchPeople() {
 }
 
 fetchPeople();
-
