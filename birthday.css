@@ -69,12 +69,12 @@ button {
 }
 
 
-.delPerson.open {
+.person.open {
 	opacity: 1;
 	pointer-events: all;
 
 }
-.delPerson article {
+.person article {
 	background-color: white;
 	min-height: 100px;
 	min-width: 200px;
@@ -82,7 +82,7 @@ button {
     border-radius: 8px;
 }
 
-.delPerson {
+.person {
 	display: grid;
 	place-items: center center;
 	background-color: hsla(0, 0%, 0%, 0.7);
@@ -109,3 +109,4 @@ button {
 	padding: 0;
 	text-align: end;
 }
+  

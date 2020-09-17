@@ -1,4 +1,3 @@
-
 //Fetch all the people in the list
 
 async function fetchPeople() {
@@ -6,41 +5,32 @@ async function fetchPeople() {
   const data = await response.json();
   let result = data;
 
+  //Local storage function
 
-//Drag the elements from the html
-const main = document.querySelector("main");
-const addBtn = document.querySelector('.add');
-
-//Local storage function
-
-function setItemOfBirthdayToLocalStorage () {
-  localStorage.setItem('birthday', JSON.stringify(result));
-} 
-
-function restoreFromLocalStorage () {
-  console.log('restoring from the local storage');
-  const lsItems = JSON.parse(localStorage.getItem(result));
-
-  //check if the there's something inside the local storage
-  if(lsItems) {
-    lsItems.forEach(item => fetchPeople.push(item));
+  function setItemOfBirthdayToLocalStorage() {
+    localStorage.setItem("birthday", JSON.stringify(result));
   }
-}
 
-//Handling the adding lists
-const addListOfPeople = e => {
-  console.log('I want to add this list');
+  function restoreFromLocalStorage() {
+    console.log("restoring from the local storage");
+    const lsItems = JSON.parse(localStorage.getItem(result));
 
-}
+    //check if the there's something inside the local storage
+    if (lsItems) {
+      lsItems.forEach((item) => fetchPeople.push(item));
+    }
+  }
 
-// Maping all the people in the list from the fetch function
+  //Drag the elements from the html
+  const main = document.querySelector("main");
 
-function displayPeopleBirthdayList() {
+  // Maping all the people in the list from the fetch function
 
-  const html = result
-    .sort((sooner, later) => later.id - sooner.id)
-    .map((birth) => {
-      return `
+  function displayPeopleBirthdayList() {
+    const html = result
+      .sort((sooner, later) => later.id - sooner.id)
+      .map((birth) => {
+        return `
         <ul data-id="${birth.id}" class="d-flex flex-row justify-content-around list-unstyled">
           <li class=""><img class="rounded-circle" src="${birth.picture}" alt="images"></li>
           <li class="names">${birth.lastName} ${birth.firstName}</li>
@@ -54,43 +44,41 @@ function displayPeopleBirthdayList() {
           </li>
         </ul>
       `;
-    })
-    .join("");
-  main.innerHTML = html;
-}
-
-//Handling all some of the click buttons
-
-const handleClick = (e) => {
-    
-  localStorage.clear();
-
-  if (e.target.closest("button.edit")) {
-    console.log("You are able to edit anything");
-    const parent = e.target.closest("ul");
-    const id = parent.dataset.id;
-    editPersonBirthday(id);
-  }
-  if (e.target.closest("button.delete")) {
-    console.log("You are able to delete");
-    const parent = e.target.closest("ul");
-    const id = parent.dataset.id;
-    deletePersonBirthday(id);
+      })
+      .join("");
+    main.innerHTML = html;
   }
 
-};
+  //Handling all some of the click buttons
 
-//function of edit people
+  const handleClick = (e) => {
+    localStorage.clear();
 
-function editPersonBirthday(id) {
-  console.log("Edit is clicked");
+    if (e.target.closest("button.edit")) {
+      console.log("You are able to edit anything");
+      const parent = e.target.closest("ul");
+      const id = parent.dataset.id;
+      editPersonBirthday(id);
+    }
+    if (e.target.closest("button.delete")) {
+      console.log("You are able to delete");
+      const parent = e.target.closest("ul");
+      const id = parent.dataset.id;
+      deletePersonBirthday(id);
+    }
+  };
 
-  const personToEdit = result.find((person) => person.id === id);
+  //function of edit people
 
-  return new Promise(function (resolve) {
-    const newForm = document.createElement("form");
-    newForm.classList.add("person");
-    const editHtml = `
+  function editPersonBirthday(id) {
+    console.log("Edit is clicked");
+
+    const personToEdit = result.find((person) => person.id === id);
+
+    return new Promise(function (resolve) {
+      const popup = document.createElement("form");
+      popup.classList.add("person");
+      const editHtml = `
       <div class="form">
         <h1>Do you want to edit something?</h1>
         <label>URL of the picture:</labe><br>
@@ -107,107 +95,167 @@ function editPersonBirthday(id) {
         </div>
       </div>
     `;
-    newForm.insertAdjacentHTML("afterbegin", editHtml);
+      popup.insertAdjacentHTML("afterbegin", editHtml);
 
-    newForm.addEventListener(
-      "submit",
-      (e) => {
-        e.preventDefault();
-        resolve();
+      popup.addEventListener(
+        "submit",
+        (e) => {
+          e.preventDefault();
+          resolve();
 
-        personToEdit.picture = newForm.picture.value;
-        personToEdit.lastName = newForm.lastName.value;
-        personToEdit.firstName = newForm.firstName.value;
-        personToEdit.birthday = newForm.birthday.value;
+          personToEdit.picture = popup.picture.value;
+          personToEdit.lastName = popup.lastName.value;
+          personToEdit.firstName = popup.firstName.value;
+          personToEdit.birthday = popup.birthday.value;
 
-        resolve(e.currentTarget.remove());
-        displayPeopleBirthdayList(result);
-        destroyModalEditDeleteOrCancel(newForm);
-      },
-      { once: true }
-    );
-
-    if (newForm.cancel) {
-      console.log("Cancel button is clicked");
-      newForm.cancel.addEventListener(
-        "click",
-        function () {
-          resolve(null);
-          destroyModalEditDeleteOrCancel(newForm);
+          resolve(e.currentTarget.remove());
+          displayPeopleBirthdayList(result);
+          destroyModalEditDeleteOrCancel(popup);
         },
         { once: true }
       );
 
-      resolve(document.body.appendChild(newForm));
-      newForm.classList.add("open");
-    }
-    // main.dispatchEvent(new CustomEvent('itemUpdated'));
-  });
+      if (popup.cancel) {
+        console.log("Cancel button is clicked");
+        popup.cancel.addEventListener(
+          "click",
+          function () {
+            resolve(null);
+            destroyModalEditDeleteOrCancel(popup);
+          },
+          { once: true }
+        );
 
-}
+        resolve(document.body.appendChild(popup));
+        popup.classList.add("open");
+      }
+      main.dispatchEvent(new CustomEvent("itemUpdated"));
+    });
+  }
 
-// function of deleting people
-function deletePersonBirthday(id) {
-  console.log("Delete button is clicked");
-  const personToDelete = result.find(
-    (person) => person.id === id
-  );
+  // function of deleting people
+  function deletePersonBirthday(id) {
+    console.log("Delete button is clicked");
 
-  return new Promise(function (resolve) {
-    const deleteForm = document.createElement("form");
-    deleteForm.classList.add("delPerson");
-    const delHtml = `
+    return new Promise(function (resolve) {
+      const popup = document.createElement("form");
+      popup.classList.add("person");
+      const delHtml = `
       <article>
         <h2>Do you want to delete this person?</h2>
         <div class="delBtn">
-          <button type="button" name="yes">YES</button>
+          <div class="yes">
+          <button type="button" class="yesDel" name="yes">YES</button>
+          </div>
+          <div>
           <button type="button" name="cancel">Cancel</button>
+          </div>
         </div>
       </article>
       `;
-    deleteForm.innerHTML = delHtml;
+      popup.innerHTML = delHtml;
 
-    // if(deleteForm.yes) {
-    //   console.log("I am ready to delete this one");
-    //   deleteForm.yes.addEventListener("click", 
-    //   function () {
-    //     resolve();
-    //     deleteForm.classList.remove(personToDelete)
-    // }, { once: true })
-    // }
-
-    if (deleteForm.cancel) {
-      console.log("No I don't want to delete");
-      deleteForm.cancel.addEventListener(
+      popup.addEventListener(
         "click",
-        function () {
-          resolve(null);
-          destroyModalEditDeleteOrCancel(deleteForm);
+        (e) => {
+          e.preventDefault();
+          if (e.target.matches("button.yesDel")) {
+            console.log("I am ready to delete this one");
+            let deleteMe = result.filter((person) => person.id !== id);
+            result = deleteMe;
+            console.log(deleteMe);
+            destroyModalEditDeleteOrCancel(popup);
+          }
         },
         { once: true }
       );
 
-      resolve(document.body.appendChild(deleteForm));
-      deleteForm.classList.add("open");
-    }
-    main.dispatchEvent(new CustomEvent('itemUpdated'));
-  });
-}
+      if (popup.cancel) {
+        console.log("No I don't want to delete");
+        popup.cancel.addEventListener(
+          "click",
+          function () {
+            resolve(null);
+            destroyModalEditDeleteOrCancel(popup);
+          },
+          { once: true }
+        );
 
-//Destroy the function after clicking the buttons
+        resolve(document.body.appendChild(popup));
+        popup.classList.add("open");
+      }
+      main.dispatchEvent(new CustomEvent("itemUpdated"));
+    });
+  }
 
-function destroyModalEditDeleteOrCancel(newForm) {
-  newForm.classList.remove("open");
-  newForm.remove();
-  main.dispatchEvent(new CustomEvent('itemUpdated'));
-}
+  const addBtn = document.querySelector(".add");
 
-window.addEventListener("click", handleClick);
-addBtn.addEventListener('click', addListOfPeople);
-displayPeopleBirthdayList();
-main.addEventListener('itemUpdated', setItemOfBirthdayToLocalStorage);
+  function addListOfPeople(e) {
+    return new Promise( function (resolve) {
+  
+      localStorage.clear();
+      console.log("I want to add this list");
+      const popup = document.createElement("form");
+      popup.classList.add("person");
+      const addHtml = `
+      <div class="form">
+        <h1>Do you want to add this lists?</h1>
+        <label>Enter the picture URL</labe><br>
+        <input type="url" name="picture" id="picture" value=""><br>
+        <label>Enter the last Name</labe><br>
+        <input type="text" name="lastName" id="lastName" value=""><br>
+        <label>Enter the first name</labe><br>
+        <input type="text" name="firstName" id="firstName" value=""><br>
+        <label>Enter the birthday</labe><br>
+        <input type="text" name="birthday" id="birthday" value=""><br>
+      <div class="buttons">
+        <button type="submit addBtn">
+          Submit
+        </button>
+      </div>
+    </div>
+  `;
+      popup.innerHTML = addHtml;
+      resolve();
+  
+      popup.addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log(result);
+        const formEl = e.currentTarget;
+  
+        const newBirthday = {
+          picture: formEl.picture.value,
+          lastName: formEl.lastName.value,
+          firstName: formEl.firstName.value,
+          birthday: formEl.birthday.value,
+          id: Date.now(),
+        };
+        result.push(newBirthday);
+        displayPeopleBirthdayList();
+        destroyModalEditDeleteOrCancel(popup);
+        formEl.reset();
+      });
+  
+      resolve(document.body.appendChild(popup));
+      popup.classList.add("open");
+      main.dispatchEvent(new CustomEvent("itemUpdated"));
+    });
+  };
+  
+  //Destroy the function after clicking the buttons
 
-restoreFromLocalStorage();
+  function destroyModalEditDeleteOrCancel(popup) {
+    popup.classList.remove("open");
+    popup.remove();
+    main.dispatchEvent(new CustomEvent("itemUpdated"));
+  }
+  
+  window.addEventListener("click", handleClick);
+  addBtn.addEventListener("click", addListOfPeople);
+  main.addEventListener("itemUpdated", setItemOfBirthdayToLocalStorage);
+  displayPeopleBirthdayList();
+  restoreFromLocalStorage();
 }
 
 fetchPeople();
+
