@@ -1,30 +1,40 @@
 //Fetch all the people in the list
+const peps = "http://127.0.0.1:5500/people.json";
+
+//Drag the elements from the html
+const main = document.querySelector("main");
+const addBtn = document.querySelector(".add");
 
 async function fetchPeople() {
-  let response = await fetch("http://127.0.0.1:5500/people.json");
+  let response = await fetch(peps);
   const data = await response.json();
   let result = [];
   result = data;
+  // restoreFromLocalStorage(result);
+  displayPeopleBirthdayList(result);
+  main.dispatchEvent(new CustomEvent("itemUpdated"));
 
   //Local storage function
 
   function setItemOfBirthdayToLocalStorage() {
-    localStorage.setItem("birthday", JSON.stringify(result));
+    localStorage.setItem("result", JSON.stringify(result));
   }
 
-  function restoreFromLocalStorage() {
+  async function restoreFromLocalStorage() {
     console.log("restoring from the local storage");
-    const lsItems = JSON.parse(localStorage.getItem(result));
+    const lsItems = JSON.parse(localStorage.getItem("result"));
 
     //check if the there's something inside the local storage
     if (lsItems) {
-      lsItems.forEach((item) => fetchPeople.push(item));
+      result = lsItems;
+    } else {
+      const response = await fetch(`${peps}`);
+      const data = await response.json();
+      result = [...data];
+      displayPeopleBirthdayList(result);
     }
+    main.dispatchEvent(new CustomEvent("itemUpdated"));
   }
-
-  //Drag the elements from the html
-  const main = document.querySelector("main");
-  const addBtn = document.querySelector(".add");
 
   // Maping all the people in the list from the fetch function
 
@@ -47,19 +57,23 @@ async function fetchPeople() {
               return "th";
           }
         }
-        var today = new Date();
+
+        const getAge = (date1, date2) => {
+          // This is a condition like if statement
+          date2 = date2 || new Date();
+          //Calculation
+          const diff = date2.getTime() - date1.getTime();
+          return Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+        };
+
+        const birthdates = getAge(new Date(person.birthday));
+
         var birthDate = new Date(person.birthday);
         var day = birthDate.getDay();
         var mymonth = birthDate.getMonth();
         var year = birthDate.getFullYear();
-        var age = today.getFullYear() - birthDate.getFullYear();
         var ageResult = `${year}/${mymonth}/${day}`;
 
-        // var dob_asdate = new Date(year, month, day);
-        // var miliSec = Math.abs(today.getTime() - dob_asdate.getTime());
-        // var age = miliSec / (1000 * 3600 * 24 * 365.25);
-        // within_age_range = (14 < age) & (age < 24);
-        
         let month = [
           "jan",
           "feb",
@@ -84,7 +98,7 @@ async function fetchPeople() {
           }" alt="images"></li>
           <li class="names">${person.lastName} ${
           person.firstName
-        }<br>Turns ${age} on ${month} ${day} <sup> ${getSymboleDate(
+        }<br>Turns ${birthdates} on ${month} ${day} <sup> ${getSymboleDate(
           day
         )} </sup></li>
           <li>${ageResult}</li>
@@ -126,7 +140,7 @@ async function fetchPeople() {
   function editPersonBirthday(id) {
     console.log("Edit is clicked");
 
-    const personToEdit = result.find((person) => person.id === id);
+    const personToEdit = result.find((person) => person.id !== id);
 
     return new Promise(function (resolve) {
       const popup = document.createElement("form");
@@ -221,8 +235,6 @@ async function fetchPeople() {
           if (e.target.matches("button.yesDel")) {
             console.log("I am ready to delete this one");
             result = result.filter((person) => person.id !== id);
-            // result = deleteMe;
-            // console.log(deleteMe);
             displayPeopleBirthdayList();
             destroyModalEditDeleteOrCancel(popup);
           }
@@ -254,10 +266,11 @@ async function fetchPeople() {
     });
   }
 
-  function addListOfPeople(e) {
+  function addListOfPeople(id) {
     return new Promise(function (resolve) {
       localStorage.clear();
       console.log("I want to add this list");
+
       const popup = document.createElement("form");
       popup.classList.add("person");
       const addHtml = `
@@ -283,6 +296,8 @@ async function fetchPeople() {
 
       popup.addEventListener("submit", (e) => {
         e.preventDefault();
+        console.log("This is the submit");
+
         console.log(result);
         const formEl = e.currentTarget;
 
@@ -296,6 +311,7 @@ async function fetchPeople() {
         result.push(newBirthday);
         displayPeopleBirthdayList();
         destroyModalEditDeleteOrCancel(popup);
+        main.dispatchEvent(new CustomEvent("itemUpdated"));
         formEl.reset();
       });
 
