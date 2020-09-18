@@ -110,3 +110,6 @@ button {
 	text-align: end;
 }
   
+input > img {
+	width: 20%;
+}

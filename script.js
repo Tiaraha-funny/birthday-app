@@ -3,30 +3,9 @@
 async function fetchPeople() {
   let response = await fetch("http://127.0.0.1:5500/people.json");
   const data = await response.json();
-  let result = data;
+  let result = [];
+  result = data;
 
-  function getAge(yearsOld) {
-//     var today = new Date();
-//     var birthDate = new Date(yearsOld);
-//     var age = today.getFullYear() - birthDate.getFullYear();
-//     var month = today.getMonth() - birthDate.getMonth();
-//     var day = today.getDate() - birthDate.getDate();
-//     if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-//         age--;
-//     }
-//     if(month < 0){
-//       month +=12;
-//     }
-//     if(day < 0){
-//       day +=30;
-//     }
-//     return age+" years "+ Math.abs(month) + "months"+ Math.abs(day) + " days";
-// }
-// console.log('age: ' + getAge("1987/08/31")); 
-}
-
-let mydate = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "Aug", "sep", "oct", "nov", "dec"]
-  
   //Local storage function
 
   function setItemOfBirthdayToLocalStorage() {
@@ -50,17 +29,66 @@ let mydate = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "Aug", "sep", "oc
   // Maping all the people in the list from the fetch function
 
   function displayPeopleBirthdayList() {
-    const sortedBirthday = result.sort((sooner, later) => later.birthday - sooner.birthday);
-    function getSymboleDate(date) {
-      
-    }
-    const html = result
-      .map((birth) => {
+    const sortedBirthday = result.sort(
+      (sooner, later) => later.birthday - sooner.birthday
+    );
+    main.innerHTML = sortedBirthday
+      .map((person) => {
+        function getSymboleDate(date) {
+          if (date < 3 && date > 21) return "th";
+          switch (day % 2) {
+            case 1:
+              return "st";
+            case 2:
+              return "nd";
+            case 3:
+              return "rd";
+            default:
+              return "th";
+          }
+        }
+        var today = new Date();
+        var birthDate = new Date(person.birthday);
+        var day = birthDate.getDay();
+        var mymonth = birthDate.getMonth();
+        var year = birthDate.getFullYear();
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var ageResult = `${year}/${mymonth}/${day}`;
+
+        // var dob_asdate = new Date(year, month, day);
+        // var miliSec = Math.abs(today.getTime() - dob_asdate.getTime());
+        // var age = miliSec / (1000 * 3600 * 24 * 365.25);
+        // within_age_range = (14 < age) & (age < 24);
+        
+        let month = [
+          "jan",
+          "feb",
+          "mar",
+          "apr",
+          "may",
+          "jun",
+          "jul",
+          "Aug",
+          "sep",
+          "oct",
+          "nov",
+          "dec",
+        ][birthDate.getMonth()];
+
         return `
-        <ul data-id="${birth.id}" class="d-flex flex-row justify-content-around list-unstyled">
-          <li class=""><img class="rounded-circle" src="${birth.picture}" alt="images"></li>
-          <li class="names">${birth.lastName} ${birth.firstName}<br>Turns on</li>
-          <li class="">${birth.birthday}<br>Days</li>
+        <ul data-id="${
+          person.id
+        }" class="d-flex flex-row justify-content-around list-unstyled">
+          <li class=""><img class="rounded-circle" src="${
+            person.picture
+          }" alt="images"></li>
+          <li class="names">${person.lastName} ${
+          person.firstName
+        }<br>Turns ${age} on ${month} ${day} <sup> ${getSymboleDate(
+          day
+        )} </sup></li>
+          <li>${ageResult}</li>
+          <li class="">${day}<br>Days</li>
           <li class="edit">
             <button type="button" name="edit" class="edit"><svg class="edit" width="20px" height="20px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
           </li>
@@ -72,7 +100,6 @@ let mydate = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "Aug", "sep", "oc
       `;
       })
       .join("");
-    main.innerHTML = html;
   }
 
   //Handling all some of the click buttons
@@ -193,9 +220,10 @@ let mydate = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "Aug", "sep", "oc
           e.preventDefault();
           if (e.target.matches("button.yesDel")) {
             console.log("I am ready to delete this one");
-            let deleteMe = result.filter((person) => person.id !== id);
-            result = deleteMe;
-            console.log(deleteMe);
+            result = result.filter((person) => person.id !== id);
+            // result = deleteMe;
+            // console.log(deleteMe);
+            displayPeopleBirthdayList();
             destroyModalEditDeleteOrCancel(popup);
           }
         },
@@ -236,13 +264,13 @@ let mydate = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "Aug", "sep", "oc
       <div class="form">
         <h1>Do you want to add this lists?</h1>
         <label>Enter the picture URL</labe><br>
-        <input type="url" name="picture" id="picture" value=""><br>
+        <input type="url" name="picture" id="picture"><br>
         <label>Enter the last Name</labe><br>
-        <input type="text" name="lastName" id="lastName" value=""><br>
+        <input type="text" name="lastName" id="lastName"><br>
         <label>Enter the first name</labe><br>
-        <input type="text" name="firstName" id="firstName" value=""><br>
+        <input type="text" name="firstName" id="firstName"><br>
         <label>Enter the birthday</labe><br>
-        <input type="text" name="birthday" id="birthday" value=""><br>
+        <input type="text" name="birthday" id="birthday"><br>
       <div class="buttons">
         <button type="submit addBtn">Submit</button>
         <button type="button" name="cancel">Cancel</button>
