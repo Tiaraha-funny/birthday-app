@@ -283,7 +283,7 @@ async function fetchPeople() {
         <label>Enter the first name</labe><br>
         <input type="text" name="firstName" id="firstName"><br>
         <label>Enter the birthday</labe><br>
-        <input type="text" name="birthday" id="birthday"><br>
+        <input type="date" name="birthday" id="birthday"><br>
       <div class="buttons">
         <button type="submit addBtn">Submit</button>
         <button type="button" name="cancel">Cancel</button>
