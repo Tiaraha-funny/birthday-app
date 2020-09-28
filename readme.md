@@ -37,3 +37,5 @@ The most challege that I faced and not solve till now is
 I need more explanaition on how to import and export variable inside a function.
 
 ## Other comments
+
+I have got an error that is not solved: **uncaught (in promise) TypeError: Assignment to constant variable at restoreFromLocalStorage"**. If I couldn't solve this bug it is hard to get the others work properly.

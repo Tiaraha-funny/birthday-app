@@ -1,12 +1,9 @@
 
-
 import { result, main } from './script.js';
 import { displayPeopleBirthdayList } from "./display.js";
 import { destroyModalEditDeleteOrCancel } from "./destroy.js";
 
   function addListOfPeople(id) {
-
-    const personToEdit = result.find((person) => person.id !== id);
 
     return new Promise(function (resolve) {
       localStorage.clear();
@@ -14,6 +11,7 @@ import { destroyModalEditDeleteOrCancel } from "./destroy.js";
 
       const popup = document.createElement("form");
       popup.classList.add("person");
+      result.find((person) => person.id !== id)
       const addHtml = `
       <div class="form">
         <h1>Do you want to add this lists?</h1>

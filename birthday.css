@@ -118,30 +118,36 @@ button {
 	border: none;
 	border-radius: 4px;
 	font-size: 26px;
+	margin-right: 2rem;
 }
   
 input > img {
 	width: 20%;
 }
 
-.filtering {
+.filter_birthday {
 	display: flex;
 	flex-direction: row;
 }
-.filtering p {
-	margin-inline-end: 10%;
+.filter_birthday p {
+	margin-inline-end: 32px;
+}
+.filter_birthday p span {
+	font-size: 25px;
 }
 select {
 	padding: 10px;
-    border-radius: 5px;
+	border-radius: 5px;
+	width: 150px;
 }
-.filtering button {
-	height: 50%;
-    margin-block-start: 2rem;
-    font-size: 16px;
-    background-color: lightcoral;
-    border: none;
-    border-radius: 6px;
+.main button {
+	padding: 16px;
+	background-color: lightcoral;
+	border: none;
+	border-radius: 4px;
+	font-size: 26px;
+	margin-right: 2rem;
+	margin-top: 2rem;
 }
 
 .main {

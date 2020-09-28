@@ -1,5 +1,6 @@
 
 import { result, main } from './script.js';
+import { showBirth } from "./filter.js";
 
   // Maping all the people in the list from the fetch function
 
@@ -7,6 +8,9 @@ import { result, main } from './script.js';
     const sortedBirthday = result.sort(
       (sooner, later) => later.birthday - sooner.birthday
     );
+
+    showBirth();
+
     main.innerHTML = sortedBirthday
       .map((person) => {
         function getSymboleDate(date) {

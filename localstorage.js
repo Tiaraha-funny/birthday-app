@@ -18,7 +18,6 @@ import { displayPeopleBirthdayList } from "./display.js";
     } else {
       let response = await fetch(`${peps}`);
       let data = await response.json();
-      console.log(data);
       result = [...data];
       displayPeopleBirthdayList(result);
     }
