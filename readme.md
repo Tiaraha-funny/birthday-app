@@ -31,6 +31,7 @@ I have a lot to improve from this project:
 ## Most challenge
 The most challege that I faced and not solve till now is 
 - delete and edit the added person from the users
+- Making the refuctor. I struggle to get the result variable works properly. It throws an error that needs to use let instead of const but it didn't change when I changed it.
 
 ## More explaination
 I need more explanaition on how to import and export variable inside a function.

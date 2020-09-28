@@ -123,3 +123,29 @@ button {
 input > img {
 	width: 20%;
 }
+
+.filtering {
+	display: flex;
+	flex-direction: row;
+}
+.filtering p {
+	margin-inline-end: 10%;
+}
+select {
+	padding: 10px;
+    border-radius: 5px;
+}
+.filtering button {
+	height: 50%;
+    margin-block-start: 2rem;
+    font-size: 16px;
+    background-color: lightcoral;
+    border: none;
+    border-radius: 6px;
+}
+
+.main {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
