@@ -13,8 +13,30 @@
 	
     <button type="submit" class="add">Add Items</button>
 
+    <div class="filtering">
+      <p>
+        <span>Search a birthday</span><br>
+        <input type="text" id="birthday" name="birthday" placeholder="enter the person's name">
+      </p>
+      <p>
+        <span>Select month </span><br>
+        <select name="month" id="month">
+          <option value="jan">January</option>
+          <option value="feb">February</option>
+          <option value="mar">March</option>
+          <option value="apr">April</option>
+          <option value="may">May</option>
+          <option value="jun">June</option>
+          <option value="jul">July</option>
+          <option value="out">August</option>
+        </select>
+      </p>
+      <button class="filterbtn">reset filters</button>
+      <div class="ListsSong"></div>
+    </div>
+
 	  <main></main>
 	
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>

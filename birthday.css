@@ -1,3 +1,10 @@
+body {
+	background-color: lightgray;
+}
+
+main {
+	background-color: lightblue;
+}
 ul {
     display: flex;
     flex-direction: row;
@@ -11,7 +18,7 @@ li {
 button.edit,
 button.delete {
     border: none;
-    background-color: #ffffff;
+    background-color: lightblue;
 }
 
 li > img {
@@ -75,7 +82,7 @@ button {
 
 }
 .person article {
-	background-color: white;
+	background-color: #ffffff;
 	min-height: 100px;
 	min-width: 200px;
     padding: 20px;
@@ -106,8 +113,11 @@ button {
 }
 
 .add {
-	padding: 0;
-	text-align: end;
+	padding: 16px;
+	background-color: lightcoral;
+	border: none;
+	border-radius: 4px;
+	font-size: 26px;
 }
   
 input > img {
