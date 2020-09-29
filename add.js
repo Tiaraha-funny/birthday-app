@@ -1,4 +1,3 @@
-
 import { result, main } from './script.js';
 import { displayPeopleBirthdayList } from "./display.js";
 import { destroyModalEditDeleteOrCancel } from "./destroy.js";

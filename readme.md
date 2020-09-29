@@ -40,6 +40,6 @@ I need more explanaition on how to import and export variable inside a function.
 
 I have got an error that is not solved: **uncaught (in promise) TypeError: Assignment to constant variable at restoreFromLocalStorage"**.
 
-I have to change cost variable into let. I triedto do that but it didn't.
+I have to change cost variable into let. I tried to do that but it didn't.
 
  If I couldn't solve this bug it is hard to get the others work properly.

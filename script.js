@@ -2,7 +2,7 @@ import { setItemOfBirthdayToLocalStorage, restoreFromLocalStorage } from "./loca
 import { displayPeopleBirthdayList } from "./display.js";
 import { addListOfPeople } from "./add.js";
 import { handleClick } from "./click.js";
-import { showBirth } from "./filter.js";
+// import { showBirth } from "./filter.js";
 
 //Fetch all the people in the list
 const peps = "http://127.0.0.1:5500/people.json";
@@ -17,12 +17,13 @@ const filterMonthInput = document.querySelector("#month");
 const resetBtn = document.querySelector(".filterbtn");
 
 const resetFilters = e => {
-	filterForm.reset();
-	showBirth();
+  console.log("Do I click it");
+  filterForm.reset(e);
+  displayPeopleBirthdayList();
 };
 
 const filterList = e => {
-	showBirth(e, filterNameInput.value, filterMonthInput.value);
+	displayPeopleBirthdayList(e, filterNameInput.value, filterMonthInput.value);
 };
 
 let result = [];
