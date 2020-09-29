@@ -15,7 +15,7 @@ function editPersonBirthday(id) {
     popup.classList.add("person");
     const editHtml = `
     <div class="form">
-      <h1>Do you want to edit something?</h1>
+      <h2>Do you want to edit something?</h2>
       <label>URL of the picture:</labe><br>
       <input type="url" name="picture" id="picture" value="${personToEdit.picture}"><br>
       <label>Last Name:</labe><br>

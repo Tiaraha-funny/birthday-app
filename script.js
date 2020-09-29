@@ -40,9 +40,12 @@ async function fetchPeople() {
 
   window.addEventListener("click", handleClick);
   addBtn.addEventListener("click", addListOfPeople);
+  
   filterNameInput.addEventListener('change', filterList);
   filterMonthInput.addEventListener('change', filterList);
+
   resetBtn.addEventListener("click", resetFilters);
+  
   main.addEventListener("itemUpdated", setItemOfBirthdayToLocalStorage);
   displayPeopleBirthdayList();
   restoreFromLocalStorage();

@@ -30,13 +30,11 @@ function deletePersonBirthday(id) {
         e.preventDefault();
         if (e.target.matches("button.yesDel")) {
           console.log("I am ready to delete this one");
-          // let results = result.filter((person) => person.id !== id);
-          // results.complete = !results.complete;
-          const people = result.filter((person) => person.id != id);
-          // result = people;
+          const people = result.filter((person) => person.id === id);
           console.log(people);
-          displayPeopleBirthdayList(people);
+          displayPeopleBirthdayList(result);
           destroyModalEditDeleteOrCancel(popup);
+          main.dispatchEvent(new CustomEvent("itemUpdated"));
         }
       },
       { once: true }

@@ -13,7 +13,7 @@ import { destroyModalEditDeleteOrCancel } from "./destroy.js";
       result.find((person) => person.id !== id)
       const addHtml = `
       <div class="form">
-        <h1>Do you want to add this lists?</h1>
+        <h2>Do you want to add this lists?</h2>
         <label>Enter the picture URL</labe><br>
         <input type="url" name="picture" id="picture"><br>
         <label>Enter the last Name</labe><br>

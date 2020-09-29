@@ -1,7 +1,16 @@
 body {
 	background-color: #ffc6c7;
 }
-
+h1 {
+	text-transform: uppercase;
+	text-decoration: #ffd803 underline;
+	font-size: 50px;
+	text-shadow: 5px 2px #ff0000;
+	text-align: center;
+}
+h2 {
+	font-size: 35px;
+}
 main {
 	background-color: #fffffe;
 }
@@ -61,6 +70,22 @@ input {
 	padding: 10px;
 	font-size: 1rem;
 	border-radius: 8px;
+}
+select {
+	padding: 10px;
+	border-radius: 5px;
+	width: 150px;
+}
+
+input:hover {
+	background-color: #9656a1;
+	color: #fffffe;
+	font-size: 1rem;
+}
+select:hover {
+	background-color: #9656a1;
+	color: #fffffe;
+	font-size: 20px;
 }
 
 .person.open {
@@ -140,11 +165,6 @@ input > img {
 .filter_birthday p span {
 	font-size: 25px;
 }
-select {
-	padding: 10px;
-	border-radius: 5px;
-	width: 150px;
-}
 .main button {
 	padding: 16px;
 	background-color: lightcoral;
@@ -159,6 +179,10 @@ select {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+}
+
+h1 > svg {
+	width: 10%;
 }
 
 svg {
