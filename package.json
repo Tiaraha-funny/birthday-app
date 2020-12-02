@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/Tiaraha-funny/birthday-app/issues"
   },
-  "homepage": "https://github.com/Tiaraha-funny/birthday-app#readme"
+  "homepage": "https://github.com/Tiaraha-funny/birthday-app#readme",
+  "browserslist": [
+		"last 1 chrome versions"
+	]
 }
