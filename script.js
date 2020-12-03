@@ -2,10 +2,10 @@ import { setItemOfBirthdayToLocalStorage, restoreFromLocalStorage } from "./loca
 import { displayPeopleBirthdayList } from "./display.js";
 import { addListOfPeople } from "./add.js";
 import { handleClick } from "./click.js";
-// import { showBirth } from "./filter.js";
+// import peps from "./people.json"
 
 //Fetch all the people in the list
-const peps = "http://127.0.0.1:5500/people.json";
+const peps = "./people.json";
 
 //Drag the elements from the html
 const main = document.querySelector("main");
