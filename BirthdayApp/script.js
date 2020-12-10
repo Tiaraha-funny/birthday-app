@@ -1,11 +1,12 @@
-import { setItemOfBirthdayToLocalStorage, restoreFromLocalStorage } from "./localstorage.js" ;
+import { setItemOfBirthdayToLocalStorage, restoreFromLocalStorage } from "./localstorage.js";
 import { displayPeopleBirthdayList } from "./display.js";
 import { addListOfPeople } from "./add.js";
 import { handleClick } from "./click.js";
+
 // import peps from "./people.json"
 
 //Fetch all the people in the list
-const peps = "./people.json";
+const peps = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/93debb7463fbaaec29622221b8f9e719bd5b119f/birthdayPeople.json";
 
 //Drag the elements from the html
 const main = document.querySelector("main");

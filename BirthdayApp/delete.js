@@ -31,8 +31,7 @@ function deletePersonBirthday(id) {
         if (e.target.matches("button.yesDel")) {
           console.log("I am ready to delete this one");
           const people = result.filter((person) => person.id !== id);
-          console.log(people);
-          displayPeopleBirthdayList(result);
+          displayPeopleBirthdayList(people);
           destroyModalEditDeleteOrCancel(popup);
           main.dispatchEvent(new CustomEvent("itemUpdated"));
         }

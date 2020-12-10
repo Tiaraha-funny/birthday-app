@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"svg.js":[function(require,module,exports) {
+})({"BirthdayApp/icons-SVGs/svg.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -130,7 +130,7 @@ const deleteSvg = `<svg class="delete" width="40px" height="40px" fill="#f25042"
 exports.deleteSvg = deleteSvg;
 const cakeSvg = `<svg class="w-6 h-6" fill="#ffd803" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>`;
 exports.cakeSvg = cakeSvg;
-},{}],"display.js":[function(require,module,exports) {
+},{}],"BirthdayApp/display.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -140,7 +140,7 @@ exports.displayPeopleBirthdayList = displayPeopleBirthdayList;
 
 var _script = require("./script.js");
 
-var _svg = require("./svg.js");
+var _svg = require("./icons-SVGs/svg.js");
 
 // Maping all the people in the list from the fetch function
 function displayPeopleBirthdayList(event, filterName, filterMonth) {
@@ -151,6 +151,7 @@ function displayPeopleBirthdayList(event, filterName, filterMonth) {
     sortedBirthday = sortedBirthday.filter(birth => {
       let lowerCaseName = birth.firstName.toLowerCase();
       let lowerCaseFilter = filterName.toLowerCase();
+      console.log(lowerCaseFilter);
 
       if (lowerCaseName.includes(lowerCaseFilter)) {
         return true;
@@ -164,9 +165,9 @@ function displayPeopleBirthdayList(event, filterName, filterMonth) {
       let moths = newMonth.toLocaleString("en-us", {
         month: "long"
       });
-      console.log(moths);
       let lowerCaseMonth = moths.toLowerCase();
       let lowerCaseFilter = filterMonth.toLowerCase();
+      console.log(lowerCaseFilter);
 
       if (lowerCaseMonth == lowerCaseFilter) {
         return true;
@@ -294,7 +295,7 @@ function displayPeopleBirthdayList(event, filterName, filterMonth) {
       `;
   }).join("");
 }
-},{"./script.js":"script.js","./svg.js":"svg.js"}],"localstorage.js":[function(require,module,exports) {
+},{"./script.js":"BirthdayApp/script.js","./icons-SVGs/svg.js":"BirthdayApp/icons-SVGs/svg.js"}],"BirthdayApp/localstorage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -328,7 +329,7 @@ async function restoreFromLocalStorage() {
 
   _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
 }
-},{"./script.js":"script.js","./display.js":"display.js"}],"destroy.js":[function(require,module,exports) {
+},{"./script.js":"BirthdayApp/script.js","./display.js":"BirthdayApp/display.js"}],"BirthdayApp/destroy.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -345,7 +346,7 @@ function destroyModalEditDeleteOrCancel(popup) {
 
   _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
 }
-},{"./script.js":"script.js"}],"add.js":[function(require,module,exports) {
+},{"./script.js":"BirthdayApp/script.js"}],"BirthdayApp/add.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -432,7 +433,7 @@ function addListOfPeople(id) {
     });
   });
 }
-},{"./script.js":"script.js","./display.js":"display.js","./destroy.js":"destroy.js"}],"edit.js":[function(require,module,exports) {
+},{"./script.js":"BirthdayApp/script.js","./display.js":"BirthdayApp/display.js","./destroy.js":"BirthdayApp/destroy.js"}],"BirthdayApp/edit.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -507,7 +508,7 @@ function editPersonBirthday(id) {
     _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
   });
 }
-},{"./script.js":"script.js","./display.js":"display.js","./destroy.js":"destroy.js"}],"delete.js":[function(require,module,exports) {
+},{"./script.js":"BirthdayApp/script.js","./display.js":"BirthdayApp/display.js","./destroy.js":"BirthdayApp/destroy.js"}],"BirthdayApp/delete.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -549,8 +550,7 @@ function deletePersonBirthday(id) {
 
         const people = _script.result.filter(person => person.id !== id);
 
-        console.log(people);
-        (0, _display.displayPeopleBirthdayList)(_script.result);
+        (0, _display.displayPeopleBirthdayList)(people);
         (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
 
         _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
@@ -579,7 +579,7 @@ function deletePersonBirthday(id) {
     _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
   });
 }
-},{"./destroy.js":"destroy.js","./display.js":"display.js","./script.js":"script.js"}],"click.js":[function(require,module,exports) {
+},{"./destroy.js":"BirthdayApp/destroy.js","./display.js":"BirthdayApp/display.js","./script.js":"BirthdayApp/script.js"}],"BirthdayApp/click.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -611,7 +611,7 @@ const handleClick = e => {
 };
 
 exports.handleClick = handleClick;
-},{"./edit.js":"edit.js","./delete.js":"delete.js"}],"script.js":[function(require,module,exports) {
+},{"./edit.js":"BirthdayApp/edit.js","./delete.js":"BirthdayApp/delete.js"}],"BirthdayApp/script.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -673,7 +673,7 @@ async function fetchPeople() {
 }
 
 fetchPeople();
-},{"./localstorage.js":"localstorage.js","./display.js":"display.js","./add.js":"add.js","./click.js":"click.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./localstorage.js":"BirthdayApp/localstorage.js","./display.js":"BirthdayApp/display.js","./add.js":"BirthdayApp/add.js","./click.js":"BirthdayApp/click.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -877,5 +877,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","script.js"], null)
-//# sourceMappingURL=/script.75da7f30.js.map
+},{}]},{},["../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","BirthdayApp/script.js"], null)
+//# sourceMappingURL=/script.f5d3da1d.js.map

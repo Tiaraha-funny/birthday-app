@@ -1,5 +1,5 @@
 
-import { peps, result, main } from './script.js';
+import { peps, result, main } from "./script.js";
 import { displayPeopleBirthdayList } from "./display.js";
 
   //Local storage function

@@ -18,7 +18,10 @@ ul {
     display: flex;
     flex-direction: row;
 	justify-content: space-around;
+	align-items: baseline;
 	background-color: #eaddcf;
+	padding: 20px;
+	margin-bottom: 30px;
 }
 
 li {

@@ -1,5 +1,4 @@
-
-import { result, main } from './script.js';
+import { result, main } from "./script.js";
 import { displayPeopleBirthdayList } from "./display.js";
 import { destroyModalEditDeleteOrCancel } from "./destroy.js";
 
@@ -13,6 +12,7 @@ function editPersonBirthday(id) {
   return new Promise(function (resolve) {
     const popup = document.createElement("form");
     popup.classList.add("person");
+
     const editHtml = `
     <div class="form">
       <h2>Do you want to edit something?</h2>

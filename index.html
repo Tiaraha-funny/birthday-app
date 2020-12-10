@@ -12,13 +12,14 @@
     </header>
     <div class="main">
       <div>
-        <button type="submit" class="add">Add Items</button>
+        <button type="submit" class="add">Add a person's birthday</button>
       </div>
       <div class="filtering">
         <form class="filter_birthday">
           <p>
             <span>Search name: </span><br />
             <input
+            class="searchName"
               type="text"
               id="name"
               name="name"
@@ -27,7 +28,7 @@
           </p>
           <p>
             <span>Select month: </span><br />
-            <select name="month" id="month">
+            <select name="month" id="month"  class="filterMonth">
               <option value="jan">January</option>
               <option value="feb">February</option>
               <option value="mar">March</option>
@@ -50,6 +51,6 @@
       </div>
     <main></main>
 
-    <script src="script.js" type="module"></script>
+    <script src="./BirthdayApp/script.js" type="module"></script>
   </body>
 </html>

@@ -1,20 +1,21 @@
 import { result, main } from "./script.js";
-import { editSvg, deleteSvg, cakeSvg } from "./svg.js";
+import { editSvg, deleteSvg, cakeSvg } from "./icons-SVGs/svg.js";
 
 // Maping all the people in the list from the fetch function
 
 function displayPeopleBirthdayList(event, filterName, filterMonth) {
+
   let sortedBirthday = result.sort(
     (sooner, later) => later.birthday - sooner.birthday
   );
-  
+
 
   // DO THE FILTERING HERE
   if (filterName) {
     sortedBirthday = sortedBirthday.filter((birth) => {
       let lowerCaseName = birth.firstName.toLowerCase();
       let lowerCaseFilter = filterName.toLowerCase();
-
+      console.log(lowerCaseFilter);
       if (lowerCaseName.includes(lowerCaseFilter)) {
         return true;
       } else {
@@ -27,10 +28,9 @@ function displayPeopleBirthdayList(event, filterName, filterMonth) {
     sortedBirthday = sortedBirthday.filter((birth) => {
       let newMonth = new Date(birth.birthday);
       let moths = newMonth.toLocaleString("en-us", { month: "long" });
-      console.log(moths);
       let lowerCaseMonth = moths.toLowerCase();
       let lowerCaseFilter = filterMonth.toLowerCase();
-
+      console.log(lowerCaseFilter);
       if (lowerCaseMonth == lowerCaseFilter) {
         return true;
       } else {
