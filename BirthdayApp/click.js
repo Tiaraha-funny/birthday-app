@@ -13,6 +13,7 @@ import { deletePersonBirthday } from "./delete.js";
       const id = parent.dataset.id;
       editPersonBirthday(id);
     }
+    
     if (e.target.closest("button.delete")) {
       console.log("You are able to delete");
       const parent = e.target.closest("ul");

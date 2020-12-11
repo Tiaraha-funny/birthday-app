@@ -1,4 +1,4 @@
-import { result } from "./script.js";
+import { result } from "./BirthdayApp/script.js";
 
 export const searchNameFilter = document.querySelector('.searchName');
 export const filterMonthFilter = document.querySelector('.filterMonth');

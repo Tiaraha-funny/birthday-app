@@ -1,5 +1,5 @@
 import { result, main } from "./script.js";
-import { displayPeopleBirthdayList } from "./display.js";
+import { displayList } from "./display.js";
 import { destroyModalEditDeleteOrCancel } from "./destroy.js";
 
 //function of edit people
@@ -7,11 +7,16 @@ import { destroyModalEditDeleteOrCancel } from "./destroy.js";
 function editPersonBirthday(id) {
   console.log("Edit is clicked");
 
-  const personToEdit = result.find((person) => person.id === id);
+
+  const personToEdit = result.find((person) => person.id == id);
+  console.log(result.find((person) => person.id == id));
+  console.log(personToEdit);
 
   return new Promise(function (resolve) {
     const popup = document.createElement("form");
     popup.classList.add("person");
+
+    console.log(personToEdit.picture);
 
     const editHtml = `
     <div class="form">
@@ -25,8 +30,8 @@ function editPersonBirthday(id) {
       <label>Birthday:</labe><br>
       <input type="text" name="birthday" id="birthday" value="${personToEdit.birthday}"><br>
       <div class="buttons">
-        <button type="submit">Save</button>
-        <button type="button" name="cancel">Cancel</button>
+        <button type="submit" class="save">Save</button>
+        <button type="button" name="cancel" class="cancel">Cancel</button>
       </div>
     </div>
   `;
@@ -44,7 +49,8 @@ function editPersonBirthday(id) {
         personToEdit.birthday = popup.birthday.value;
 
         resolve(e.currentTarget.remove());
-        displayPeopleBirthdayList(result);
+        displayList(personToEdit);
+        // displayPeopleBirthdayList(result);
         destroyModalEditDeleteOrCancel(popup);
       },
       { once: true }

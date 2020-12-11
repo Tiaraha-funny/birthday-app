@@ -28,6 +28,7 @@ function addListOfPeople(id) {
       <small>You are going to see your new list at the end!!</small>
     </div>
   `;
+    // main.insertAdjacentHTML("beforeend", addHtml)
     popup.innerHTML = addHtml;
     resolve();
 
@@ -45,7 +46,8 @@ function addListOfPeople(id) {
         birthday: formEl.birthday.value,
         id: Date.now(),
       };
-      result.push(newBirthday);
+      
+      result.unshift(newBirthday);
       displayPeopleBirthdayList();
       destroyModalEditDeleteOrCancel(popup);
       main.dispatchEvent(new CustomEvent("itemUpdated"));
@@ -62,10 +64,12 @@ function addListOfPeople(id) {
         },
         { once: true }
       );
+
       resolve(document.body.appendChild(popup));
       popup.classList.add("open");
       main.dispatchEvent(new CustomEvent("itemUpdated"));
     }
+
     window.addEventListener("keyup", (e) => {
       if (e.key === "Escape") {
         popup.classList.remove("open");

@@ -1,9 +1,9 @@
 import { destroyModalEditDeleteOrCancel } from "./destroy.js";
-import { displayPeopleBirthdayList } from "./display.js";
+import { displayList } from "./display.js";
 import { result, main, peps } from "./script.js";
 
 // function of deleting people
-function deletePersonBirthday(id) {
+function deletePersonBirthday(idItem) {
   console.log("Delete button is clicked");
 
   return new Promise(function (resolve) {
@@ -17,7 +17,7 @@ function deletePersonBirthday(id) {
           <button type="button" class="yesDel" name="yes">YES</button>
           </div>
           <div>
-          <button type="button" name="cancel">Cancel</button>
+          <button type="button" name="cancel" class="cancel">Cancel</button>
           </div>
         </div>
       </article>
@@ -30,9 +30,10 @@ function deletePersonBirthday(id) {
         e.preventDefault();
         if (e.target.matches("button.yesDel")) {
           console.log("I am ready to delete this one");
-          const people = result.filter((person) => person.id !== id);
-          displayPeopleBirthdayList(people);
+          const people = result.filter((person) => person.id != idItem);
+          displayList(people);
           destroyModalEditDeleteOrCancel(popup);
+
           main.dispatchEvent(new CustomEvent("itemUpdated"));
         }
       },

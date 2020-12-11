@@ -11,6 +11,15 @@ h1 {
 h2 {
 	font-size: 35px;
 }
+
+.form h2 {
+	text-shadow: #7676f0 5px 5px 4px;
+	color: #fffffe;
+	text-transform: uppercase;
+	font-style: oblique;
+	font-size: 25px;
+}
+
 main {
 	background-color: #fffffe;
 }
@@ -32,7 +41,7 @@ li {
 button.edit,
 button.delete {
     border: none;
-    background-color: #eaddcf;;
+    background-color: #eaddcf;
 }
 b {
 	font-size: 20px;
@@ -43,24 +52,29 @@ li > img {
     border-radius: 50%;
 }
 
-.person .form {
-	background-color: white;
+.form {
+	background-color: #fde664;
 	min-height: 300px;
 	min-width: 300px;
     padding: 20px;
-    border-radius: 8px;
+	border-radius: 8px;
+	width: 60%;
+	box-shadow: #13c439 8px 8px 5px, #4d4dbb 20px 20px 3px, #fde664 30px 30px 3px;
 }
 
 .form label {
 	line-height: 3rem;
 	font-size: 2rem;
+	color: #d6a0a0;
 }
 
 input {
 	padding: 10px;
 	font-size: 1rem;
 	border-radius: 8px;
+	width: 90%;
 }
+
 select {
 	padding: 10px;
 	border-radius: 5px;
@@ -86,9 +100,34 @@ select:hover {
 
 button {
     padding: 10px;
-    font-size: 20px;
+	font-size: 20px;
+	cursor: pointer;
+	border-radius: 5px;
+	border: none;
 }
 
+.save {
+	background-color: #0000ff;		
+}
+.save:hover {
+	background-color: #ffc6c7;
+}
+
+.cancel {
+	background-color: #0bca28;
+}
+
+.cancel:hover {
+	background-color: #4d4dbb;
+}
+
+.yesDel {
+	background-color: #ff0000;
+}
+
+.yesDel:hover {
+	background-color: #cf2d2d;
+}
 
 .person.open {
 	opacity: 1;
@@ -157,6 +196,8 @@ input > img {
 	font-size: 26px;
 	margin-right: 2rem;
 	margin-top: 2rem;
+	box-shadow: #252323 5px 5px 5px;
+	outline: none;
 }
 
 .main {
@@ -171,4 +212,13 @@ h1 > svg {
 
 svg {
 	font-size: 30px;
+}
+
+@media (max-width: 400px) {
+	.main {
+		display: grid;
+	}
+	.filter_birthday {
+		display: grid;
+	}
 }

@@ -3,47 +3,11 @@ import { editSvg, deleteSvg, cakeSvg } from "./icons-SVGs/svg.js";
 
 // Maping all the people in the list from the fetch function
 
-function displayPeopleBirthdayList(event, filterName, filterMonth) {
-
-  let sortedBirthday = result.sort(
-    (sooner, later) => later.birthday - sooner.birthday
-  );
-
-
-  // DO THE FILTERING HERE
-  if (filterName) {
-    sortedBirthday = sortedBirthday.filter((birth) => {
-      let lowerCaseName = birth.firstName.toLowerCase();
-      let lowerCaseFilter = filterName.toLowerCase();
-      console.log(lowerCaseFilter);
-      if (lowerCaseName.includes(lowerCaseFilter)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  } 
-  
-  else if (filterMonth) {
-    sortedBirthday = sortedBirthday.filter((birth) => {
-      let newMonth = new Date(birth.birthday);
-      let moths = newMonth.toLocaleString("en-us", { month: "long" });
-      let lowerCaseMonth = moths.toLowerCase();
-      let lowerCaseFilter = filterMonth.toLowerCase();
-      console.log(lowerCaseFilter);
-      if (lowerCaseMonth == lowerCaseFilter) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  }
-
-  main.innerHTML = sortedBirthday
+const htmlGenerator = (array) => {
+  return array
+    .sort((sooner, later) => later.birthday - sooner.birthday)
     .map((person) => {
       function getSymboleDate(date) {
-        
-        
         if (date < 3 && date > 31) return "th";
         switch (day % 2) {
           case 1:
@@ -63,11 +27,10 @@ function displayPeopleBirthdayList(event, filterName, filterMonth) {
       var myYear = birthDate.getFullYear();
       var ageResult = `${myYear}/${mymonth}/${day}`;
       let month;
-      
 
       // to get the date and the months
       let dateOfBirth = new Date(person.birthday).getDate();
-      
+
       let monthOfBirth = new Date(person.birthday).getMonth();
 
       switch (monthOfBirth) {
@@ -125,12 +88,12 @@ function displayPeopleBirthdayList(event, filterName, filterMonth) {
       }
       // calculate the day of birth
       let daysBirth = new Date(year, monthOfBirth, dateOfBirth);
-      
-      let age = new Date().getFullYear() - new Date(person.birthday).getFullYear();
-      
-      if (today.getMonth() === monthOfBirth && today.getDate() > dateOfBirth) {
 
-       daysBirth.setFullYear(daysBirth.getFullYear() + 1);
+      let age =
+        new Date().getFullYear() - new Date(person.birthday).getFullYear();
+
+      if (today.getMonth() === monthOfBirth && today.getDate() > dateOfBirth) {
+        daysBirth.setFullYear(daysBirth.getFullYear() + 1);
         age =
           new Date().getFullYear() +
           1 -
@@ -142,28 +105,38 @@ function displayPeopleBirthdayList(event, filterName, filterMonth) {
       );
 
       return `
-        <ul data-id="${
-          person.id
-        }" class="d-flex flex-row justify-content-around list-unstyled">
-          <li class=""><img class="rounded-circle" src="${person.picture}" alt="images"></li>
-          <li class="names"><b>${person.lastName} ${
+      <ul data-id="${
+        person.id
+      }" class="d-flex flex-row justify-content-around list-unstyled">
+        <li class=""><img class="rounded-circle" src="${
+          person.picture
+        }" alt="images"></li>
+        <li class="names"><b>${person.lastName} ${
         person.firstName
       }</b><br>Turns ${age} on ${dateOfBirth} <sup> ${getSymboleDate(
         daysBirth
       )} ${month}  </sup></li>
-          <li>${ageResult}</li>
-          <li class="">${cakeSvg} ${notDayNow} Days</li>
-          <li class="edit">
-            <button type="button" name="edit" class="edit">${editSvg}
-          </li>
-          <li class="delete">
-            <button type="button" class="delete">${deleteSvg}
-          </button>
-          </li>
-        </ul>
-      `;
+        <li>${ageResult}</li>
+        <li class="">${cakeSvg} ${notDayNow} Days</li>
+        <li class="edit">
+          <button type="button" name="edit" class="edit">${editSvg}</button>
+        </li>
+        <li class="delete">
+          <button type="button" class="delete">${deleteSvg}</button>
+        </li>
+      </ul>
+    `;
     })
     .join("");
+};
+
+function displayList(array) {
+  const html = htmlGenerator(array);
+  main.innerHTML = html;
 }
 
-export { displayPeopleBirthdayList };
+function displayPeopleBirthdayList() {
+  displayList(result);
+}
+
+export { displayPeopleBirthdayList, displayList };
