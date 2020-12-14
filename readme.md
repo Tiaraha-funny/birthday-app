@@ -37,10 +37,37 @@ The most challege that I faced and not solve till now is
 ## More explaination
 I need more explanaition on how to import and export variable inside a function.
 
-## Other comments
 
-I have got an error that is not solved: **uncaught (in promise) TypeError: Assignment to constant variable at restoreFromLocalStorage"**.
+### Built With
 
-I have to change cost variable into let. I tried to do that but it didn't.
+-   [React](https://reactjs.org/)
 
- If I couldn't solve this bug it is hard to get the others work properly.
+## Features
+
+<!-- List the features of your application or follow the template. Don't share the figma file 
+here :) -->
+
+## How To Use
+
+<!-- Example: -->
+
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://
+nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. 
+From your command line:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/your-user-name/your-project-name
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm start
+```
+
+## Contact
+
+-   Website [my-website.com](https://birthday-app-petah.netlify.app)
+-   GitHub [@mygithub-account](https://github.com/Tiaraha-funny/birthday-app)
+-   Email [@my-email-adress](mailto:peta.jea@onja.org)

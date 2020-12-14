@@ -137,47 +137,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.displayPeopleBirthdayList = displayPeopleBirthdayList;
+exports.displayList = displayList;
 
 var _script = require("./script.js");
 
 var _svg = require("./icons-SVGs/svg.js");
 
 // Maping all the people in the list from the fetch function
-function displayPeopleBirthdayList(event, filterName, filterMonth) {
-  let sortedBirthday = _script.result.sort((sooner, later) => later.birthday - sooner.birthday); // DO THE FILTERING HERE
-
-
-  if (filterName) {
-    sortedBirthday = sortedBirthday.filter(birth => {
-      let lowerCaseName = birth.firstName.toLowerCase();
-      let lowerCaseFilter = filterName.toLowerCase();
-      console.log(lowerCaseFilter);
-
-      if (lowerCaseName.includes(lowerCaseFilter)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  } else if (filterMonth) {
-    sortedBirthday = sortedBirthday.filter(birth => {
-      let newMonth = new Date(birth.birthday);
-      let moths = newMonth.toLocaleString("en-us", {
-        month: "long"
-      });
-      let lowerCaseMonth = moths.toLowerCase();
-      let lowerCaseFilter = filterMonth.toLowerCase();
-      console.log(lowerCaseFilter);
-
-      if (lowerCaseMonth == lowerCaseFilter) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  }
-
-  _script.main.innerHTML = sortedBirthday.map(person => {
+const htmlGenerator = array => {
+  console.log(array);
+  return array.sort((sooner, later) => later.birthday - sooner.birthday).map(person => {
     function getSymboleDate(date) {
       if (date < 3 && date > 31) return "th";
 
@@ -279,21 +248,29 @@ function displayPeopleBirthdayList(event, filterName, filterMonth) {
 
     const notDayNow = Math.round(Math.abs((new Date(daysBirth) - new Date(today)) / oneDay));
     return `
-        <ul data-id="${person.id}" class="d-flex flex-row justify-content-around list-unstyled">
-          <li class=""><img class="rounded-circle" src="${person.picture}" alt="images"></li>
-          <li class="names"><b>${person.lastName} ${person.firstName}</b><br>Turns ${age} on ${dateOfBirth} <sup> ${getSymboleDate(daysBirth)} ${month}  </sup></li>
-          <li>${ageResult}</li>
-          <li class="">${_svg.cakeSvg} ${notDayNow} Days</li>
-          <li class="edit">
-            <button type="button" name="edit" class="edit">${_svg.editSvg}
-          </li>
-          <li class="delete">
-            <button type="button" class="delete">${_svg.deleteSvg}
-          </button>
-          </li>
-        </ul>
-      `;
+      <ul data-id="${person.id}" class="d-flex flex-row justify-content-around list-unstyled">
+        <li class=""><img class="rounded-circle" src="${person.picture}" alt="images"></li>
+        <li class="names"><b>${person.lastName} ${person.firstName}</b><br>Turns ${age} on ${dateOfBirth} <sup> ${getSymboleDate(daysBirth)} ${month}  </sup></li>
+        <li>${ageResult}</li>
+        <li class="">${_svg.cakeSvg} ${notDayNow} Days</li>
+        <li class="edit">
+          <button type="button" name="edit" class="edit">${_svg.editSvg}</button>
+        </li>
+        <li class="delete">
+          <button type="button" class="delete">${_svg.deleteSvg}</button>
+        </li>
+      </ul>
+    `;
   }).join("");
+};
+
+function displayList(array) {
+  const html = htmlGenerator(array);
+  _script.main.innerHTML = html;
+}
+
+function displayPeopleBirthdayList() {
+  displayList(_script.result);
 }
 },{"./script.js":"BirthdayApp/script.js","./icons-SVGs/svg.js":"BirthdayApp/icons-SVGs/svg.js"}],"BirthdayApp/localstorage.js":[function(require,module,exports) {
 "use strict";
@@ -386,7 +363,8 @@ function addListOfPeople(id) {
       </div>
       <small>You are going to see your new list at the end!!</small>
     </div>
-  `;
+  `; // main.insertAdjacentHTML("beforeend", addHtml)
+
     popup.innerHTML = addHtml;
     resolve();
     popup.addEventListener("submit", e => {
@@ -402,7 +380,7 @@ function addListOfPeople(id) {
         id: Date.now()
       };
 
-      _script.result.push(newBirthday);
+      _script.result.unshift(newBirthday);
 
       (0, _display.displayPeopleBirthdayList)();
       (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
@@ -451,11 +429,14 @@ var _destroy = require("./destroy.js");
 function editPersonBirthday(id) {
   console.log("Edit is clicked");
 
-  const personToEdit = _script.result.find(person => person.id === id);
+  const personToEdit = _script.result.find(person => person.id == id);
 
+  console.log(_script.result.find(person => person.id == id));
+  console.log(personToEdit);
   return new Promise(function (resolve) {
     const popup = document.createElement("form");
     popup.classList.add("person");
+    console.log(personToEdit.picture);
     const editHtml = `
     <div class="form">
       <h2>Do you want to edit something?</h2>
@@ -468,8 +449,8 @@ function editPersonBirthday(id) {
       <label>Birthday:</labe><br>
       <input type="text" name="birthday" id="birthday" value="${personToEdit.birthday}"><br>
       <div class="buttons">
-        <button type="submit">Save</button>
-        <button type="button" name="cancel">Cancel</button>
+        <button type="submit" class="save">Save</button>
+        <button type="button" name="cancel" class="cancel">Cancel</button>
       </div>
     </div>
   `;
@@ -482,7 +463,7 @@ function editPersonBirthday(id) {
       personToEdit.firstName = popup.firstName.value;
       personToEdit.birthday = popup.birthday.value;
       resolve(e.currentTarget.remove());
-      (0, _display.displayPeopleBirthdayList)(_script.result);
+      (0, _display.displayList)(_script.result);
       (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
     }, {
       once: true
@@ -523,7 +504,7 @@ var _display = require("./display.js");
 var _script = require("./script.js");
 
 // function of deleting people
-function deletePersonBirthday(id) {
+function deletePersonBirthday(idItem) {
   console.log("Delete button is clicked");
   return new Promise(function (resolve) {
     const popup = document.createElement("form");
@@ -536,7 +517,7 @@ function deletePersonBirthday(id) {
           <button type="button" class="yesDel" name="yes">YES</button>
           </div>
           <div>
-          <button type="button" name="cancel">Cancel</button>
+          <button type="button" name="cancel" class="cancel">Cancel</button>
           </div>
         </div>
       </article>
@@ -548,9 +529,9 @@ function deletePersonBirthday(id) {
       if (e.target.matches("button.yesDel")) {
         console.log("I am ready to delete this one");
 
-        const people = _script.result.filter(person => person.id !== id);
+        const people = _script.result.filter(person => person.id != idItem);
 
-        (0, _display.displayPeopleBirthdayList)(people);
+        (0, _display.displayList)(people);
         (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
 
         _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
@@ -646,11 +627,10 @@ const resetFilters = e => {
   console.log("Do I click it");
   filterForm.reset(e);
   (0, _display.displayPeopleBirthdayList)();
-};
+}; // const filterList = e => {
+// displayPeopleBirthdayList(e, filterNameInput.value, filterMonthInput.value);
+// };
 
-const filterList = e => {
-  (0, _display.displayPeopleBirthdayList)(e, filterNameInput.value, filterMonthInput.value);
-};
 
 let result = [];
 exports.result = result;
@@ -658,17 +638,34 @@ exports.result = result;
 async function fetchPeople() {
   let response = await fetch(peps);
   let data = await response.json();
-  exports.result = result = data; // restoreFromLocalStorage(result);
+  exports.result = result = data;
+
+  const filterBirthdayByNames = () => {
+    console.log("I am here");
+    const checkInputName = filterNameInput.value.toLowerCase();
+    console.log(checkInputName);
+    const filterInputName = result.filter(name => name.firstName.toLowerCase().includes(checkInputName));
+    (0, _display.displayList)(filterInputName);
+  };
+
+  const filterBirthdayByMonths = () => {
+    console.log("I am here");
+    const checkSelectMonth = filterMonthInput.value.toLowerCase();
+    console.log(checkSelectMonth);
+    const filterSelectMonth = result.filter(month => month.firstName.toLowerCase().includes(checkSelectMonth));
+    (0, _display.displayList)(filterSelectMonth);
+  };
 
   (0, _display.displayPeopleBirthdayList)(result);
   main.dispatchEvent(new CustomEvent("itemUpdated"));
+  (0, _localstorage.restoreFromLocalStorage)(result);
   window.addEventListener("click", _click.handleClick);
   addBtn.addEventListener("click", _add.addListOfPeople);
-  filterNameInput.addEventListener('change', filterList);
-  filterMonthInput.addEventListener('change', filterList);
+  filterNameInput.addEventListener("input", filterBirthdayByNames);
+  filterMonthInput.addEventListener('change', filterBirthdayByMonths);
   resetBtn.addEventListener("click", resetFilters);
-  main.addEventListener("itemUpdated", _localstorage.setItemOfBirthdayToLocalStorage);
-  (0, _display.displayPeopleBirthdayList)();
+  main.addEventListener("itemUpdated", _localstorage.setItemOfBirthdayToLocalStorage); // displayPeopleBirthdayList();
+
   (0, _localstorage.restoreFromLocalStorage)();
 }
 
@@ -701,7 +698,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52255" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54671" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

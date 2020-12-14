@@ -4,6 +4,7 @@ import { editSvg, deleteSvg, cakeSvg } from "./icons-SVGs/svg.js";
 // Maping all the people in the list from the fetch function
 
 const htmlGenerator = (array) => {
+  console.log(array);
   return array
     .sort((sooner, later) => later.birthday - sooner.birthday)
     .map((person) => {

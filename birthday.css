@@ -214,6 +214,10 @@ svg {
 	font-size: 30px;
 }
 
+.headings {
+	align-items: center;
+}
+
 @media (max-width: 400px) {
 	.main {
 		display: grid;

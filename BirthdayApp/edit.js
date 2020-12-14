@@ -49,8 +49,7 @@ function editPersonBirthday(id) {
         personToEdit.birthday = popup.birthday.value;
 
         resolve(e.currentTarget.remove());
-        displayList(personToEdit);
-        // displayPeopleBirthdayList(result);
+        displayList(result);
         destroyModalEditDeleteOrCancel(popup);
       },
       { once: true }
