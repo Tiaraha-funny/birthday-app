@@ -146,7 +146,12 @@ var _svg = require("./icons-SVGs/svg.js");
 // Maping all the people in the list from the fetch function
 const htmlGenerator = array => {
   console.log(array);
-  return array.sort((sooner, later) => later.birthday - sooner.birthday).map(person => {
+  let sortedByBirthday = array.sort(function (a, b) {
+    return new Date(a.birthday).getMonth() - new Date(b.birthday).getMonth();
+  });
+  return sortedByBirthday.map(person => {
+    console.log(person.birthday);
+
     function getSymboleDate(date) {
       if (date < 3 && date > 31) return "th";
 
@@ -644,15 +649,18 @@ async function fetchPeople() {
     console.log("I am here");
     const checkInputName = filterNameInput.value.toLowerCase();
     console.log(checkInputName);
-    const filterInputName = result.filter(name => name.firstName.toLowerCase().includes(checkInputName));
+    const filterInputName = result.filter(name => name.firstName.toLowerCase().includes(checkInputName) || name.lastName.toLowerCase().includes(checkInputName));
     (0, _display.displayList)(filterInputName);
   };
 
   const filterBirthdayByMonths = () => {
-    console.log("I am here");
-    const checkSelectMonth = filterMonthInput.value.toLowerCase();
-    console.log(checkSelectMonth);
-    const filterSelectMonth = result.filter(month => month.firstName.toLowerCase().includes(checkSelectMonth));
+    const checkSelectMonth = filterMonthInput.value;
+    const filterSelectMonth = result.filter(month => {
+      const fullMonth = new Date(month.birthday).toLocaleString("en-US", {
+        month: "long"
+      });
+      return fullMonth.toLowerCase().includes(checkSelectMonth);
+    });
     (0, _display.displayList)(filterSelectMonth);
   };
 
@@ -662,7 +670,7 @@ async function fetchPeople() {
   window.addEventListener("click", _click.handleClick);
   addBtn.addEventListener("click", _add.addListOfPeople);
   filterNameInput.addEventListener("input", filterBirthdayByNames);
-  filterMonthInput.addEventListener('change', filterBirthdayByMonths);
+  filterMonthInput.addEventListener("change", filterBirthdayByMonths);
   resetBtn.addEventListener("click", resetFilters);
   main.addEventListener("itemUpdated", _localstorage.setItemOfBirthdayToLocalStorage); // displayPeopleBirthdayList();
 

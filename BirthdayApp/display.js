@@ -5,9 +5,16 @@ import { editSvg, deleteSvg, cakeSvg } from "./icons-SVGs/svg.js";
 
 const htmlGenerator = (array) => {
   console.log(array);
-  return array
-    .sort((sooner, later) => later.birthday - sooner.birthday)
+
+
+
+  let sortedByBirthday = array.sort(function (a, b) {
+    return new Date(a.birthday).getMonth() - new Date(b.birthday).getMonth()
+})
+
+  return sortedByBirthday
     .map((person) => {
+      console.log(person.birthday);
       function getSymboleDate(date) {
         if (date < 3 && date > 31) return "th";
         switch (day % 2) {

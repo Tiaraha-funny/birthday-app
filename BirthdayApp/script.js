@@ -38,25 +38,27 @@ async function fetchPeople() {
   let data = await response.json();
   result = data;
 
-
   const filterBirthdayByNames = () => {
     console.log("I am here");
     const checkInputName = filterNameInput.value.toLowerCase();
     console.log(checkInputName);
-    const filterInputName = result.filter((name) =>
-      name.firstName.toLowerCase().includes(checkInputName)
+    const filterInputName = result.filter(
+      (name) =>
+        name.firstName.toLowerCase().includes(checkInputName) ||
+        name.lastName.toLowerCase().includes(checkInputName)
     );
-     displayList(filterInputName)
+    displayList(filterInputName);
   };
 
   const filterBirthdayByMonths = () => {
-    console.log("I am here");
-    const checkSelectMonth = filterMonthInput.value.toLowerCase();
-    console.log(checkSelectMonth);
-    const filterSelectMonth = result.filter((month) =>
-      month.firstName.toLowerCase().includes(checkSelectMonth)
-    );
-     displayList(filterSelectMonth)
+    const checkSelectMonth = filterMonthInput.value;
+    const filterSelectMonth = result.filter((month) => {
+      const fullMonth = new Date(month.birthday).toLocaleString("en-US", {
+        month: "long",
+      });
+      return fullMonth.toLowerCase().includes(checkSelectMonth);
+    });
+    displayList(filterSelectMonth);
   };
 
   displayPeopleBirthdayList(result);
@@ -68,7 +70,7 @@ async function fetchPeople() {
   addBtn.addEventListener("click", addListOfPeople);
 
   filterNameInput.addEventListener("input", filterBirthdayByNames);
-  filterMonthInput.addEventListener('change', filterBirthdayByMonths);
+  filterMonthInput.addEventListener("change", filterBirthdayByMonths);
 
   resetBtn.addEventListener("click", resetFilters);
 
