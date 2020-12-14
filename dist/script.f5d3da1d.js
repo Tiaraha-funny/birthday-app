@@ -146,12 +146,10 @@ var _svg = require("./icons-SVGs/svg.js");
 // Maping all the people in the list from the fetch function
 const htmlGenerator = array => {
   console.log(array);
-  let sortedByBirthday = array.sort(function (a, b) {
-    return new Date(a.birthday).getMonth() - new Date(b.birthday).getMonth();
+  let sortedByBirthday = array.sort(function (sooner, later) {
+    return new Date(sooner.birthday).getMonth() - new Date(later.birthday).getMonth();
   });
   return sortedByBirthday.map(person => {
-    console.log(person.birthday);
-
     function getSymboleDate(date) {
       if (date < 3 && date > 31) return "th";
 
@@ -632,10 +630,7 @@ const resetFilters = e => {
   console.log("Do I click it");
   filterForm.reset(e);
   (0, _display.displayPeopleBirthdayList)();
-}; // const filterList = e => {
-// displayPeopleBirthdayList(e, filterNameInput.value, filterMonthInput.value);
-// };
-
+};
 
 let result = [];
 exports.result = result;
@@ -672,8 +667,7 @@ async function fetchPeople() {
   filterNameInput.addEventListener("input", filterBirthdayByNames);
   filterMonthInput.addEventListener("change", filterBirthdayByMonths);
   resetBtn.addEventListener("click", resetFilters);
-  main.addEventListener("itemUpdated", _localstorage.setItemOfBirthdayToLocalStorage); // displayPeopleBirthdayList();
-
+  main.addEventListener("itemUpdated", _localstorage.setItemOfBirthdayToLocalStorage);
   (0, _localstorage.restoreFromLocalStorage)();
 }
 

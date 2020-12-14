@@ -27,10 +27,6 @@ const resetFilters = (e) => {
   displayPeopleBirthdayList();
 };
 
-// const filterList = e => {
-// displayPeopleBirthdayList(e, filterNameInput.value, filterMonthInput.value);
-// };
-
 let result = [];
 
 async function fetchPeople() {
@@ -75,7 +71,6 @@ async function fetchPeople() {
   resetBtn.addEventListener("click", resetFilters);
 
   main.addEventListener("itemUpdated", setItemOfBirthdayToLocalStorage);
-  // displayPeopleBirthdayList();
   restoreFromLocalStorage();
 }
 
