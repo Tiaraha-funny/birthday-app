@@ -20,7 +20,7 @@ function editPersonBirthday(id) {
 
     const editHtml = `
     <div class="form">
-      <h2>Do you want to edit something?</h2>
+      <h2>Edit ${personToEdit.lastName} ${personToEdit.firstName}</h2>
       <label>URL of the picture:</labe><br>
       <input type="url" name="picture" id="picture" value="${personToEdit.picture}"><br>
       <label>Last Name:</labe><br>
@@ -30,7 +30,7 @@ function editPersonBirthday(id) {
       <label>Birthday:</labe><br>
       <input type="text" name="birthday" id="birthday" value="${personToEdit.birthday}"><br>
       <div class="buttons">
-        <button type="submit" class="save">Save</button>
+        <button type="submit" class="add">Save changes</button>
         <button type="button" name="cancel" class="cancel">Cancel</button>
       </div>
     </div>

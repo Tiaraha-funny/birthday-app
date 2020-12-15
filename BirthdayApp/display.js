@@ -118,16 +118,21 @@ const htmlGenerator = (array) => {
         }" alt="images"></li>
         <li class="names"><b>${person.lastName} ${
         person.firstName
-      }</b><br>Turns ${age} on ${dateOfBirth} <sup> ${getSymboleDate(
-        daysBirth
-      )} ${month}  </sup></li>
+      }</b><br>
+      <span class="span">Turns <div class="age"> ${age} </div> on 
+      ${month}  </sup>${dateOfBirth}<sup> ${getSymboleDate(daysBirth)}</li>
+      </span>
         <li>${ageResult}</li>
-        <li class="">${cakeSvg} ${notDayNow} Days</li>
-        <li class="edit">
-          <button type="button" name="edit" class="edit">${editSvg}</button>
-        </li>
-        <li class="delete">
-          <button type="button" class="delete">${deleteSvg}</button>
+        <li>
+          <span class="span">In ${notDayNow} Days</span>
+          <div class="buttons">
+            <div class="edit">
+              <button type="button" name="edit" class="edit">${editSvg}</button>
+            </div>
+            <div class="delete">
+              <button type="button" class="delete">${deleteSvg}</button>
+            </div>
+          </div>
         </li>
       </ul>
     `;

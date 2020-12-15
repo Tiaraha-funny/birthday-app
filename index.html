@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="birthday.css" />
+    <link rel="stylesheet" href="./BirthdayApp/Css/index.css" />
     <title>TEST</title>
   </head>
   <body>
@@ -11,9 +11,6 @@
       <h1>Birthday app</h1>
     </header>
     <div class="main">
-      <div>
-        <button type="submit" class="add">Add a person's birthday</button>
-      </div>
       <div class="filtering">
         <form class="filter_birthday">
           <p>
@@ -27,7 +24,7 @@
           </p>
           <p>
             <span>Select month: </span><br />
-            <select name="month" id="month"  class="filterMonth">
+            <select name="month" id="month"  class="filterMonth" placeholder="Select a month">
               <option value="jan">January</option>
               <option value="feb">February</option>
               <option value="mar">March</option>
@@ -45,7 +42,10 @@
         </form>
       </div>
       <div>
-        <button class="filterbtn">Reset filters</button>
+        <button type="submit" class="add">Add somebody </button>
+      </div>
+      <div>
+        <button class="filterbtn add">Reset filters</button>
       </div>
       </div>
     <main></main>

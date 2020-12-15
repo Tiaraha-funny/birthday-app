@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Rubik';
+    src: url('../Converted-fonts/Rubik-LightItalic.woff2') format('woff2'),
+        url('../Converted-fonts/Rubik-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('../Converted-fonts/Poppins-Bold.woff2') format('woff2'),
+        url('../Converted-fonts/Rubik-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('../Converted-fonts/Rubik-Light.woff2') format('woff2'),
+        url('../Converted-fonts/Rubik-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}

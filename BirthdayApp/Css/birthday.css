@@ -1,0 +1,187 @@
+.main button {
+	background-color: #EF4565;
+	max-width: 158px;
+	border: none;
+	border-radius: 5px;
+	font-size: 18px;
+	margin-right: 2rem;
+	margin-top: 2rem;
+	box-shadow: #252323 5px 5px 5px;
+	outline: none;
+}
+.filter_birthday p span {
+	font-size: 18px;
+}
+
+.buttons {
+	display: flex;
+}
+
+.span {
+	color: #5F6C7B;
+	font-size: 24px;
+	display: flex;
+	justify-content: space-evenly;
+	font-family: "Rubik";
+}
+
+.age {
+	color: #EF4565;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.form {
+	background-color: #ffffff;
+	min-height: 300px;
+	min-width: 300px;
+    padding: 50px;
+	border-radius: 8px;
+	width: 55%;
+    padding-inline-start: 253px;
+}
+
+select {
+	padding: 10px;
+	border-radius: 5px;
+	width: 150px;
+}
+
+input {
+	padding: 10px;
+	font-size: 1rem;
+	border-radius: 8px;
+	border: none;
+}
+
+.add {
+	background-color: #EF4565;
+	color: #ffffff;
+}
+
+select {
+	color: #a5a2a2;
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.buttons {
+	margin-top: 1rem;
+}
+
+.buttons .add {
+	margin-inline-end: 10px;
+	width: 26%;
+	font-size: 18px;
+}
+
+button {
+    padding: 10px;
+	font-size: 20px;
+	cursor: pointer;
+	border-radius: 5px;
+	border: none;
+	background-color: #ffffff;
+	outline: none;
+}
+
+.save {
+	background-color: #0000ff;		
+}
+.save:hover {
+	background-color: #ffc6c7;
+}
+
+.cancel {
+	border: solid #5F6C7B 1px;
+}
+
+.yesDel {
+	background-color: #ff0000;
+}
+
+.yesDel:hover {
+	background-color: #cf2d2d;
+}
+
+.person.open {
+	opacity: 1;
+	pointer-events: all;
+
+}
+.person article {
+	background-color: #ffffff;
+	min-height: 100px;
+	min-width: 200px;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.person {
+	display: grid;
+	place-items: center center;
+	background-color: rgba(255, 255, 255, 0.8);
+	pointer-events: none;
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+}
+
+.delBtn {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+} 
+.container {
+	padding: 0;
+    border-radius: 5px;
+}
+  
+input > img {
+	width: 20%;
+}
+
+.filter_birthday {
+	display: flex;
+	flex-direction: row;
+}
+.filter_birthday p {
+	margin-inline-end: 32px;
+}
+
+.main {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+h1 > svg {
+	width: 10%;
+}
+
+svg {
+	font-size: 30px;
+}
+
+.headings {
+	align-items: center;
+}
+
+.form input {
+	background-color: #D8EEFE;
+	border-radius: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;	
+}
+
+@media (max-width: 400px) {
+	.main {
+		display: grid;
+	}
+	.filter_birthday {
+		display: grid;
+	}
+}

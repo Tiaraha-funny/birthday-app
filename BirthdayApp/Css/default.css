@@ -1,0 +1,49 @@
+body {
+	font-family: "Rubik";
+	background-color: #D8EEFE;
+	width: 80%;
+	margin: auto;
+}
+
+h1 {
+	font-size: 64px;
+	color: #094067;
+}
+h2 {
+	font-size: 35px;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #ffffff;
+	padding: 10px;
+	border-radius: 5px;
+	margin-bottom: 30px;
+}
+
+li {
+	list-style: none;
+	
+}
+
+b {
+	font-size: 36px;
+	color: #000000;
+	font-family: "Rubik";
+}
+
+li > img {
+    max-width: 100%;
+    border-radius: 50%;
+}
+
+form label {
+    color: #094067;
+}
+
+script ~ form {
+    max-width: 1079px;
+}
