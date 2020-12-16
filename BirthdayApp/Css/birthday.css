@@ -140,8 +140,8 @@ input > img {
 	width: 20%;
 }
 
-.filterBtn {
-	margin-left: -27px;
+button.filterbtn {
+	margin-right: 0px;
 }
 
 .filter_birthday {
