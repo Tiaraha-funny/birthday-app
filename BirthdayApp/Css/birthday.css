@@ -9,6 +9,7 @@
 	box-shadow: #252323 5px 5px 5px;
 	outline: none;
 }
+
 .filter_birthday p span {
 	font-size: 18px;
 }
@@ -41,12 +42,6 @@
     padding-inline-start: 253px;
 }
 
-select {
-	padding: 10px;
-	border-radius: 5px;
-	width: 150px;
-}
-
 input {
 	padding: 10px;
 	font-size: 1rem;
@@ -63,6 +58,8 @@ select {
 	color: #a5a2a2;
 	font-size: 20px;
 	font-weight: 500;
+	padding: 10px;
+	border-radius: 5px;
 }
 
 .buttons {
@@ -97,12 +94,10 @@ button {
 }
 
 .yesDel {
-	background-color: #ff0000;
+	background-color: #EF4565;
+	color: #ffffff;
 }
 
-.yesDel:hover {
-	background-color: #cf2d2d;
-}
 
 .person.open {
 	opacity: 1;
@@ -112,9 +107,8 @@ button {
 .person article {
 	background-color: #ffffff;
 	min-height: 100px;
-	min-width: 200px;
     padding: 20px;
-    border-radius: 8px;
+	border-radius: 8px;
 }
 
 .person {
@@ -128,6 +122,8 @@ button {
 	left: 0;
 	height: 100vh;
 	width: 100vw;
+	padding-right: 20%;
+	padding-left: 20%;
 }
 
 .delBtn {
@@ -144,18 +140,22 @@ input > img {
 	width: 20%;
 }
 
+.filterBtn {
+	margin-left: -27px;
+}
+
 .filter_birthday {
 	display: flex;
 	flex-direction: row;
-}
-.filter_birthday p {
-	margin-inline-end: 32px;
+	justify-content: space-between;
 }
 
-.main {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
+#name {
+	padding: 12px;
+}
+
+.filterMonth {
+	border: none;
 }
 
 h1 > svg {
@@ -177,10 +177,7 @@ svg {
 	margin-bottom: 10px;	
 }
 
-@media (max-width: 400px) {
-	.main {
-		display: grid;
-	}
+@media (max-width: 500px) {
 	.filter_birthday {
 		display: grid;
 	}

@@ -25,7 +25,7 @@ function addListOfPeople(id) {
         <button type="submit addBtn">Submit</button>
         <button type="button" name="cancel">Cancel</button>
       </div>
-      <small>You are going to see your new list at the end!!</small>
+      <small>Thanks for adding the lists!!</small>
     </div>
   `;
     // main.insertAdjacentHTML("beforeend", addHtml)

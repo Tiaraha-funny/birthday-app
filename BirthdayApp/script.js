@@ -23,7 +23,6 @@ const resetBtn = document.querySelector(".filterbtn");
 
 const resetFilters = (e) => {
   console.log("Do I click it");
-  filterForm.reset(e);
   displayPeopleBirthdayList();
 };
 

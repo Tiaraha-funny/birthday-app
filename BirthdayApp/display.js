@@ -7,7 +7,7 @@ const htmlGenerator = (array) => {
   console.log(array);
 
   let sortedByBirthday = array.sort(function (sooner, later) {
-    return new Date(sooner.birthday).getMonth() - new Date(later.birthday).getMonth()
+    return new Date(sooner.birthday).getMonth() - new Date(later.birthday).getMonth() || new Date(sooner.notDayNow).getMonth() - new Date(later.notDayNow).getMonth()
 })
 
   return sortedByBirthday

@@ -7,11 +7,12 @@ function deletePersonBirthday(idItem) {
   console.log("Delete button is clicked");
 
   return new Promise(function (resolve) {
+    const personToDelete = result.find((person) => person.id == idItem);
     const popup = document.createElement("form");
     popup.classList.add("person");
     const delHtml = `
       <article>
-        <h2>Do you want to delete this person?</h2>
+        <h2>Do you want to delete ${personToDelete.firstName} ${personToDelete.lastName}</h2>
         <div class="delBtn">
           <div class="yes">
           <button type="button" class="yesDel" name="yes">YES</button>

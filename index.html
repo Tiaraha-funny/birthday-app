@@ -10,44 +10,40 @@
     <header class="headings">
       <h1>Birthday app</h1>
     </header>
-    <div class="main">
-      <div class="filtering">
-        <form class="filter_birthday">
-          <p>
-            <span>Search name: </span><br />
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="enter the person's name"
-            />
-          </p>
-          <p>
-            <span>Select month: </span><br />
-            <select name="month" id="month"  class="filterMonth" placeholder="Select a month">
-              <option value="jan">January</option>
-              <option value="feb">February</option>
-              <option value="mar">March</option>
-              <option value="apr">April</option>
-              <option value="may">May</option>
-              <option value="jun">June</option>
-              <option value="jul">July</option>
-              <option value="aut">August</option>
-              <option value="sep">September</option>
-              <option value="oct">October</option>
-              <option value="nov">November</option>
-              <option value="dec">December</option>
-            </select>
-          </p>
-        </form>
-      </div>
+    <div class="filter_birthday main">
+      <p>
+        <span>Search name: </span><br />
+        <input type="text" id="name" name="name" placeholder="Type a name" />
+      </p>
+      <p>
+        <span>Select month: </span><br />
+        <select
+          name="month"
+          id="month"
+          class="filterMonth"
+          placeholder="Select a month"
+        >
+          <option value="jan">January</option>
+          <option value="feb">February</option>
+          <option value="mar">March</option>
+          <option value="apr">April</option>
+          <option value="may">May</option>
+          <option value="jun">June</option>
+          <option value="jul">July</option>
+          <option value="aut">August</option>
+          <option value="sep">September</option>
+          <option value="oct">October</option>
+          <option value="nov">November</option>
+          <option value="dec">December</option>
+        </select>
+      </p>
       <div>
-        <button type="submit" class="add">Add somebody </button>
+        <button type="submit" class="add">Add somebody</button>
       </div>
       <div>
         <button class="filterbtn add">Reset filters</button>
       </div>
-      </div>
+    </div>
     <main></main>
 
     <script src="./BirthdayApp/script.js" type="module"></script>
