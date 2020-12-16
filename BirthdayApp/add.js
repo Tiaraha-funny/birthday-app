@@ -22,10 +22,9 @@ function addListOfPeople(id) {
         <label>Enter the birthday</labe><br>
         <input type="date" name="birthday" id="birthday"><br>
       <div class="buttons">
-        <button type="submit addBtn">Submit</button>
-        <button type="button" name="cancel">Cancel</button>
+        <button type="submit addBtn" class="sub">Submit</button>
+        <button type="button" name="cancel" class="cancel">Cancel</button>
       </div>
-      <small>Thanks for adding the lists!!</small>
     </div>
   `;
     // main.insertAdjacentHTML("beforeend", addHtml)

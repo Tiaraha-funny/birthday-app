@@ -24,6 +24,7 @@
 	display: flex;
 	justify-content: space-evenly;
 	font-family: "Rubik";
+	flex-wrap: wrap;
 }
 
 .age {
@@ -49,7 +50,7 @@ input {
 	border: none;
 }
 
-.add {
+button.add {
 	background-color: #EF4565;
 	color: #ffffff;
 }
@@ -70,6 +71,13 @@ select {
 	margin-inline-end: 10px;
 	width: 26%;
 	font-size: 18px;
+}
+
+.buttons .sub {
+	border: 1px solid  #5F6C7B;
+	background-color: #EF4565;
+	color: #ffffff;
+	margin-right: 50px;
 }
 
 button {
@@ -130,6 +138,7 @@ button {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+	flex-wrap: wrap;
 } 
 .container {
 	padding: 0;
@@ -148,6 +157,7 @@ button.filterbtn {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	flex-wrap: wrap;
 }
 
 #name {

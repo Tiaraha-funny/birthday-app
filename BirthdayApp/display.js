@@ -7,8 +7,11 @@ const htmlGenerator = (array) => {
   console.log(array);
 
   let sortedByBirthday = array.sort(function (sooner, later) {
-    return new Date(sooner.birthday).getMonth() - new Date(later.birthday).getMonth() || new Date(sooner.notDayNow).getMonth() - new Date(later.notDayNow).getMonth()
-})
+    return (
+      new Date(sooner.birthday).getMonth() -
+        new Date(later.birthday).getMonth()
+    );
+  });
 
   return sortedByBirthday
     .map((person) => {
@@ -116,9 +119,7 @@ const htmlGenerator = (array) => {
         <li class=""><img class="rounded-circle" src="${
           person.picture
         }" alt="images"></li>
-        <li class="names"><b>${person.lastName} ${
-        person.firstName
-      }</b><br>
+        <li class="names"><b>${person.lastName} ${person.firstName}</b><br>
       <span class="span">Turns <div class="age"> ${age} </div> on 
       ${month}  </sup>${dateOfBirth}<sup> ${getSymboleDate(daysBirth)}</li>
       </span>
