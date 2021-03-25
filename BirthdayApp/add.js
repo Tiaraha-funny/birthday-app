@@ -8,19 +8,18 @@ function addListOfPeople(id) {
     console.log("I want to add this list");
 
     const popup = document.createElement("form");
+
     popup.classList.add("person");
     result.find((person) => person.id !== id);
     const addHtml = `
       <div class="form">
         <h2>Do you want to add this lists?</h2>
-        <label>Enter the picture URL</labe><br>
-        <input type="url" name="picture" id="picture"><br>
         <label>Enter the last Name</labe><br>
         <input type="text" name="lastName" id="lastName"><br>
         <label>Enter the first name</labe><br>
         <input type="text" name="firstName" id="firstName"><br>
         <label>Enter the birthday</labe><br>
-        <input type="date" name="birthday" id="birthday"><br>
+        <input type="date" max=${new Date().toISOString().slice(0, 10)} name="birthday" id="birthday"><br>
       <div class="buttons">
         <button type="submit addBtn" class="sub">Submit</button>
         <button type="button" name="cancel" class="cancel">Cancel</button>
@@ -39,7 +38,7 @@ function addListOfPeople(id) {
       const formEl = e.currentTarget;
 
       const newBirthday = {
-        picture: formEl.picture.value,
+        picture: "https://picsum.photos/id/1/200/300",
         lastName: formEl.lastName.value,
         firstName: formEl.firstName.value,
         birthday: formEl.birthday.value,

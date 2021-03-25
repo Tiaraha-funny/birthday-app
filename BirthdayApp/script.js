@@ -2,13 +2,11 @@ import {
   setItemOfBirthdayToLocalStorage,
   restoreFromLocalStorage,
 } from "./localstorage.js";
-import { displayPeopleBirthdayList, displayList } from "./display.js";
+import { displayPeopleBirthdayList } from "./display.js";
 import { addListOfPeople } from "./add.js";
 import { handleClick } from "./click.js";
+import { filterByNamesAndMonths } from "./filterNameAndMonth.js";
 
-// import peps from "./people.json"
-
-//Fetch all the people in the list
 const peps =
   "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/b17e08696906abeaac8bc260f57738eaa3f6abb1/birthdayPeople.json";
 
@@ -16,15 +14,8 @@ const peps =
 const main = document.querySelector("main");
 const addBtn = document.querySelector(".add");
 
-const filterForm = document.querySelector(".filter_birthday");
 const filterNameInput = document.querySelector("#name");
 const filterMonthInput = document.querySelector("#month");
-const resetBtn = document.querySelector(".filterbtn");
-
-const resetFilters = (e) => {
-  console.log("Do I click it");
-  displayPeopleBirthdayList();
-};
 
 let result = [];
 
@@ -32,29 +23,6 @@ async function fetchPeople() {
   let response = await fetch(peps);
   let data = await response.json();
   result = data;
-
-  const filterBirthdayByNames = () => {
-    console.log("I am here");
-    const checkInputName = filterNameInput.value.toLowerCase();
-    console.log(checkInputName);
-    const filterInputName = result.filter(
-      (name) =>
-        name.firstName.toLowerCase().includes(checkInputName) ||
-        name.lastName.toLowerCase().includes(checkInputName)
-    );
-    displayList(filterInputName);
-  };
-
-  const filterBirthdayByMonths = () => {
-    const checkSelectMonth = filterMonthInput.value;
-    const filterSelectMonth = result.filter((month) => {
-      const fullMonth = new Date(month.birthday).toLocaleString("en-US", {
-        month: "long",
-      });
-      return fullMonth.toLowerCase().includes(checkSelectMonth);
-    });
-    displayList(filterSelectMonth);
-  };
 
   displayPeopleBirthdayList(result);
   main.dispatchEvent(new CustomEvent("itemUpdated"));
@@ -64,10 +32,8 @@ async function fetchPeople() {
   window.addEventListener("click", handleClick);
   addBtn.addEventListener("click", addListOfPeople);
 
-  filterNameInput.addEventListener("input", filterBirthdayByNames);
-  filterMonthInput.addEventListener("change", filterBirthdayByMonths);
-
-  resetBtn.addEventListener("click", resetFilters);
+  filterNameInput.addEventListener("input", filterByNamesAndMonths);
+  filterMonthInput.addEventListener("change", filterByNamesAndMonths);
 
   main.addEventListener("itemUpdated", setItemOfBirthdayToLocalStorage);
   restoreFromLocalStorage();
@@ -75,4 +41,4 @@ async function fetchPeople() {
 
 fetchPeople();
 
-export { fetchPeople, peps, result, main, addBtn };
+export { fetchPeople, peps, result, main, addBtn, filterMonthInput, filterNameInput };

@@ -1,3 +1,82 @@
+@font-face {
+    font-family: 'Rubik';
+    src: url('/Rubik-LightItalic.936348e9.woff2') format('woff2'),
+        url('/Rubik-LightItalic.062d662f.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('/Poppins-Bold.cfcf5d4a.woff2') format('woff2'),
+        url('/Poppins-Bold.2b16f52b.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('/Rubik-Light.6922ee43.woff2') format('woff2'),
+        url('/Rubik-Light.aeac0e4d.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+body {
+	font-family: "Rubik";
+	background-color: #D8EEFE;
+	width: 80%;
+	margin: auto;
+}
+
+h1 {
+	font-size: 64px;
+	color: #094067;
+	text-transform: capitalize;
+}
+h2 {
+	font-size: 35px;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #ffffff;
+	padding: 10px;
+	border-radius: 5px;
+	margin-bottom: 30px;
+	flex-wrap: wrap;
+}
+
+li {
+	list-style: none;
+	
+}
+
+b {
+	font-size: 36px;
+	color: #000000;
+	font-family: "Rubik";
+}
+
+li > img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+form label {
+	color: #094067;
+	line-height: 35px;
+	font-weight: 600;
+}
+
+script ~ form {
+    max-width: 1079px;
+}
 .main button {
 	background-color: #EF4565;
 	border: none;
@@ -189,3 +268,5 @@ svg {
 		/* flex-wrap: wrap;	 */
 	/* } */
 /* } */
+
+/*# sourceMappingURL=/Css.00454bcb.css.map */

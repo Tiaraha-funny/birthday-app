@@ -3,17 +3,25 @@ import { editSvg, deleteSvg, cakeSvg } from "./icons-SVGs/svg.js";
 
 // Maping all the people in the list from the fetch function
 
-const htmlGenerator = (array) => {
-  console.log(array);
+function calculateDaysToBirthday(array) {
+const today = new Date();
+const oneDay = 24 * 60 * 60 * 1000;
 
-  let sortedByBirthday = array.sort(function (sooner, later) {
-    return (
-      new Date(sooner.birthday).getMonth() -
-        new Date(later.birthday).getMonth()
+  array.forEach(person => {
+    let daysBirth = new Date(person.birthday).toISOString().slice(4);
+    daysBirth = today.getFullYear() + daysBirth;
+    const daysToBirthday = Math.round(
+      ((new Date(daysBirth) - new Date(today)) / oneDay)
     );
+
+    person.daysToBirthday = daysToBirthday < 0 ? daysToBirthday + 365 : daysToBirthday;
   });
 
-  return sortedByBirthday
+}
+
+const htmlGenerator = (array) => {
+
+  return array
     .map((person) => {
       function getSymboleDate(date) {
         if (date < 3 && date > 31) return "th";
@@ -31,9 +39,7 @@ const htmlGenerator = (array) => {
 
       var birthDate = new Date(person.birthday);
       var day = birthDate.getDay();
-      var mymonth = birthDate.getMonth();
-      var myYear = birthDate.getFullYear();
-      var ageResult = `${myYear}/${mymonth}/${day}`;
+
       let month;
 
       // to get the date and the months
@@ -78,7 +84,6 @@ const htmlGenerator = (array) => {
           month = "December";
       }
       // calculate days
-      const oneDay = 24 * 60 * 60 * 1000;
       let today = new Date();
       let year;
 
@@ -108,10 +113,6 @@ const htmlGenerator = (array) => {
           new Date(person.birthday).getFullYear();
       }
 
-      const notDayNow = Math.round(
-        Math.abs((new Date(daysBirth) - new Date(today)) / oneDay)
-      );
-
       return `
       <ul data-id="${
         person.id
@@ -123,9 +124,8 @@ const htmlGenerator = (array) => {
       <span class="span">Turns <div class="age"> ${age} </div> on 
       ${month}  </sup>${dateOfBirth}<sup> ${getSymboleDate(daysBirth)}</li>
       </span>
-        <li>${ageResult}</li>
         <li>
-          <span class="span">In ${notDayNow} Days</span>
+          <span class="span">In ${person.daysToBirthday} Days</span>
           <div class="buttons">
             <div class="edit">
               <button type="button" name="edit" class="edit">${editSvg}</button>
@@ -141,8 +141,11 @@ const htmlGenerator = (array) => {
     .join("");
 };
 
+
 function displayList(array) {
-  const html = htmlGenerator(array);
+  calculateDaysToBirthday(array);
+  const sortedArray = array.sort((personA, personB) => personA.daysToBirthday - personB.daysToBirthday);
+  const html = htmlGenerator(sortedArray);
   main.innerHTML = html;
 }
 

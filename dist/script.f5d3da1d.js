@@ -124,9 +124,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.cakeSvg = exports.deleteSvg = exports.editSvg = void 0;
-const editSvg = `<svg class="edit" width="40px" height="40px" fill="#2cb67d" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>`;
+const editSvg = `<svg class="edit" width="20px" height="20px" fill="none" stroke="#094067" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>`;
 exports.editSvg = editSvg;
-const deleteSvg = `<svg class="delete" width="40px" height="40px" fill="#f25042" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>`;
+const deleteSvg = `<svg class="delete" width="20px" height="20px" fill="none" stroke="#EF4565" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>`;
 exports.deleteSvg = deleteSvg;
 const cakeSvg = `<svg class="w-6 h-6" fill="#ffd803" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>`;
 exports.cakeSvg = cakeSvg;
@@ -144,12 +144,19 @@ var _script = require("./script.js");
 var _svg = require("./icons-SVGs/svg.js");
 
 // Maping all the people in the list from the fetch function
-const htmlGenerator = array => {
-  console.log(array);
-  let sortedByBirthday = array.sort(function (sooner, later) {
-    return new Date(sooner.birthday).getMonth() - new Date(later.birthday).getMonth();
+function calculateDaysToBirthday(array) {
+  const today = new Date();
+  const oneDay = 24 * 60 * 60 * 1000;
+  array.forEach(person => {
+    let daysBirth = new Date(person.birthday).toISOString().slice(4);
+    daysBirth = today.getFullYear() + daysBirth;
+    const daysToBirthday = Math.round((new Date(daysBirth) - new Date(today)) / oneDay);
+    person.daysToBirthday = daysToBirthday < 0 ? daysToBirthday + 365 : daysToBirthday;
   });
-  return sortedByBirthday.map(person => {
+}
+
+const htmlGenerator = array => {
+  return array.map(person => {
     function getSymboleDate(date) {
       if (date < 3 && date > 31) return "th";
 
@@ -170,9 +177,6 @@ const htmlGenerator = array => {
 
     var birthDate = new Date(person.birthday);
     var day = birthDate.getDay();
-    var mymonth = birthDate.getMonth();
-    var myYear = birthDate.getFullYear();
-    var ageResult = `${myYear}/${mymonth}/${day}`;
     let month; // to get the date and the months
 
     let dateOfBirth = new Date(person.birthday).getDate();
@@ -227,7 +231,6 @@ const htmlGenerator = array => {
     } // calculate days
 
 
-    const oneDay = 24 * 60 * 60 * 1000;
     let today = new Date();
     let year; // if the current month is bigger than the month of birth, then add one more month
 
@@ -249,18 +252,23 @@ const htmlGenerator = array => {
       age = new Date().getFullYear() + 1 - new Date(person.birthday).getFullYear();
     }
 
-    const notDayNow = Math.round(Math.abs((new Date(daysBirth) - new Date(today)) / oneDay));
     return `
       <ul data-id="${person.id}" class="d-flex flex-row justify-content-around list-unstyled">
         <li class=""><img class="rounded-circle" src="${person.picture}" alt="images"></li>
-        <li class="names"><b>${person.lastName} ${person.firstName}</b><br>Turns ${age} on ${dateOfBirth} <sup> ${getSymboleDate(daysBirth)} ${month}  </sup></li>
-        <li>${ageResult}</li>
-        <li class="">${_svg.cakeSvg} ${notDayNow} Days</li>
-        <li class="edit">
-          <button type="button" name="edit" class="edit">${_svg.editSvg}</button>
-        </li>
-        <li class="delete">
-          <button type="button" class="delete">${_svg.deleteSvg}</button>
+        <li class="names"><b>${person.lastName} ${person.firstName}</b><br>
+      <span class="span">Turns <div class="age"> ${age} </div> on 
+      ${month}  </sup>${dateOfBirth}<sup> ${getSymboleDate(daysBirth)}</li>
+      </span>
+        <li>
+          <span class="span">In ${person.daysToBirthday} Days</span>
+          <div class="buttons">
+            <div class="edit">
+              <button type="button" name="edit" class="edit">${_svg.editSvg}</button>
+            </div>
+            <div class="delete">
+              <button type="button" class="delete">${_svg.deleteSvg}</button>
+            </div>
+          </div>
         </li>
       </ul>
     `;
@@ -268,7 +276,9 @@ const htmlGenerator = array => {
 };
 
 function displayList(array) {
-  const html = htmlGenerator(array);
+  calculateDaysToBirthday(array);
+  const sortedArray = array.sort((personA, personB) => personA.daysToBirthday - personB.daysToBirthday);
+  const html = htmlGenerator(sortedArray);
   _script.main.innerHTML = html;
 }
 
@@ -352,19 +362,16 @@ function addListOfPeople(id) {
     const addHtml = `
       <div class="form">
         <h2>Do you want to add this lists?</h2>
-        <label>Enter the picture URL</labe><br>
-        <input type="url" name="picture" id="picture"><br>
         <label>Enter the last Name</labe><br>
         <input type="text" name="lastName" id="lastName"><br>
         <label>Enter the first name</labe><br>
         <input type="text" name="firstName" id="firstName"><br>
         <label>Enter the birthday</labe><br>
-        <input type="date" name="birthday" id="birthday"><br>
+        <input type="date" max=${new Date().toISOString().slice(0, 10)} name="birthday" id="birthday"><br>
       <div class="buttons">
-        <button type="submit addBtn">Submit</button>
-        <button type="button" name="cancel">Cancel</button>
+        <button type="submit addBtn" class="sub">Submit</button>
+        <button type="button" name="cancel" class="cancel">Cancel</button>
       </div>
-      <small>You are going to see your new list at the end!!</small>
     </div>
   `; // main.insertAdjacentHTML("beforeend", addHtml)
 
@@ -376,7 +383,7 @@ function addListOfPeople(id) {
       console.log(_script.result);
       const formEl = e.currentTarget;
       const newBirthday = {
-        picture: formEl.picture.value,
+        picture: "https://picsum.photos/id/1/200/300",
         lastName: formEl.lastName.value,
         firstName: formEl.firstName.value,
         birthday: formEl.birthday.value,
@@ -442,7 +449,7 @@ function editPersonBirthday(id) {
     console.log(personToEdit.picture);
     const editHtml = `
     <div class="form">
-      <h2>Do you want to edit something?</h2>
+      <h2>Edit ${personToEdit.lastName} ${personToEdit.firstName}</h2>
       <label>URL of the picture:</labe><br>
       <input type="url" name="picture" id="picture" value="${personToEdit.picture}"><br>
       <label>Last Name:</labe><br>
@@ -452,7 +459,7 @@ function editPersonBirthday(id) {
       <label>Birthday:</labe><br>
       <input type="text" name="birthday" id="birthday" value="${personToEdit.birthday}"><br>
       <div class="buttons">
-        <button type="submit" class="save">Save</button>
+        <button type="submit" class="add">Save changes</button>
         <button type="button" name="cancel" class="cancel">Cancel</button>
       </div>
     </div>
@@ -510,11 +517,13 @@ var _script = require("./script.js");
 function deletePersonBirthday(idItem) {
   console.log("Delete button is clicked");
   return new Promise(function (resolve) {
+    const personToDelete = _script.result.find(person => person.id == idItem);
+
     const popup = document.createElement("form");
     popup.classList.add("person");
     const delHtml = `
       <article>
-        <h2>Do you want to delete this person?</h2>
+        <h2>Do you want to delete ${personToDelete.firstName} ${personToDelete.lastName}</h2>
         <div class="delBtn">
           <div class="yes">
           <button type="button" class="yesDel" name="yes">YES</button>
@@ -595,14 +604,56 @@ const handleClick = e => {
 };
 
 exports.handleClick = handleClick;
-},{"./edit.js":"BirthdayApp/edit.js","./delete.js":"BirthdayApp/delete.js"}],"BirthdayApp/script.js":[function(require,module,exports) {
+},{"./edit.js":"BirthdayApp/edit.js","./delete.js":"BirthdayApp/delete.js"}],"BirthdayApp/filterNameAndMonth.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.filterByNamesAndMonths = void 0;
+
+var _display = require("./display.js");
+
+var _script = require("./script.js");
+
+const filterBirthdayByNames = people => {
+  console.log("I am here");
+
+  const checkInputName = _script.filterNameInput.value.toLowerCase();
+
+  console.log(checkInputName);
+  const filterInputName = people.filter(name => name.firstName.toLowerCase().includes(checkInputName) || name.lastName.toLowerCase().includes(checkInputName));
+  return filterInputName;
+};
+
+const filterBirthdayByMonths = people => {
+  const checkSelectMonth = _script.filterMonthInput.value;
+  const filterSelectMonth = people.filter(month => {
+    if (checkSelectMonth === "all") {
+      return true;
+    }
+
+    const fullMonth = new Date(month.birthday).toLocaleString("en-US", {
+      month: "long"
+    });
+    return fullMonth.toLowerCase().includes(checkSelectMonth);
+  });
+  return filterSelectMonth;
+};
+
+const filterByNamesAndMonths = () => {
+  (0, _display.displayList)(filterBirthdayByMonths(filterBirthdayByNames(_script.result)));
+};
+
+exports.filterByNamesAndMonths = filterByNamesAndMonths;
+},{"./display.js":"BirthdayApp/display.js","./script.js":"BirthdayApp/script.js"}],"BirthdayApp/script.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchPeople = fetchPeople;
-exports.addBtn = exports.main = exports.result = exports.peps = void 0;
+exports.filterNameInput = exports.filterMonthInput = exports.addBtn = exports.main = exports.result = exports.peps = void 0;
 
 var _localstorage = require("./localstorage.js");
 
@@ -612,26 +663,19 @@ var _add = require("./add.js");
 
 var _click = require("./click.js");
 
-// import peps from "./people.json"
-//Fetch all the people in the list
-const peps = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/93debb7463fbaaec29622221b8f9e719bd5b119f/birthdayPeople.json"; //Drag the elements from the html
+var _filterNameAndMonth = require("./filterNameAndMonth.js");
+
+const peps = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/b17e08696906abeaac8bc260f57738eaa3f6abb1/birthdayPeople.json"; //Drag the elements from the html
 
 exports.peps = peps;
 const main = document.querySelector("main");
 exports.main = main;
 const addBtn = document.querySelector(".add");
 exports.addBtn = addBtn;
-const filterForm = document.querySelector(".filter_birthday");
 const filterNameInput = document.querySelector("#name");
+exports.filterNameInput = filterNameInput;
 const filterMonthInput = document.querySelector("#month");
-const resetBtn = document.querySelector(".filterbtn");
-
-const resetFilters = e => {
-  console.log("Do I click it");
-  filterForm.reset(e);
-  (0, _display.displayPeopleBirthdayList)();
-};
-
+exports.filterMonthInput = filterMonthInput;
 let result = [];
 exports.result = result;
 
@@ -639,40 +683,19 @@ async function fetchPeople() {
   let response = await fetch(peps);
   let data = await response.json();
   exports.result = result = data;
-
-  const filterBirthdayByNames = () => {
-    console.log("I am here");
-    const checkInputName = filterNameInput.value.toLowerCase();
-    console.log(checkInputName);
-    const filterInputName = result.filter(name => name.firstName.toLowerCase().includes(checkInputName) || name.lastName.toLowerCase().includes(checkInputName));
-    (0, _display.displayList)(filterInputName);
-  };
-
-  const filterBirthdayByMonths = () => {
-    const checkSelectMonth = filterMonthInput.value;
-    const filterSelectMonth = result.filter(month => {
-      const fullMonth = new Date(month.birthday).toLocaleString("en-US", {
-        month: "long"
-      });
-      return fullMonth.toLowerCase().includes(checkSelectMonth);
-    });
-    (0, _display.displayList)(filterSelectMonth);
-  };
-
   (0, _display.displayPeopleBirthdayList)(result);
   main.dispatchEvent(new CustomEvent("itemUpdated"));
   (0, _localstorage.restoreFromLocalStorage)(result);
   window.addEventListener("click", _click.handleClick);
   addBtn.addEventListener("click", _add.addListOfPeople);
-  filterNameInput.addEventListener("input", filterBirthdayByNames);
-  filterMonthInput.addEventListener("change", filterBirthdayByMonths);
-  resetBtn.addEventListener("click", resetFilters);
+  filterNameInput.addEventListener("input", _filterNameAndMonth.filterByNamesAndMonths);
+  filterMonthInput.addEventListener("change", _filterNameAndMonth.filterByNamesAndMonths);
   main.addEventListener("itemUpdated", _localstorage.setItemOfBirthdayToLocalStorage);
   (0, _localstorage.restoreFromLocalStorage)();
 }
 
 fetchPeople();
-},{"./localstorage.js":"BirthdayApp/localstorage.js","./display.js":"BirthdayApp/display.js","./add.js":"BirthdayApp/add.js","./click.js":"BirthdayApp/click.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./localstorage.js":"BirthdayApp/localstorage.js","./display.js":"BirthdayApp/display.js","./add.js":"BirthdayApp/add.js","./click.js":"BirthdayApp/click.js","./filterNameAndMonth.js":"BirthdayApp/filterNameAndMonth.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -700,7 +723,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54671" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58557" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -876,5 +899,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","BirthdayApp/script.js"], null)
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","BirthdayApp/script.js"], null)
 //# sourceMappingURL=/script.f5d3da1d.js.map
