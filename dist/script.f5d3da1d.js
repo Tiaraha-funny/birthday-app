@@ -301,14 +301,16 @@ var _display = require("./display.js");
 //Local storage function
 function setItemOfBirthdayToLocalStorage() {
   localStorage.setItem("result", JSON.stringify(_script.result));
+  console.log("setItem", localStorage);
 }
 
 async function restoreFromLocalStorage() {
-  console.log("restoring from the local storage");
-  let lsItems = JSON.parse(localStorage.getItem("result")); //check if the there's something inside the local storage
+  let lsItems = JSON.parse(localStorage.getItem("result"));
+  console.log("list items", lsItems); //check if the there's something inside the local storage
 
   if (lsItems) {
     let result = lsItems;
+    console.log("result in local storage", result);
     result;
   } else {
     let response = await fetch(`${_script.peps}`);
@@ -723,7 +725,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58557" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50981" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
