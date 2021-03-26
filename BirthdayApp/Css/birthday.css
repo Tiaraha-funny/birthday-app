@@ -3,15 +3,19 @@
 	border: none;
 	border-radius: 5px;
 	font-size: 18px;
-	margin-right: 2rem;
-	margin-top: 2rem;
+	margin-top: 16px;
+	margin-bottom: 32px;
 	outline: none;
-	width: 40%;
+	width: 55%;
 	color: #ffffff;
+	text-align: center;
 }
 
 .filter_birthday p span {
+	font-weight: 500;
 	font-size: 18px;
+	line-height: 21px;
+	color: #094067;
 }
 
 .buttons {
@@ -35,29 +39,19 @@
 
 .form {
 	background-color: #ffffff;
-	min-height: 300px;
-	min-width: 300px;
-    padding: 50px;
-	border-radius: 8px;
-	width: 55%;
-    padding-inline-start: 253px;
-}
+	margin: auto;
+	width: 60%;
+	padding-right: 20px;
+	padding-left: 20px;
 
-input {
-	padding: 10px;
-	font-size: 1rem;
-	border-radius: 8px;
-	border: none;
-	width: 80%;
 }
-
-select {
-	color: #a5a2a2;
-	font-size: 20px;
-	font-weight: 500;
-	padding: 10px;
-	border-radius: 5px;
-	width: 85%;
+.person {
+	background-color: rgba(255, 255, 255, 0.8);
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
 }
 
 .buttons {
@@ -77,15 +71,6 @@ select {
 	margin-right: 50px;
 }
 
-button {
-    padding: 10px;
-	font-size: 20px;
-	cursor: pointer;
-	border-radius: 5px;
-	border: none;
-	background-color: #ffffff;
-	outline: none;
-}
 
 .save {
 	background-color: #0000ff;		
@@ -116,20 +101,6 @@ button {
 	border-radius: 8px;
 }
 
-.person {
-	display: grid;
-	place-items: center center;
-	background-color: rgba(255, 255, 255, 0.8);
-	pointer-events: none;
-	opacity: 0;
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	width: 100vw;
-	padding-right: 20%;
-	padding-left: 20%;
-}
 
 .delBtn {
 	display: flex;
@@ -142,10 +113,6 @@ button {
     border-radius: 5px;
 }
   
-input > img {
-	width: 20%;
-}
-
 button.filterbtn {
 	margin-right: 0px;
 }
@@ -162,13 +129,6 @@ button.filterbtn {
 	border: none;
 }
 
-h1 > svg {
-	width: 10%;
-}
-
-svg {
-	font-size: 30px;
-}
 
 .headings {
 	align-items: center;
@@ -180,12 +140,3 @@ svg {
 	margin-top: 10px;
 	margin-bottom: 10px;	
 }
-
-/* @media (max-width: 500px) { */
-	/* .filter_birthday { */
-		/* display: flex; */
-		/* flex-direction: row; */
-		/* justify-content: space-between; */
-		/* flex-wrap: wrap;	 */
-	/* } */
-/* } */

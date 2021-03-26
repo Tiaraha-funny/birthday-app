@@ -311,6 +311,9 @@ async function restoreFromLocalStorage() {
   if (lsItems) {
     let result = lsItems;
     console.log("result in local storage", result);
+
+    _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
+
     result;
   } else {
     let response = await fetch(`${_script.peps}`);
@@ -452,13 +455,11 @@ function editPersonBirthday(id) {
     const editHtml = `
     <div class="form">
       <h2>Edit ${personToEdit.lastName} ${personToEdit.firstName}</h2>
-      <label>URL of the picture:</labe><br>
-      <input type="url" name="picture" id="picture" value="${personToEdit.picture}"><br>
-      <label>Last Name:</labe><br>
+      <label>Last Name:</label>
       <input type="text" name="lastName" id="lastname" value="${personToEdit.lastName}"><br>
-      <label>First name:</labe><br>
+      <label>First name:</label>
       <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}"><br>
-      <label>Birthday:</labe><br>
+      <label>Birthday:</label>
       <input type="text" name="birthday" id="birthday" value="${personToEdit.birthday}"><br>
       <div class="buttons">
         <button type="submit" class="add">Save changes</button>
@@ -725,7 +726,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50981" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54447" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

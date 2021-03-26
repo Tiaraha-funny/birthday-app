@@ -17,6 +17,7 @@ import { displayPeopleBirthdayList } from "./display.js";
     if (lsItems) {
      let result = lsItems;
      console.log("result in local storage", result);
+    main.dispatchEvent(new CustomEvent("itemUpdated"));
      result;
     } else {
       let response = await fetch(`${peps}`);
