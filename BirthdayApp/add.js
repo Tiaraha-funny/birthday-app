@@ -8,21 +8,27 @@ function addListOfPeople(id) {
     console.log("I want to add this list");
 
     const popup = document.createElement("form");
-
     popup.classList.add("person");
     result.find((person) => person.id !== id);
+
+    const closeFromX = document.createElement("button");
+    closeFromX.classList.add("closeButton");
+    closeFromX.textContent = "X"
+    
     const addHtml = `
+    <div class="wrapper">
       <div class="form">
         <h2>Do you want to add this lists?</h2>
-        <label>Enter the last Name</labe><br>
+        <label>Enter the last Name</label>
         <input type="text" name="lastName" id="lastName"><br>
-        <label>Enter the first name</labe><br>
+        <label>Enter the first name</label>
         <input type="text" name="firstName" id="firstName"><br>
-        <label>Enter the birthday</labe><br>
+        <label>Enter the birthday</label>
         <input type="date" max=${new Date().toISOString().slice(0, 10)} name="birthday" id="birthday"><br>
-      <div class="buttons">
-        <button type="submit addBtn" class="sub">Submit</button>
-        <button type="button" name="cancel" class="cancel">Cancel</button>
+        <div class="buttons">
+          <button type="submit addBtn" class="sub">Submit</button>
+          <button type="button" name="cancel" class="cancel">Cancel</button>
+        </div>
       </div>
     </div>
   `;
@@ -53,7 +59,6 @@ function addListOfPeople(id) {
     });
 
     if (popup.cancel) {
-      console.log("No I don't want to delete");
       popup.cancel.addEventListener(
         "click",
         function () {

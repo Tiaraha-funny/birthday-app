@@ -6,17 +6,14 @@ import { displayPeopleBirthdayList } from "./display.js";
 
   function setItemOfBirthdayToLocalStorage() {
     localStorage.setItem("result", JSON.stringify(result));
-    console.log("setItem",localStorage);
   }
 
   async function restoreFromLocalStorage() {
     let lsItems = JSON.parse(localStorage.getItem("result"));
-    console.log("list items", lsItems);
 
     //check if the there's something inside the local storage
     if (lsItems) {
      let result = lsItems;
-     console.log("result in local storage", result);
     main.dispatchEvent(new CustomEvent("itemUpdated"));
      result;
     } else {

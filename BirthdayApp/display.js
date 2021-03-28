@@ -4,23 +4,22 @@ import { editSvg, deleteSvg, cakeSvg } from "./icons-SVGs/svg.js";
 // Maping all the people in the list from the fetch function
 
 function calculateDaysToBirthday(array) {
-const today = new Date();
-const oneDay = 24 * 60 * 60 * 1000;
+  const today = new Date();
+  const oneDay = 24 * 60 * 60 * 1000;
 
-  array.forEach(person => {
+  array.forEach((person) => {
     let daysBirth = new Date(person.birthday).toISOString().slice(4);
     daysBirth = today.getFullYear() + daysBirth;
     const daysToBirthday = Math.round(
-      ((new Date(daysBirth) - new Date(today)) / oneDay)
+      (new Date(daysBirth) - new Date(today)) / oneDay
     );
 
-    person.daysToBirthday = daysToBirthday < 0 ? daysToBirthday + 365 : daysToBirthday;
+    person.daysToBirthday =
+      daysToBirthday < 0 ? daysToBirthday + 365 : daysToBirthday;
   });
-
 }
 
 const htmlGenerator = (array) => {
-
   return array
     .map((person) => {
       function getSymboleDate(date) {
@@ -117,13 +116,14 @@ const htmlGenerator = (array) => {
       <ul data-id="${
         person.id
       }" class="d-flex flex-row justify-content-around list-unstyled">
-        <li class=""><img class="rounded-circle" src="${
-          person.picture
-        }" alt="images"></li>
-        <li class="names"><b>${person.lastName} ${person.firstName}</b><br>
-      <span class="span">Turns <div class="age"> ${age} </div> on 
-      ${month}  </sup>${dateOfBirth}<sup> ${getSymboleDate(daysBirth)}</li>
-      </span>
+        <li class="">
+          <img class="rounded-circle" src="${person.picture}" alt="images"/>
+          <p class="names"><b>${person.lastName} ${person.firstName}</b><br>
+            <span class="span">Turns 
+              <span class="age"> ${age} </span> on ${month}  
+              </sup>${dateOfBirth}<sup> ${getSymboleDate(daysBirth)}
+            </span>
+          </p>
         <li>
           <span class="span">In ${person.daysToBirthday} Days</span>
           <div class="buttons">
@@ -141,10 +141,11 @@ const htmlGenerator = (array) => {
     .join("");
 };
 
-
 function displayList(array) {
   calculateDaysToBirthday(array);
-  const sortedArray = array.sort((personA, personB) => personA.daysToBirthday - personB.daysToBirthday);
+  const sortedArray = array.sort(
+    (personA, personB) => personA.daysToBirthday - personB.daysToBirthday
+  );
   const html = htmlGenerator(sortedArray);
   main.innerHTML = html;
 }

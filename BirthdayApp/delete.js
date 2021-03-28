@@ -11,8 +11,8 @@ function deletePersonBirthday(idItem) {
     const popup = document.createElement("form");
     popup.classList.add("person");
     const delHtml = `
-      <article>
-        <h2>Do you want to delete ${personToDelete.firstName} ${personToDelete.lastName}</h2>
+      <article class="deletion">
+        <h2>Do you want to delete ${personToDelete.firstName} ${personToDelete.lastName}?</h2>
         <div class="delBtn">
           <div class="yes">
           <button type="button" class="yesDel" name="yes">YES</button>

@@ -20,14 +20,16 @@
 
 .buttons {
 	display: flex;
+	flex-direction: row;
+    justify-content: flex-end;
 }
 
 .span {
 	color: #5F6C7B;
 	font-size: 24px;
 	display: flex;
-	justify-content: space-evenly;
 	font-family: "Rubik";
+	font-weight: 600;
 	flex-wrap: wrap;
 }
 
@@ -37,21 +39,28 @@
 	margin-right: 5px;
 }
 
-.form {
-	background-color: #ffffff;
-	margin: auto;
-	width: 60%;
-	padding-right: 20px;
-	padding-left: 20px;
-
+.form, .deletion {
+    margin: auto;
+    width: 60%;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-block-start: 20px;
+    padding-bottom: 10px;
 }
 .person {
-	background-color: rgba(255, 255, 255, 0.8);
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	width: 100vw;
+	background: rgba(255, 255, 255, 0.8);
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+	right: 0;
+    left: 0;
+    display: grid;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: all .5s;
+    line-height: 28px;
 }
 
 .buttons {
@@ -59,16 +68,21 @@
 }
 
 .buttons .add {
-	margin-inline-end: 10px;
-	width: 26%;
+	background-color: #EF4565;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-right: 20px;
 	font-size: 18px;
+	border-radius: 5px;
+	color: #ffffff;
 }
 
 .buttons .sub {
 	border: 1px solid  #5F6C7B;
 	background-color: #EF4565;
 	color: #ffffff;
-	margin-right: 50px;
+	margin-right: 20px;
 }
 
 
@@ -94,14 +108,9 @@
 	pointer-events: all;
 
 }
-.person article {
-	background-color: #ffffff;
-	min-height: 100px;
-    padding: 20px;
-	border-radius: 8px;
+.deletion h2 {
+	padding-bottom: 50px;
 }
-
-
 .delBtn {
 	display: flex;
 	flex-direction: row;
@@ -139,4 +148,120 @@ button.filterbtn {
 	border-radius: 5px;
 	margin-top: 10px;
 	margin-bottom: 10px;	
+}
+.form {
+	display: flex;
+	flex-direction: column;
+	padding-top: 39px;
+	padding-left: 20px;
+	padding-right: 30px;
+	padding-bottom: 129px;
+	line-height: normal;
+
+}
+
+
+.names {
+	margin: 0;
+}
+
+.rounded-circle {
+	width: 104px;
+    height: 106px;
+	margin-block-start: 19px;
+    margin-block-end: 19px;
+    margin-inline-start: 40px;
+    margin-inline-end: 35px;
+}
+
+.closeButton {
+	background-color: transparent;
+	position: absolute;
+    top: 27px;
+    right: 40px;
+    padding: 0;
+    margin: 0;
+    width: auto;
+    font-size: 40px;
+	border: none;
+}
+
+.wrapper {
+	height: 90vh;
+    max-height: 728px;
+    padding: 0;
+    background-color: white;
+    border-radius: 5px;
+    transition: all 0.5s;
+    margin: auto;
+    overflow-y: auto;
+	position: relative;
+}
+
+@media (min-width: 700px) {
+	.form {
+		max-width: 80%;
+    	margin-left: auto;
+    	padding-left: 0;
+	}
+	.buttons {
+		margin-block-start:20px;
+		justify-content: flex-start;
+	}
+
+	.cancel {
+		width: 150px;
+	}
+
+	.sub {
+		width: 110px;
+	}
+
+	.form input {
+		margin-top: -2px;
+	}
+}
+
+@media (min-width: 1440px) {
+	.filter_birthday {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.main button {
+		width: auto;
+		padding: 18px;
+		padding-left: 27px;
+		padding-right: 27px;
+    	margin-bottom: 5px;
+	}
+
+	.filter_birthday p  {
+		margin-bottom: 40px;
+	}
+
+	.names {
+		margin-block-start: 30px;
+	}
+
+	.person {
+		padding-inline-start: 210px;
+    	padding-inline-end: 210px;
+	}
+
+	.wrapper {
+		width: 1079px;
+		margin-top: 50px;
+		margin-bottom: 150px;
+	}
+
+	.form {
+		width: 75%;
+		padding-top: 0;
+		margin-left: 250px;
+		padding-right: 0;
+		padding-left: 0;
+	}
 }

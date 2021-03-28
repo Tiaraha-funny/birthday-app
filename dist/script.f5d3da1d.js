@@ -254,11 +254,14 @@ const htmlGenerator = array => {
 
     return `
       <ul data-id="${person.id}" class="d-flex flex-row justify-content-around list-unstyled">
-        <li class=""><img class="rounded-circle" src="${person.picture}" alt="images"></li>
-        <li class="names"><b>${person.lastName} ${person.firstName}</b><br>
-      <span class="span">Turns <div class="age"> ${age} </div> on 
-      ${month}  </sup>${dateOfBirth}<sup> ${getSymboleDate(daysBirth)}</li>
-      </span>
+        <li class="">
+          <img class="rounded-circle" src="${person.picture}" alt="images"/>
+          <p class="names"><b>${person.lastName} ${person.firstName}</b><br>
+            <span class="span">Turns 
+              <span class="age"> ${age} </span> on ${month}  
+              </sup>${dateOfBirth}<sup> ${getSymboleDate(daysBirth)}
+            </span>
+          </p>
         <li>
           <span class="span">In ${person.daysToBirthday} Days</span>
           <div class="buttons">
@@ -301,16 +304,13 @@ var _display = require("./display.js");
 //Local storage function
 function setItemOfBirthdayToLocalStorage() {
   localStorage.setItem("result", JSON.stringify(_script.result));
-  console.log("setItem", localStorage);
 }
 
 async function restoreFromLocalStorage() {
-  let lsItems = JSON.parse(localStorage.getItem("result"));
-  console.log("list items", lsItems); //check if the there's something inside the local storage
+  let lsItems = JSON.parse(localStorage.getItem("result")); //check if the there's something inside the local storage
 
   if (lsItems) {
     let result = lsItems;
-    console.log("result in local storage", result);
 
     _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
 
@@ -364,18 +364,23 @@ function addListOfPeople(id) {
 
     _script.result.find(person => person.id !== id);
 
+    const closeFromX = document.createElement("button");
+    closeFromX.classList.add("closeButton");
+    closeFromX.textContent = "X";
     const addHtml = `
+    <div class="wrapper">
       <div class="form">
         <h2>Do you want to add this lists?</h2>
-        <label>Enter the last Name</labe><br>
+        <label>Enter the last Name</label>
         <input type="text" name="lastName" id="lastName"><br>
-        <label>Enter the first name</labe><br>
+        <label>Enter the first name</label>
         <input type="text" name="firstName" id="firstName"><br>
-        <label>Enter the birthday</labe><br>
+        <label>Enter the birthday</label>
         <input type="date" max=${new Date().toISOString().slice(0, 10)} name="birthday" id="birthday"><br>
-      <div class="buttons">
-        <button type="submit addBtn" class="sub">Submit</button>
-        <button type="button" name="cancel" class="cancel">Cancel</button>
+        <div class="buttons">
+          <button type="submit addBtn" class="sub">Submit</button>
+          <button type="button" name="cancel" class="cancel">Cancel</button>
+        </div>
       </div>
     </div>
   `; // main.insertAdjacentHTML("beforeend", addHtml)
@@ -406,7 +411,6 @@ function addListOfPeople(id) {
     });
 
     if (popup.cancel) {
-      console.log("No I don't want to delete");
       popup.cancel.addEventListener("click", function () {
         resolve(null);
         (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
@@ -453,25 +457,28 @@ function editPersonBirthday(id) {
     popup.classList.add("person");
     console.log(personToEdit.picture);
     const editHtml = `
-    <div class="form">
-      <h2>Edit ${personToEdit.lastName} ${personToEdit.firstName}</h2>
-      <label>Last Name:</label>
-      <input type="text" name="lastName" id="lastname" value="${personToEdit.lastName}"><br>
-      <label>First name:</label>
-      <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}"><br>
-      <label>Birthday:</label>
-      <input type="text" name="birthday" id="birthday" value="${personToEdit.birthday}"><br>
-      <div class="buttons">
-        <button type="submit" class="add">Save changes</button>
-        <button type="button" name="cancel" class="cancel">Cancel</button>
+    <div class="wrapper">
+      <div class="form">
+        <h2>Edit ${personToEdit.lastName} ${personToEdit.firstName}</h2>
+        <label>Last Name:</label>
+        <input type="text" name="lastName" id="lastname" value="${personToEdit.lastName}"><br>
+        <label>First name:</label>
+        <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}"><br>
+        <label>Birthday:</label>
+        <input type="text" name="birthday" id="birthday" value="${new Date().toLocaleDateString(personToEdit.birthday)}"><br>
+        <div class="buttons">
+          <button type="submit" class="add">Save changes</button>
+          <button type="button" name="cancel" class="cancel">Cancel</button>
+        </div>
       </div>
+      <button class="closeButton cancel">X</button>
     </div>
   `;
     popup.insertAdjacentHTML("afterbegin", editHtml);
     popup.addEventListener("submit", e => {
       e.preventDefault();
-      resolve();
-      personToEdit.picture = popup.picture.value;
+      resolve(); // personToEdit.picture = popup.picture.value;
+
       personToEdit.lastName = popup.lastName.value;
       personToEdit.firstName = popup.firstName.value;
       personToEdit.birthday = popup.birthday.value;
@@ -525,8 +532,8 @@ function deletePersonBirthday(idItem) {
     const popup = document.createElement("form");
     popup.classList.add("person");
     const delHtml = `
-      <article>
-        <h2>Do you want to delete ${personToDelete.firstName} ${personToDelete.lastName}</h2>
+      <article class="deletion">
+        <h2>Do you want to delete ${personToDelete.firstName} ${personToDelete.lastName}?</h2>
         <div class="delBtn">
           <div class="yes">
           <button type="button" class="yesDel" name="yes">YES</button>
@@ -726,7 +733,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54447" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65217" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
