@@ -34,6 +34,7 @@
 .form, .deletion-wrapper {
 	display: flex;
 	flex-direction: column;
+    justify-content: center;
 	padding-top: 39px;
 	padding-left: 20px;
 	padding-right: 30px;
@@ -43,8 +44,7 @@
 }
 
 .wrapper, .deletion {
-	height: 70vh;
-    max-height: 728px;
+	height: 98vh;
     padding: 0;
     background-color: white;
     border-radius: 5px;
@@ -58,14 +58,15 @@
     overflow-y: auto;
 }
 
-.deletion {
-    max-height: 280px;
-}
-
+/* .deletion > * { */
+    /* margin: auto; */
+    /* width: 80%; */
+/* } */
 
 @media (min-width: 700px) {
-    .form {
+    .form, .deletion {
 		max-width: 80%;
+        height: 100%;
     	margin-left: auto;
     	padding-left: 0;
 	}
@@ -84,12 +85,11 @@
 
 	.wrapper {
 		width: 1079px;
-		margin-top: 50px;
+		margin-top: 30px;
 		margin-bottom: 150px;
-        margin-top: 140px;
 	}
 
-	.form {
+	.form, .deletion {
 		width: 75%;
 		padding-top: 0;
 		margin-left: 250px;
