@@ -1,5 +1,5 @@
 
-import { peps, result, main } from "./script.js";
+import { peps, result, main, updateResult } from "./script.js";
 import { displayPeopleBirthdayList } from "./display.js";
 
   //Local storage function
@@ -13,13 +13,13 @@ import { displayPeopleBirthdayList } from "./display.js";
 
     //check if the there's something inside the local storage
     if (lsItems) {
-     let result = lsItems;
+    updateResult(lsItems)
     main.dispatchEvent(new CustomEvent("itemUpdated"));
-     result;
+     
     } else {
       let response = await fetch(`${peps}`);
       let data = await response.json();
-      let result = [...data];
+      updateResult([...data])
       displayPeopleBirthdayList(result);
     }
     main.dispatchEvent(new CustomEvent("itemUpdated"));

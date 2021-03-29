@@ -148,7 +148,8 @@ function calculateDaysToBirthday(array) {
   const today = new Date();
   const oneDay = 24 * 60 * 60 * 1000;
   array.forEach(person => {
-    let daysBirth = new Date(person.birthday).toISOString().slice(4);
+    let daysBirth = new Date(person.birthday).toISOString().slice(4); // console.log("person.birthday", new Date(person.birthday));
+
     daysBirth = today.getFullYear() + daysBirth;
     const daysToBirthday = Math.round((new Date(daysBirth) - new Date(today)) / oneDay);
     person.daysToBirthday = daysToBirthday < 0 ? daysToBirthday + 365 : daysToBirthday;
@@ -310,16 +311,14 @@ async function restoreFromLocalStorage() {
   let lsItems = JSON.parse(localStorage.getItem("result")); //check if the there's something inside the local storage
 
   if (lsItems) {
-    let result = lsItems;
+    (0, _script.updateResult)(lsItems);
 
     _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
-
-    result;
   } else {
     let response = await fetch(`${_script.peps}`);
     let data = await response.json();
-    let result = [...data];
-    (0, _display.displayPeopleBirthdayList)(result);
+    (0, _script.updateResult)([...data]);
+    (0, _display.displayPeopleBirthdayList)(_script.result);
   }
 
   _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
@@ -364,9 +363,6 @@ function addListOfPeople(id) {
 
     _script.result.find(person => person.id !== id);
 
-    const closeFromX = document.createElement("button");
-    closeFromX.classList.add("closeButton");
-    closeFromX.textContent = "X";
     const addHtml = `
     <div class="wrapper">
       <div class="form">
@@ -379,13 +375,24 @@ function addListOfPeople(id) {
         <input type="date" max=${new Date().toISOString().slice(0, 10)} name="birthday" id="birthday"><br>
         <div class="buttons">
           <button type="submit addBtn" class="sub">Submit</button>
-          <button type="button" name="cancel" class="cancel">Cancel</button>
+          <button type="button" id="close-button-cancel" name="cancel" class="cancel">Cancel</button>
         </div>
       </div>
+      <button id="close-button-x" class="closeButton"><small>X</samll></button>
     </div>
   `; // main.insertAdjacentHTML("beforeend", addHtml)
 
     popup.innerHTML = addHtml;
+    const closeButtonX = popup.querySelector("#close-button-x");
+    const closeButtonCancel = popup.querySelector("#close-button-cancel");
+    closeButtonCancel.addEventListener("click", e => {
+      console.log("click on cancel");
+      (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
+    });
+    closeButtonX.addEventListener("click", e => {
+      console.log("click on cancel");
+      (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
+    });
     resolve();
     popup.addEventListener("submit", e => {
       e.preventDefault();
@@ -409,26 +416,17 @@ function addListOfPeople(id) {
 
       formEl.reset();
     });
+    resolve(document.body.appendChild(popup));
+    popup.classList.add("open");
 
-    if (popup.cancel) {
-      popup.cancel.addEventListener("click", function () {
-        resolve(null);
-        (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
-      }, {
-        once: true
-      });
-      resolve(document.body.appendChild(popup));
-      popup.classList.add("open");
-
-      _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
-    }
+    _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
 
     window.addEventListener("keyup", e => {
       if (e.key === "Escape") {
         popup.classList.remove("open");
       }
     });
-  });
+  }); // if(popup.closeButton)
 }
 },{"./script.js":"BirthdayApp/script.js","./display.js":"BirthdayApp/display.js","./destroy.js":"BirthdayApp/destroy.js"}],"BirthdayApp/edit.js":[function(require,module,exports) {
 "use strict";
@@ -451,11 +449,9 @@ function editPersonBirthday(id) {
   const personToEdit = _script.result.find(person => person.id == id);
 
   console.log(_script.result.find(person => person.id == id));
-  console.log(personToEdit);
   return new Promise(function (resolve) {
     const popup = document.createElement("form");
     popup.classList.add("person");
-    console.log(personToEdit.picture);
     const editHtml = `
     <div class="wrapper">
       <div class="form">
@@ -465,16 +461,24 @@ function editPersonBirthday(id) {
         <label>First name:</label>
         <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}"><br>
         <label>Birthday:</label>
-        <input type="text" name="birthday" id="birthday" value="${new Date().toLocaleDateString(personToEdit.birthday)}"><br>
+        <input type="text" name="birthday" id="birthday" value="${new Date(personToEdit.birthday).toLocaleDateString()}"><br>
         <div class="buttons">
           <button type="submit" class="add">Save changes</button>
-          <button type="button" name="cancel" class="cancel">Cancel</button>
+          <button id="close-button-cancel" type="button" name="cancel" class="cancel">Cancel</button>
         </div>
       </div>
-      <button class="closeButton cancel">X</button>
+      <button id="close-button-x" class="closeButton">X</button>
     </div>
   `;
     popup.insertAdjacentHTML("afterbegin", editHtml);
+    const closeButtonX = popup.querySelector("#close-button-x");
+    const closeButtonCancel = popup.querySelector("#close-button-cancel");
+    closeButtonCancel.addEventListener("click", e => {
+      (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
+    });
+    closeButtonX.addEventListener("click", e => {
+      (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
+    });
     popup.addEventListener("submit", e => {
       e.preventDefault();
       resolve(); // personToEdit.picture = popup.picture.value;
@@ -488,23 +492,13 @@ function editPersonBirthday(id) {
     }, {
       once: true
     });
-
-    if (popup.cancel) {
-      console.log("Cancel button is clicked");
-      popup.cancel.addEventListener("click", function () {
-        resolve(null);
-        (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
-      }, {
-        once: true
-      });
-      window.addEventListener("keyup", e => {
-        if (e.key === "Escape") {
-          popup.classList.remove("open");
-        }
-      });
-      resolve(document.body.appendChild(popup));
-      popup.classList.add("open");
-    }
+    window.addEventListener("keyup", e => {
+      if (e.key === "Escape") {
+        popup.classList.remove("open");
+      }
+    });
+    resolve(document.body.appendChild(popup));
+    popup.classList.add("open");
 
     _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
   });
@@ -525,35 +519,45 @@ var _script = require("./script.js");
 
 // function of deleting people
 function deletePersonBirthday(idItem) {
-  console.log("Delete button is clicked");
   return new Promise(function (resolve) {
     const personToDelete = _script.result.find(person => person.id == idItem);
 
+    console.log("person to delete", personToDelete);
     const popup = document.createElement("form");
     popup.classList.add("person");
     const delHtml = `
-      <article class="deletion">
+    <div class="deletion">
+      <article class="deletion-wrapper">
         <h2>Do you want to delete ${personToDelete.firstName} ${personToDelete.lastName}?</h2>
         <div class="delBtn">
           <div class="yes">
-          <button type="button" class="yesDel" name="yes">YES</button>
+          <button type="button" id="yes-delete" class="yes-delete" name="yes">YES</button>
           </div>
           <div>
           <button type="button" name="cancel" class="cancel">Cancel</button>
           </div>
         </div>
       </article>
+    </div>
       `;
-    popup.innerHTML = delHtml;
+    popup.innerHTML = delHtml; // const deleteList = popup.querySelector("#yes-delete");
+    // deleteList.addEventListener("click", () => {
+    // console.log("delete");
+    // const people = result.filter((person) => person.id !== idItem);
+    // displayList(people)
+    // })
+
     popup.addEventListener("click", e => {
       e.preventDefault();
 
-      if (e.target.matches("button.yesDel")) {
-        console.log("I am ready to delete this one");
+      if (e.target.matches("button.yes-delete")) {
+        console.log("id items", idItem);
 
-        const people = _script.result.filter(person => person.id != idItem);
+        const filteredPeople = _script.result.filter(person => person.id !== idItem);
 
-        (0, _display.displayList)(people);
+        console.log("I am ready to delete this one", filteredPeople);
+        (0, _script.updateResult)(filteredPeople);
+        (0, _display.displayList)(filteredPeople);
         (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
 
         _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
@@ -563,7 +567,6 @@ function deletePersonBirthday(idItem) {
     });
 
     if (popup.cancel) {
-      console.log("No I don't want to delete");
       popup.cancel.addEventListener("click", function () {
         resolve(null);
         (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
@@ -596,17 +599,13 @@ var _delete = require("./delete.js");
 
 //Handling all some of the click buttons
 const handleClick = e => {
-  localStorage.clear();
-
   if (e.target.closest("button.edit")) {
-    console.log("You are able to edit anything");
     const parent = e.target.closest("ul");
     const id = parent.dataset.id;
     (0, _edit.editPersonBirthday)(id);
   }
 
   if (e.target.closest("button.delete")) {
-    console.log("You are able to delete");
     const parent = e.target.closest("ul");
     const id = parent.dataset.id;
     (0, _delete.deletePersonBirthday)(id);
@@ -627,8 +626,6 @@ var _display = require("./display.js");
 var _script = require("./script.js");
 
 const filterBirthdayByNames = people => {
-  console.log("I am here");
-
   const checkInputName = _script.filterNameInput.value.toLowerCase();
 
   console.log(checkInputName);
@@ -662,6 +659,7 @@ exports.filterByNamesAndMonths = filterByNamesAndMonths;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.updateResult = updateResult;
 exports.fetchPeople = fetchPeople;
 exports.filterNameInput = exports.filterMonthInput = exports.addBtn = exports.main = exports.result = exports.peps = void 0;
 
@@ -688,6 +686,10 @@ const filterMonthInput = document.querySelector("#month");
 exports.filterMonthInput = filterMonthInput;
 let result = [];
 exports.result = result;
+
+function updateResult(newResult) {
+  exports.result = result = newResult;
+}
 
 async function fetchPeople() {
   let response = await fetch(peps);
@@ -733,7 +735,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65217" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50833" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

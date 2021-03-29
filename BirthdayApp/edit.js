@@ -9,13 +9,10 @@ function editPersonBirthday(id) {
 
   const personToEdit = result.find((person) => person.id == id);
   console.log(result.find((person) => person.id == id));
-  console.log(personToEdit);
 
   return new Promise(function (resolve) {
     const popup = document.createElement("form");
     popup.classList.add("person");
-
-    console.log(personToEdit.picture);
 
     const editHtml = `
     <div class="wrapper">
@@ -26,16 +23,28 @@ function editPersonBirthday(id) {
         <label>First name:</label>
         <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}"><br>
         <label>Birthday:</label>
-        <input type="text" name="birthday" id="birthday" value="${new Date().toLocaleDateString(personToEdit.birthday)}"><br>
+        <input type="text" name="birthday" id="birthday" value="${new Date(personToEdit.birthday).toLocaleDateString()}"><br>
         <div class="buttons">
           <button type="submit" class="add">Save changes</button>
-          <button type="button" name="cancel" class="cancel">Cancel</button>
+          <button id="close-button-cancel" type="button" name="cancel" class="cancel">Cancel</button>
         </div>
       </div>
-      <button class="closeButton cancel">X</button>
+      <button id="close-button-x" class="closeButton">X</button>
     </div>
   `;
     popup.insertAdjacentHTML("afterbegin", editHtml);
+
+    const closeButtonX = popup.querySelector("#close-button-x");
+    const closeButtonCancel = popup.querySelector("#close-button-cancel");
+
+    closeButtonCancel.addEventListener("click", (e) => {
+      destroyModalEditDeleteOrCancel(popup);
+    })
+
+    closeButtonX.addEventListener("click", (e) => {
+      destroyModalEditDeleteOrCancel(popup);
+    })
+
 
     popup.addEventListener(
       "submit",
@@ -55,17 +64,6 @@ function editPersonBirthday(id) {
       { once: true }
     );
 
-    if (popup.cancel) {
-      console.log("Cancel button is clicked");
-      popup.cancel.addEventListener(
-        "click",
-        function () {
-          resolve(null);
-          destroyModalEditDeleteOrCancel(popup);
-        },
-        { once: true }
-      );
-
       window.addEventListener("keyup", (e) => {
         if (e.key === "Escape") {
           popup.classList.remove("open");
@@ -74,7 +72,6 @@ function editPersonBirthday(id) {
 
       resolve(document.body.appendChild(popup));
       popup.classList.add("open");
-    }
     main.dispatchEvent(new CustomEvent("itemUpdated"));
   });
 }

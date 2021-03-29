@@ -10,10 +10,6 @@ function addListOfPeople(id) {
     const popup = document.createElement("form");
     popup.classList.add("person");
     result.find((person) => person.id !== id);
-
-    const closeFromX = document.createElement("button");
-    closeFromX.classList.add("closeButton");
-    closeFromX.textContent = "X"
     
     const addHtml = `
     <div class="wrapper">
@@ -27,14 +23,31 @@ function addListOfPeople(id) {
         <input type="date" max=${new Date().toISOString().slice(0, 10)} name="birthday" id="birthday"><br>
         <div class="buttons">
           <button type="submit addBtn" class="sub">Submit</button>
-          <button type="button" name="cancel" class="cancel">Cancel</button>
+          <button type="button" id="close-button-cancel" name="cancel" class="cancel">Cancel</button>
         </div>
       </div>
+      <button id="close-button-x" class="closeButton"><small>X</samll></button>
     </div>
   `;
     // main.insertAdjacentHTML("beforeend", addHtml)
     popup.innerHTML = addHtml;
+
+    const closeButtonX = popup.querySelector("#close-button-x");
+    const closeButtonCancel = popup.querySelector("#close-button-cancel");
+
+    closeButtonCancel.addEventListener("click", (e) => {
+      console.log("click on cancel");
+      destroyModalEditDeleteOrCancel(popup);
+    })
+
+    closeButtonX.addEventListener("click", (e) => {
+      console.log("click on cancel");
+      destroyModalEditDeleteOrCancel(popup);
+    })
+
     resolve();
+
+
 
     popup.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -58,20 +71,9 @@ function addListOfPeople(id) {
       formEl.reset();
     });
 
-    if (popup.cancel) {
-      popup.cancel.addEventListener(
-        "click",
-        function () {
-          resolve(null);
-          destroyModalEditDeleteOrCancel(popup);
-        },
-        { once: true }
-      );
-
       resolve(document.body.appendChild(popup));
       popup.classList.add("open");
       main.dispatchEvent(new CustomEvent("itemUpdated"));
-    }
 
     window.addEventListener("keyup", (e) => {
       if (e.key === "Escape") {
@@ -79,6 +81,8 @@ function addListOfPeople(id) {
       }
     });
   });
+
+  // if(popup.closeButton)
 }
 
 export { addListOfPeople };

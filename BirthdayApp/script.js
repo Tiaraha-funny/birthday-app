@@ -19,6 +19,10 @@ const filterMonthInput = document.querySelector("#month");
 
 let result = [];
 
+export function updateResult(newResult) {
+  result = newResult
+}
+
 async function fetchPeople() {
   let response = await fetch(peps);
   let data = await response.json();

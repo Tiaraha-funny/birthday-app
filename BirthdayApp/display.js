@@ -9,6 +9,7 @@ function calculateDaysToBirthday(array) {
 
   array.forEach((person) => {
     let daysBirth = new Date(person.birthday).toISOString().slice(4);
+    // console.log("person.birthday", new Date(person.birthday));
     daysBirth = today.getFullYear() + daysBirth;
     const daysToBirthday = Math.round(
       (new Date(daysBirth) - new Date(today)) / oneDay

@@ -1,0 +1,58 @@
+.cancel {
+	border: solid #5F6C7B 1px;
+}
+
+.yes-delete {
+	background-color: #EF4565;
+	color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.delBtn {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+} 
+
+.yes {
+    margin-right: 30px;
+    margin-inline-start: 40px;
+}
+
+.closeButton {
+	background-color: transparent;
+	position: absolute;
+    top: 27px;
+    right: 40px;
+    padding: 0;
+    margin: 0;
+    width: auto;
+	border: none;
+}
+
+.closeButton:focus {
+    border: 2px solid #094067;
+}
+
+.closeButton > small {
+    font-weight: 100;
+    font-size: 30px;
+    width: 20px;
+    height: 20px;
+    color: #094067;
+}
+
+@media (min-width: 700px) {
+    .buttons {
+		margin-block-start:20px;
+		justify-content: flex-start;
+	}
+
+	.cancel, .yes-delete {
+		width: 150px;
+	}
+    .sub {
+		width: 110px;
+	}
+
+}
