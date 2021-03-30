@@ -19,7 +19,7 @@ You can see the design [here](https://birthday-app-petah.netlify.app)
 
 
 ### **Structure**
-In this project, I create a birthday application with pure vanilla Javascript. This app will show us whose person is the closest to have their birthday. These are the steps that I did:
+In this project, I created a birthday application with pure vanilla Javascript. This app shows us whose person is the closest to have their birthday. These are the steps how I built it:
 
 1- I created a fetch function to fetch all the people's birthday from the people.json file by using an async function.
 
