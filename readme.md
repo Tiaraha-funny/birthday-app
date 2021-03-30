@@ -1,53 +1,63 @@
-# Term 3 JS Project : Birthday App
+#  **Birthday App Project**
 
-## Structure
-In this project, I create birthday lists. The app will show us whose person is the closest to have their birthday. These are the steps that I did: 
-    
-1- I create a fetch function to fetch all the people in people.js file by using an async function.
+## Design 
 
-2- I display it in one function to set it in an html and push the list of people in that html.
+You can see the design [here](https://birthday-app-petah.netlify.app)
 
-3- I create an add function to handle the adding lists so that the users can add the list of people's birthday.
+## **Feature**
+1- The first site
+![birthday app](./birthday-app.png)
 
-4- To handle the two buttons edit and delete, I create two functions within html each followed by form in a modal. So when you click the button the form will appear and you can choose whether you are sure to delete or to cancel it.
+2- After clicking the add someone button
+![add someone](./birthday-add-list.png)
 
-5- The destroy function is to handle the break when the needs is done or finished.
+3- When you click on the edit button
+![edit button](./birthday-edit-list.png)
 
-6- I have local storage function to save all the lists in the browser.
-
-## Need to improve
-
-I have a lot to improve from this project:
-
- - To access the npm of date
-- To use the bootstrap style
-- To delete and edit the added person from the users
-- To import and export file without errors
-
-## Something to learn
-
-- I learned how to count date in a function. 
-- How to fetch date from an API
-
-## Most challenge
-The most challege that I faced and not solve till now is 
-- Deleting and editing the added person that adds from the users.
-- Refactoring the codes. I struggle to get the result variable works properly. It throws an error that needs to use "let" instead of "const" but it didn't change when I changed it.
-
-## More explaination
-I need more explanaition on how to import and export variable inside a function.
+4- After clicking the delete button
+![delete list](./birthday-delete-list.png)
 
 
-### Built With
+### **Structure**
+In this project, I create a birthday application with pure vanilla Javascript. This app will show us whose person is the closest to have their birthday. These are the steps that I did:
 
--   [React](https://reactjs.org/)
+1- I created a fetch function to fetch all the people's birthday from the people.json file by using an async function.
 
-## Features
+2- I pushed the lists of the people and displayed it in one function.
 
-<!-- List the features of your application or follow the template. Don't share the figma file 
-here :) -->
+3- I created an add function to handle the adding lists so that the users can add the list of people's birthday.
 
-## How To Use
+4- To handle the two buttons edit and delete, I created two functions within html each followed by form in a modal. So when you click on the buttons, the form will appear and you can choose whether you are sure to delete and to edit or to cancel it.
+
+5- The destroy function is to handle the break when any clicking actions are finished.
+
+6- I have local storage function to store all the lists in the browser.
+
+### **Something I learned**
+
+- I learned how to count people birthday from they born till today and the next birthday in Javascript. 
+- I learned how to search a list by names and search the list by the month at the same time using filter.
+
+### **Most challenge**
+
+The most challege that I faced were:
+- Counting the birth date by Javasript
+- Deleting and editing the added person that is added by the users and storing them in the local storage.
+- Refactoring the codes. I struggled to get the result variable works properly. It threw an error that needs to use "let" instead of "const".
+
+
+### **More improvement needed**
+
+- To access the npm of date like using <a>date.fns</a>
+- To use the css framework like <a>bootstrap</a>
+- The use of <a>BEM</a>
+
+
+## **Built With**
+
+-   [Vanilla Javascript](https://vanilla.js.org/)
+
+## **How To Use**
 
 <!-- Example: -->
 
@@ -66,7 +76,7 @@ $ npm install
 $ npm start
 ```
 
-## Contact
+## **Contact**
 
 -   Website [my-website.com](https://birthday-app-petah.netlify.app)
 -   GitHub [@mygithub-account](https://github.com/Tiaraha-funny/birthday-app)

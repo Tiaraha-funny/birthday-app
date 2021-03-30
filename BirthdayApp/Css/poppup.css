@@ -15,7 +15,7 @@
 }
 
 
-.form, .deletion {
+.form {
     margin: auto;
     width: 60%;
     padding-right: 20px;
@@ -43,7 +43,7 @@
 
 }
 
-.wrapper, .deletion {
+.wrapper {
 	height: 98vh;
     padding: 0;
     background-color: white;
@@ -54,17 +54,31 @@
 	position: relative;
 }
 
+.deletion {
+    height: 60vh;
+    background-color: white;
+    transition: all 0.5s;
+    overflow-y: hidden;
+}
+
+.deletion h2 {
+	margin-top: 0;
+	padding-top: 50px;
+	padding-left: 40px;
+}
+
+
 .wrapper:hover, .deletion:hover, .wrapper:focus, .deletion:focus {
     overflow-y: auto;
 }
 
-/* .deletion > * { */
-    /* margin: auto; */
-    /* width: 80%; */
-/* } */
+.deletion > * {
+    margin: auto;
+    width: 80%;
+}
 
 @media (min-width: 700px) {
-    .form, .deletion {
+    .form {
 		max-width: 80%;
         height: 100%;
     	margin-left: auto;
@@ -89,7 +103,7 @@
 		margin-bottom: 150px;
 	}
 
-	.form, .deletion {
+	.form {
 		width: 75%;
 		padding-top: 0;
 		margin-left: 250px;
@@ -102,10 +116,10 @@
         padding-inline-end: 210px;
     }    
 
-    .deletion-wrapper {
-        padding: 0;
-        padding-inline-start: 50px;
-    }
+    /* .deletion-wrapper { */
+        /* padding: 0; */
+        /* padding-inline-start: 50px; */
+    /* } */
 
 }
 
