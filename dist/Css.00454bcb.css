@@ -2,7 +2,7 @@
     font-family: 'Rubik';
     src: url('/Rubik-LightItalic.936348e9.woff2') format('woff2'),
         url('/Rubik-LightItalic.062d662f.woff') format('woff');
-    font-weight: 300;
+    font-weight: 500;
     font-style: italic;
     font-display: swap;
 }
@@ -20,7 +20,7 @@
     font-family: 'Rubik';
     src: url('/Rubik-Light.6922ee43.woff2') format('woff2'),
         url('/Rubik-Light.aeac0e4d.woff') format('woff');
-    font-weight: 300;
+    font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
@@ -52,6 +52,7 @@ ul {
 	margin-bottom: 34px;
 	flex-wrap: wrap;
 	line-height: 45px;
+	max-width: 823px;
 }
 
 li {
@@ -88,23 +89,55 @@ script ~ form {
 
 input {
 	padding: 10px;
-	font-size: 1rem;
 	border-radius: 8px;
 	border: none;
 	width: 92%;
 	margin-top: 13px;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 21px;
+	color: #5F6C7B;
+}
 
+.select {
+	height: 60px;
+	width: 100%;
+	margin-top: 13px;
+	background-color: #ffffff;
+	border-radius: 5px;
 }
 
 select {
-	color: #a5a2a2;
-	font-size: 20px;
-	font-weight: 500;
-	padding: 10px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+	padding: 16px;
+	height: 100%;
 	border-radius: 5px;
-	width: 100%;
-	margin-top: 13px;
+
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 21px;
+	color: #5F6C7B;
 }
+
+.select-wrapper {
+	position: relative;
+	margin-block-start: 30px;
+    margin-block-end: 20px;
+}
+
+.select::after {
+	content: url(/arrow.c72be41e.svg);
+	display: block;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 54px;
+    right: 40px;
+}
+
 h1 > svg {
 	width: 10%;
 }
@@ -143,14 +176,12 @@ button {
     	height: 35px;
 	}
 
-	select {
-		width: 300px;
-		padding: 16px;
-		height: 60px;
-	}
-
 	li:nth-of-type(2) {
 		margin-right: 20px;
+	}
+
+	.select {
+		width: 300px;
 	}
 
 }
@@ -188,8 +219,8 @@ button {
 	text-align: center;
 }
 
-.filter_birthday p span {
-	font-weight: 500;
+.filter_birthday div span {
+	font-weight: 600;
 	font-size: 18px;
 	line-height: 21px;
 	color: #094067;
@@ -268,10 +299,12 @@ button.filterbtn {
 
 #name {
 	padding: 12px;
+	height: 40px;
 }
 
 .filterMonth {
 	border: none;
+	width: 100%;
 }
 
 
@@ -305,7 +338,7 @@ button.filterbtn {
 		padding: 18px;
 		padding-left: 27px;
 		padding-right: 27px;
-    	margin-bottom: 5px;
+    	margin-bottom: -24px;
 	}
 
 	.rounded-circle {

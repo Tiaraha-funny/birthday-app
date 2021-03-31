@@ -194,7 +194,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"BirthdayApp/Css/birthday.css":[function(require,module,exports) {
+},{"./..\\icons-SVGs\\arrow.svg":[["arrow.c72be41e.svg","BirthdayApp/icons-SVGs/arrow.svg"],"BirthdayApp/icons-SVGs/arrow.svg"],"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"BirthdayApp/Css/birthday.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -237,7 +237,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50113" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58860" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

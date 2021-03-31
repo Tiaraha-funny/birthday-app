@@ -11,8 +11,8 @@
 	text-align: center;
 }
 
-.filter_birthday p span {
-	font-weight: 700;
+.filter_birthday div span {
+	font-weight: 600;
 	font-size: 18px;
 	line-height: 21px;
 	color: #094067;
@@ -91,10 +91,12 @@ button.filterbtn {
 
 #name {
 	padding: 12px;
+	height: 40px;
 }
 
 .filterMonth {
 	border: none;
+	width: 100%;
 }
 
 
@@ -128,7 +130,7 @@ button.filterbtn {
 		padding: 18px;
 		padding-left: 27px;
 		padding-right: 27px;
-    	margin-bottom: 5px;
+    	margin-bottom: -24px;
 	}
 
 	.rounded-circle {
