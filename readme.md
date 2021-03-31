@@ -13,11 +13,11 @@ You can see the design [here](https://birthday-app-petah.netlify.app)
 4- After clicking the delete button
 ![delete list](./birthday-delete-list.png)
 ### **Structure**
-In this project, I create a birthday application with pure vanilla Javascript. This app will show us whose person is the closest to have their birthday. These are the steps that I did:
-1- Fetch all the people's birthday if localstorage is empty.
-2- Display sorted list of people.
-4- Handle the two buttons edit and delete (forms in a modal).
-6- Use local storage to store edited lists in the browser.
+In this project, I created a birthday application with pure vanilla Javascript. This app shows us whose person is the closest to have their birthday. These are the steps that I did:
+- Fetch all the people's birthday if localstorage is empty.
+- Display sorted list of people.
+- Handle the two buttons edit and delete (forms in a modal).
+- Use local storage to store edited lists in the browser.
 ### **Something I learned**
 - Manipulating DOM with JS
 - Dynamically filtering list of people by name and date of birth at the same time
