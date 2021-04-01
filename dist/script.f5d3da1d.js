@@ -467,7 +467,7 @@ function editPersonBirthday(id) {
           <button id="close-button-cancel" type="button" name="cancel" class="cancel">Cancel</button>
         </div>
       </div>
-      <button id="close-button-x" class="closeButton">X</button>
+      <button id="close-button-x" class="closeButton"><small>X</small></button>
     </div>
   `;
     popup.insertAdjacentHTML("afterbegin", editHtml);
@@ -735,7 +735,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64275" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50131" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

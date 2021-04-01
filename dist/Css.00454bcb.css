@@ -445,7 +445,6 @@ button {
 .deletion h2 {
 	margin-top: 0;
 	padding-top: 50px;
-	/* padding-left: 40px; */
 }
 
 
@@ -486,7 +485,7 @@ button {
 
 	.form {
 		width: 75%;
-		padding-top: 0;
+        height: initial;
 		margin-left: 250px;
 		padding-right: 0;
 		padding-left: 0;
@@ -495,12 +494,11 @@ button {
     .person {
         padding-inline-start: 210px;
         padding-inline-end: 210px;
-    }    
+    }
 
-    /* .deletion-wrapper { */
-        /* padding: 0; */
-        /* padding-inline-start: 50px; */
-    /* } */
+    .wrapper:hover, .deletion:hover, .wrapper:focus, .deletion:focus {
+        overflow-y: unset;
+    }    
 
 }
 

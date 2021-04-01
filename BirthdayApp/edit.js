@@ -29,7 +29,7 @@ function editPersonBirthday(id) {
           <button id="close-button-cancel" type="button" name="cancel" class="cancel">Cancel</button>
         </div>
       </div>
-      <button id="close-button-x" class="closeButton">X</button>
+      <button id="close-button-x" class="closeButton"><small>X</small></button>
     </div>
   `;
     popup.insertAdjacentHTML("afterbegin", editHtml);
