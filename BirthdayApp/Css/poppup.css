@@ -59,12 +59,13 @@
     background-color: white;
     transition: all 0.5s;
     overflow-y: hidden;
+    width: fit-content;
 }
 
 .deletion h2 {
 	margin-top: 0;
 	padding-top: 50px;
-	padding-left: 40px;
+	/* padding-left: 40px; */
 }
 
 

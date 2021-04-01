@@ -169,6 +169,7 @@ button {
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+		max-width: inherit;
 	}
 
 	input {
@@ -216,6 +217,7 @@ button {
 	outline: none;
 	width: 55%;
 	color: #ffffff;
+	height: 60px;
 	text-align: center;
 }
 
@@ -281,7 +283,6 @@ button {
 .person.open {
 	opacity: 1;
 	pointer-events: all;
-
 }
 
 .container {
@@ -289,7 +290,7 @@ button {
     border-radius: 5px;
 }
   
-button.filterbtn {
+.filterbtn {
 	margin-right: 0px;
 }
 
@@ -299,7 +300,7 @@ button.filterbtn {
 
 #name {
 	padding: 12px;
-	height: 40px;
+	height: 36px;
 }
 
 .filterMonth {
@@ -338,7 +339,8 @@ button.filterbtn {
 		padding: 18px;
 		padding-left: 27px;
 		padding-right: 27px;
-    	margin-bottom: -24px;
+		margin-top: auto;
+    	margin-bottom: 19px;
 	}
 
 	.rounded-circle {
@@ -366,6 +368,13 @@ button.filterbtn {
 
 	.filter_birthday p  {
 		margin-bottom: 40px;
+	}
+	.select-wrapper {
+		margin-block-end: 28px;
+	}
+
+	.main button {
+		margin-block-end: 29px;
 	}
 
 }
@@ -430,12 +439,13 @@ button.filterbtn {
     background-color: white;
     transition: all 0.5s;
     overflow-y: hidden;
+    width: fit-content;
 }
 
 .deletion h2 {
 	margin-top: 0;
 	padding-top: 50px;
-	padding-left: 40px;
+	/* padding-left: 40px; */
 }
 
 
@@ -552,6 +562,7 @@ button.filterbtn {
 		width: 110px;
 	}
 
+	
 }
 
 /*# sourceMappingURL=/Css.00454bcb.css.map */
