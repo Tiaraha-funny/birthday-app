@@ -1,9 +1,10 @@
-import { result, main } from "./script.js";
-import { editSvg, deleteSvg, cakeSvg } from "./icons-SVGs/svg.js";
+import { result, main, updateResult } from "./script.js";
+import { editSvg, deleteSvg } from "./icons-SVGs/svg.js";
 
 // Maping all the people in the list from the fetch function
 
 function calculateDaysToBirthday(array) {
+  updateResult(array)
   const today = new Date();
   const oneDay = 24 * 60 * 60 * 1000;
 
@@ -144,9 +145,7 @@ const htmlGenerator = (array) => {
 
 function displayList(array) {
   calculateDaysToBirthday(array);
-  const sortedArray = array.sort(
-    (personA, personB) => personA.daysToBirthday - personB.daysToBirthday
-  );
+  const sortedArray = array.sort((personA, personB) => personA.daysToBirthday - personB.daysToBirthday);
   const html = htmlGenerator(sortedArray);
   main.innerHTML = html;
 }

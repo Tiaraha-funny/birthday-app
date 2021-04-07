@@ -19,11 +19,6 @@
 	color: #094067;
 }
 
-.buttons {
-	display: flex;
-	flex-direction: row;
-    justify-content: flex-end;
-}
 
 .span {
 	color: #5F6C7B;
@@ -40,11 +35,6 @@
 	margin-right: 5px;
 }
 
-
-.buttons {
-	margin-top: 1rem;
-}
-
 .buttons .add {
 	background-color: #EF4565;
 	display: flex;
@@ -56,24 +46,15 @@
 	color: #ffffff;
 }
 
-.buttons .sub {
-	border: 1px solid  #5F6C7B;
-	background-color: #EF4565;
-	color: #ffffff;
-	margin-right: 20px;
+.red-name {
+	color: #EF4565;
 }
-
 
 .save {
 	background-color: #0000ff;		
 }
 .save:hover {
 	background-color: #ffc6c7;
-}
-
-.person.open {
-	opacity: 1;
-	pointer-events: all;
 }
 
 .container {
@@ -103,8 +84,6 @@
 .headings {
 	align-items: center;
 }
-
-
 
 .names {
 	margin: 0;

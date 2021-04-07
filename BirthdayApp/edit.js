@@ -1,4 +1,4 @@
-import { result, main } from "./script.js";
+import { result, main, body } from "./script.js";
 import { displayList } from "./display.js";
 import { destroyModalEditDeleteOrCancel } from "./destroy.js";
 
@@ -13,16 +13,17 @@ function editPersonBirthday(id) {
   return new Promise(function (resolve) {
     const popup = document.createElement("form");
     popup.classList.add("person");
+    body.style.overflow="hidden";
 
     const editHtml = `
     <div class="wrapper">
       <div class="form">
         <h2>Edit ${personToEdit.lastName} ${personToEdit.firstName}</h2>
-        <label>Last Name:</label>
+        <label>Last Name:</label><br>
         <input type="text" name="lastName" id="lastname" value="${personToEdit.lastName}"><br>
-        <label>First name:</label>
+        <label>First name:</label><br>
         <input type="text" name="firstName" id="firstname" value="${personToEdit.firstName}"><br>
-        <label>Birthday:</label>
+        <label>Birthday:</label><br>
         <input type="text" name="birthday" id="birthday" value="${new Date(personToEdit.birthday).toLocaleDateString()}"><br>
         <div class="buttons">
           <button type="submit" class="add">Save changes</button>
@@ -38,10 +39,12 @@ function editPersonBirthday(id) {
     const closeButtonCancel = popup.querySelector("#close-button-cancel");
 
     closeButtonCancel.addEventListener("click", (e) => {
+      body.style.overflow="unset";
       destroyModalEditDeleteOrCancel(popup);
     })
 
     closeButtonX.addEventListener("click", (e) => {
+      body.style.overflow="unset";
       destroyModalEditDeleteOrCancel(popup);
     })
 
@@ -59,6 +62,7 @@ function editPersonBirthday(id) {
 
         resolve(e.currentTarget.remove());
         displayList(result);
+        body.style.overflow="unset";
         destroyModalEditDeleteOrCancel(popup);
       },
       { once: true }
@@ -72,7 +76,7 @@ function editPersonBirthday(id) {
 
       resolve(document.body.appendChild(popup));
       popup.classList.add("open");
-    main.dispatchEvent(new CustomEvent("itemUpdated"));
+      main.dispatchEvent(new CustomEvent("itemUpdated"));
   });
 }
 

@@ -2,6 +2,7 @@ import { displayList } from "./display.js";
 import { result, filterNameInput, filterMonthInput } from "./script.js";
 
 const filterBirthdayByNames = (people) => {
+    console.log("I am here");
     const checkInputName = filterNameInput.value.toLowerCase();
     console.log(checkInputName);
     const filterInputName = people.filter(

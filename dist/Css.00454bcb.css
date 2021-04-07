@@ -27,8 +27,6 @@
 body {
 	font-family: "Rubik";
 	background-color: #D8EEFE;
-	width: 80%;
-	margin: auto;
 }
 
 h1 {
@@ -52,7 +50,7 @@ ul {
 	margin-bottom: 34px;
 	flex-wrap: wrap;
 	line-height: 45px;
-	max-width: 823px;
+	/* max-width: 823px; */
 }
 
 li {
@@ -63,13 +61,13 @@ li:nth-of-type(2) {
 	display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: center;
 }
 
 b {
 	font-size: 36px;
 	color: #000000;
 	font-family: "Rubik";
+	overflow-wrap: anywhere;
 }
 
 li > img {
@@ -83,16 +81,13 @@ form label {
 	font-weight: 600;
 }
 
-script ~ form {
-    max-width: 1079px;
-}
-
 input {
 	padding: 10px;
 	border-radius: 8px;
 	border: none;
 	width: 92%;
 	margin-top: 13px;
+	margin-bottom: -13px;
 	font-weight: 500;
 	font-size: 18px;
 	line-height: 21px;
@@ -161,15 +156,24 @@ button {
 }
 
 @media (min-width: 700px) {
+	main, .headings, .main {
+		width: 70%;
+		margin: auto;
+	}
+
 	li:nth-of-type(1) {
 		display: flex;
 	}
 	ul {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		max-width: inherit;
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+	flex-wrap: nowrap;
+    /* max-width: inherit; */
+	}
+
+	li .buttons {
+		flex-wrap: nowrap;
 	}
 
 	input {
@@ -185,13 +189,19 @@ button {
 		width: 300px;
 	}
 
+	h1 {
+		padding-top: 10px;
+		font-size: 54px;
+	}
+
 }
 
 @media(min-width: 1440px) {
-	body > * {
+	main, .headings, .main {
 		width: 70%;
 		margin: auto;
 	}
+
 	h1 {
 		padding-top: 10px;
 		font-size: 64px;
@@ -206,7 +216,16 @@ button {
 	.delete {
 		padding: 0;
 	}
+
+	ul {
+		height: 139px;
+	}
+
+	input {
+		margin-bottom: auto;
+	}
 }
+
 .main button {
 	background-color: #EF4565;
 	border: none;
@@ -228,11 +247,6 @@ button {
 	color: #094067;
 }
 
-.buttons {
-	display: flex;
-	flex-direction: row;
-    justify-content: flex-end;
-}
 
 .span {
 	color: #5F6C7B;
@@ -249,11 +263,6 @@ button {
 	margin-right: 5px;
 }
 
-
-.buttons {
-	margin-top: 1rem;
-}
-
 .buttons .add {
 	background-color: #EF4565;
 	display: flex;
@@ -265,24 +274,15 @@ button {
 	color: #ffffff;
 }
 
-.buttons .sub {
-	border: 1px solid  #5F6C7B;
-	background-color: #EF4565;
-	color: #ffffff;
-	margin-right: 20px;
+.red-name {
+	color: #EF4565;
 }
-
 
 .save {
 	background-color: #0000ff;		
 }
 .save:hover {
 	background-color: #ffc6c7;
-}
-
-.person.open {
-	opacity: 1;
-	pointer-events: all;
 }
 
 .container {
@@ -312,8 +312,6 @@ button {
 .headings {
 	align-items: center;
 }
-
-
 
 .names {
 	margin: 0;
@@ -386,32 +384,66 @@ button {
     top: 0;
 	right: 0;
     left: 0;
+    bottom: 0;
     display: grid;
     align-items: center;
-    pointer-events: none;
-    opacity: 0;
+    justify-content: center;
     transition: all .5s;
     line-height: 28px;
+    opacity: 0;
+	pointer-events: none;
 }
 
-
-.form {
-    margin: auto;
-    width: 60%;
-    padding-right: 20px;
-    padding-left: 20px;
-    margin-block-start: 20px;
-    padding-bottom: 10px;
+.open {
+    opacity: 1;
+	pointer-events: all;
 }
 
 .form input {
-	background-color: #D8EEFE;
-	border-radius: 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;	
+    background-color: #D8EEFE;
+    border-radius: 5px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    height: 36px;
 }
 
-.form, .deletion-wrapper {
+.form {
+    max-width: 1079px;
+}
+
+.add-form {
+    background-color: white;
+    margin: auto;
+    height: 500px;
+    width: 70%;
+    overflow-y: hidden;
+    position: relative;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    padding-left: 35px;
+    padding-right: 35px;
+    line-height: 40px;
+    border-radius: 5px;
+}
+
+.wrapper {
+    background-color: white;
+    margin: auto;
+    height: 500px;
+    width: 300px;
+    overflow-y: hidden;
+    position: relative;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    padding-left: 30px;
+    padding-right: 30px;
+    line-height: 40px;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+
+.deletion-wrapper {
 	display: flex;
 	flex-direction: column;
     justify-content: center;
@@ -420,19 +452,8 @@ button {
 	padding-right: 30px;
 	padding-bottom: 129px;
 	line-height: normal;
-
 }
 
-.wrapper {
-	height: 98vh;
-    padding: 0;
-    background-color: white;
-    border-radius: 5px;
-    transition: all 0.5s;
-    margin: auto;
-    overflow-y: hidden;
-	position: relative;
-}
 
 .deletion {
     height: 60vh;
@@ -440,15 +461,17 @@ button {
     transition: all 0.5s;
     overflow-y: hidden;
     width: fit-content;
+    text-align: center;
 }
 
 .deletion h2 {
 	margin-top: 0;
 	padding-top: 50px;
+    text-align: center;
 }
 
 
-.wrapper:hover, .deletion:hover, .wrapper:focus, .deletion:focus {
+.wrapper:hover, .deletion:hover, .wrapper:focus, .deletion:focus, .add-form:hover, .add-form:focus {
     overflow-y: auto;
 }
 
@@ -457,48 +480,104 @@ button {
     width: 80%;
 }
 
-@media (min-width: 700px) {
-    .form {
-		max-width: 80%;
-        height: 100%;
-    	margin-left: auto;
-    	padding-left: 0;
-	}
-	.form input {
-		margin-top: -2px;
-	}
 
-    .person {
-        padding-inline-start: 100px;
-        padding-inline-end: 100px;
+@media (min-width: 700px) {
+    .add-form {
+    width: 100%;
+    height: 500px;
+    padding-top: 63px;
+    padding-bottom: 100px;
+    margin-block-start: 127px;
     }
 
+    form label {
+        line-height: 50px;
+    }
+
+    .wrapper {
+    width: 700px;
+    padding: 0;
+    }
+
+    .wrapper .form  {
+        width: 500px;
+        margin: auto;
+    }
+
+    .wrapper > .form h2 {
+        width: fit-content;
+        /* margin-left: -110px; */
+        font-size: 35px;
+        }
+
+}
+
+@media (min-width: 900px) {
+.wrapper {
+    width: 900px;
+    margin-block-start: 144px;
+    margin-bottom: 150px;
+
+}
+
+    .wrapper > .form h2 {
+    width: fit-content;
+    padding: 0;
+    padding-left: 17%;
+    margin-left: -75px;
+    padding-inline-end: 30px;
+    font-size: 45px;
+    }
+
+    .wrapper .form {
+        padding-block-start: 78px;
+    }
 }
 
 @media (min-width: 1440px) {
 
+    .add-form {
+    height: 600px;
+    width: 1079px;
+    padding-block-start: 100px;
+    margin-block-start: 144px;
+    }
+
+    .add-form > * {
+        width: 60%;
+        margin: auto;
+        line-height: initial;
+    }
+
+
 	.wrapper {
+        padding: 0;
+        margin: 0;
 		width: 1079px;
-		margin-top: 30px;
+        height: 600px;
+        margin-block-start: 144px;
 		margin-bottom: 150px;
 	}
 
-	.form {
-		width: 75%;
-        height: initial;
-		margin-left: 250px;
-		padding-right: 0;
-		padding-left: 0;
-	}
-
-    .person {
-        padding-inline-start: 210px;
-        padding-inline-end: 210px;
+    .add-form label, .add-form input, .add-form .buttons {
+        margin-inline-start: 20%;
     }
 
-    .wrapper:hover, .deletion:hover, .wrapper:focus, .deletion:focus {
-        overflow-y: unset;
-    }    
+    .add-form input {
+        width: 30%;
+    }
+
+    .wrapper > * {
+        width: 60%;
+        margin: auto;
+        line-height: initial;
+    }
+
+    .wrapper > .form h2 {
+        width: fit-content;
+        margin-left: -87px;
+        font-size: 45px;
+        }
 
 }
 
@@ -511,6 +590,7 @@ button {
 	background-color: #EF4565;
 	color: #ffffff;
     margin-bottom: 20px;
+	height: 49px;
 }
 
 .delBtn {
@@ -547,9 +627,29 @@ button {
     color: #094067;
 }
 
+.buttons {
+	display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+	flex-wrap: wrap;
+	margin: 0;
+    margin-top: 3rem;
+}
+
+.buttons .sub {
+	border: 1px solid  #5F6C7B;
+	background-color: #EF4565;
+	color: #ffffff;
+	margin-right: 20px;
+	outline: none;
+	border: none;
+}
+
+
 @media (min-width: 700px) {
     .buttons {
-		margin-block-start:20px;
+		margin-block-start: 40px;
+		margin-block-end: 40px;
 		justify-content: flex-start;
 	}
 
@@ -558,9 +658,28 @@ button {
 	}
     .sub {
 		width: 110px;
+	}	
+
+	.form > .buttons {
+	flex-wrap: nowrap;
+	width: max-content;
+	}
+}
+
+@media(min-width: 1440px) {
+	.buttons {
+		padding-block-end: 200px;
 	}
 
-	
+	.sub, .cancel {
+		width: 158px;
+    	height: 50px;
+	}
+
+	.delBtn {
+		margin: auto;
+	}
+
 }
 
 /*# sourceMappingURL=/Css.00454bcb.css.map */

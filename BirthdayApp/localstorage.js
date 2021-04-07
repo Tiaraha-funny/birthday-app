@@ -1,6 +1,5 @@
-
 import { peps, result, main, updateResult } from "./script.js";
-import { displayPeopleBirthdayList } from "./display.js";
+import { displayList } from "./display.js";
 
   //Local storage function
 
@@ -10,17 +9,16 @@ import { displayPeopleBirthdayList } from "./display.js";
 
   async function restoreFromLocalStorage() {
     let lsItems = JSON.parse(localStorage.getItem("result"));
-
+    // updateResult(lsItems)
     //check if the there's something inside the local storage
     if (lsItems) {
-    updateResult(lsItems)
     main.dispatchEvent(new CustomEvent("itemUpdated"));
      
     } else {
       let response = await fetch(`${peps}`);
       let data = await response.json();
-      updateResult([...data])
-      displayPeopleBirthdayList(result);
+      displayList([...data]);
+      main.dispatchEvent(new CustomEvent("itemUpdated"));
     }
     main.dispatchEvent(new CustomEvent("itemUpdated"));
   }

@@ -13,7 +13,7 @@ const peps =
 //Drag the elements from the html
 const main = document.querySelector("main");
 const addBtn = document.querySelector(".add");
-
+const body = document.querySelector("body");
 const filterNameInput = document.querySelector("#name");
 const filterMonthInput = document.querySelector("#month");
 
@@ -45,4 +45,4 @@ async function fetchPeople() {
 
 fetchPeople();
 
-export { fetchPeople, peps, result, main, addBtn, filterMonthInput, filterNameInput };
+export { fetchPeople, peps, result, main, addBtn, filterMonthInput, filterNameInput, body };

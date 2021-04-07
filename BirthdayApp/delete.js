@@ -1,20 +1,23 @@
 import { destroyModalEditDeleteOrCancel } from "./destroy.js";
 import { displayList } from "./display.js";
-import { result, main, peps, updateResult } from "./script.js";
+import { result, main, peps, updateResult, body } from "./script.js";
 
 // function of deleting people
 function deletePersonBirthday(idItem) {
 
   return new Promise(function (resolve) {
+    console.log(result);
     const personToDelete = result.find((person) => person.id == idItem);
     console.log("person to delete", personToDelete);
     
     const popup = document.createElement("form");
     popup.classList.add("person");
+    body.style.overflow="hidden";
+
     const delHtml = `
     <div class="deletion">
       <article class="deletion-wrapper">
-        <h2>Do you want to delete ${personToDelete.firstName} ${personToDelete.lastName}?</h2>
+        <h2>Do you want to delete <span class="red-name">${personToDelete.firstName} ${personToDelete.lastName}</span>?</h2>
         <div class="delBtn">
           <div class="yes">
           <button type="button" id="yes-delete" class="yes-delete" name="yes">YES</button>
@@ -28,13 +31,6 @@ function deletePersonBirthday(idItem) {
       `;
     popup.innerHTML = delHtml;
 
-    // const deleteList = popup.querySelector("#yes-delete");
-    // deleteList.addEventListener("click", () => {
-      // console.log("delete");
-      // const people = result.filter((person) => person.id !== idItem);
-      // displayList(people)
-    // })
-
     popup.addEventListener(
       "click",
       (e) => {
@@ -43,11 +39,11 @@ function deletePersonBirthday(idItem) {
           console.log("id items", idItem);
           
           const filteredPeople = result.filter((person) => person.id !== idItem);
-
           console.log("I am ready to delete this one", filteredPeople);
+          body.style.overflow="unset";
+          destroyModalEditDeleteOrCancel(popup);
           updateResult(filteredPeople);
           displayList(filteredPeople);
-          destroyModalEditDeleteOrCancel(popup);
           main.dispatchEvent(new CustomEvent("itemUpdated"));
         }
       },
@@ -59,6 +55,7 @@ function deletePersonBirthday(idItem) {
         "click",
         function () {
           resolve(null);
+          body.style.overflow="unset";
           destroyModalEditDeleteOrCancel(popup);
         },
         { once: true }

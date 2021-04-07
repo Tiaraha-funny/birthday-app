@@ -1,8 +1,6 @@
 body {
 	font-family: "Rubik";
 	background-color: #D8EEFE;
-	width: 80%;
-	margin: auto;
 }
 
 h1 {
@@ -26,7 +24,7 @@ ul {
 	margin-bottom: 34px;
 	flex-wrap: wrap;
 	line-height: 45px;
-	max-width: 823px;
+	/* max-width: 823px; */
 }
 
 li {
@@ -37,13 +35,13 @@ li:nth-of-type(2) {
 	display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: center;
 }
 
 b {
 	font-size: 36px;
 	color: #000000;
 	font-family: "Rubik";
+	overflow-wrap: anywhere;
 }
 
 li > img {
@@ -57,16 +55,13 @@ form label {
 	font-weight: 600;
 }
 
-script ~ form {
-    max-width: 1079px;
-}
-
 input {
 	padding: 10px;
 	border-radius: 8px;
 	border: none;
 	width: 92%;
 	margin-top: 13px;
+	margin-bottom: -13px;
 	font-weight: 500;
 	font-size: 18px;
 	line-height: 21px;
@@ -135,15 +130,24 @@ button {
 }
 
 @media (min-width: 700px) {
+	main, .headings, .main {
+		width: 70%;
+		margin: auto;
+	}
+
 	li:nth-of-type(1) {
 		display: flex;
 	}
 	ul {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		max-width: inherit;
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+	flex-wrap: nowrap;
+    /* max-width: inherit; */
+	}
+
+	li .buttons {
+		flex-wrap: nowrap;
 	}
 
 	input {
@@ -159,13 +163,19 @@ button {
 		width: 300px;
 	}
 
+	h1 {
+		padding-top: 10px;
+		font-size: 54px;
+	}
+
 }
 
 @media(min-width: 1440px) {
-	body > * {
+	main, .headings, .main {
 		width: 70%;
 		margin: auto;
 	}
+
 	h1 {
 		padding-top: 10px;
 		font-size: 64px;
@@ -179,5 +189,13 @@ button {
 
 	.delete {
 		padding: 0;
+	}
+
+	ul {
+		height: 139px;
+	}
+
+	input {
+		margin-bottom: auto;
 	}
 }
