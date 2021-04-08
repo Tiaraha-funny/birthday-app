@@ -280,11 +280,49 @@ const htmlGenerator = array => {
   }).join("");
 };
 
+function generateHtml(array) {
+  const html = htmlGenerator(array);
+  _script.main.innerHTML = html;
+}
+
 function displayList(array) {
   calculateDaysToBirthday(array);
   const sortedArray = array.sort((personA, personB) => personA.daysToBirthday - personB.daysToBirthday);
-  const html = htmlGenerator(sortedArray);
-  _script.main.innerHTML = html;
+  generateHtml(sortedArray);
+
+  const filterBirthdayByNames = people => {
+    console.log(_script.filterNameInput.value);
+
+    const checkInputName = _script.filterNameInput.value.toLowerCase();
+
+    console.log(checkInputName);
+    const filterInputName = people.filter(name => name.firstName.toLowerCase().includes(checkInputName) || name.lastName.toLowerCase().includes(checkInputName));
+    console.log(filterInputName);
+    return filterInputName;
+  };
+
+  const filterBirthdayByMonths = people => {
+    const checkSelectMonth = _script.filterMonthInput.value;
+    const filterSelectMonth = people.filter(month => {
+      if (checkSelectMonth === "all") {
+        return true;
+      }
+
+      const fullMonth = new Date(month.birthday).toLocaleString("en-US", {
+        month: "long"
+      });
+      return fullMonth.toLowerCase().includes(checkSelectMonth);
+    });
+    return filterSelectMonth;
+  };
+
+  const filterByNamesAndMonths = () => {
+    generateHtml(filterBirthdayByMonths(filterBirthdayByNames(sortedArray)));
+  };
+
+  _script.filterNameInput.addEventListener("input", filterByNamesAndMonths);
+
+  _script.filterMonthInput.addEventListener("change", filterByNamesAndMonths);
 }
 
 function displayPeopleBirthdayList() {
@@ -365,6 +403,7 @@ function addListOfPeople(id) {
     _script.result.find(person => person.id !== id);
 
     const addHtml = `
+    <div class="wrapper">
       <div class="form add-form">
         <h2>Do you want to add this lists?</h2>
         <label>Enter the last Name</label><br>
@@ -376,6 +415,7 @@ function addListOfPeople(id) {
         <div class="buttons">
           <button type="submit addBtn" class="sub">Submit</button>
           <button type="button" id="close-button-cancel" name="cancel" class="cancel">Cancel</button>
+        </div>
         </div>
         <button id="close-button-x" class="closeButton"><small>X</samll></button>
     </div>
@@ -405,7 +445,7 @@ function addListOfPeople(id) {
         lastName: formEl.lastName.value,
         firstName: formEl.firstName.value,
         birthday: formEl.birthday.value,
-        id: Date.now()
+        id: Date.now().toString()
       };
 
       _script.result.unshift(newBirthday);
@@ -561,8 +601,8 @@ function deletePersonBirthday(idItem) {
 
         console.log("I am ready to delete this one", filteredPeople);
         _script.body.style.overflow = "unset";
-        (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
         (0, _script.updateResult)(filteredPeople);
+        (0, _destroy.destroyModalEditDeleteOrCancel)(popup);
         (0, _display.displayList)(filteredPeople);
 
         _script.main.dispatchEvent(new CustomEvent("itemUpdated"));
@@ -619,49 +659,7 @@ const handleClick = e => {
 };
 
 exports.handleClick = handleClick;
-},{"./edit.js":"BirthdayApp/edit.js","./delete.js":"BirthdayApp/delete.js"}],"BirthdayApp/filterNameAndMonth.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.filterByNamesAndMonths = void 0;
-
-var _display = require("./display.js");
-
-var _script = require("./script.js");
-
-const filterBirthdayByNames = people => {
-  console.log("I am here");
-
-  const checkInputName = _script.filterNameInput.value.toLowerCase();
-
-  console.log(checkInputName);
-  const filterInputName = people.filter(name => name.firstName.toLowerCase().includes(checkInputName) || name.lastName.toLowerCase().includes(checkInputName));
-  return filterInputName;
-};
-
-const filterBirthdayByMonths = people => {
-  const checkSelectMonth = _script.filterMonthInput.value;
-  const filterSelectMonth = people.filter(month => {
-    if (checkSelectMonth === "all") {
-      return true;
-    }
-
-    const fullMonth = new Date(month.birthday).toLocaleString("en-US", {
-      month: "long"
-    });
-    return fullMonth.toLowerCase().includes(checkSelectMonth);
-  });
-  return filterSelectMonth;
-};
-
-const filterByNamesAndMonths = () => {
-  (0, _display.displayList)(filterBirthdayByMonths(filterBirthdayByNames(_script.result)));
-};
-
-exports.filterByNamesAndMonths = filterByNamesAndMonths;
-},{"./display.js":"BirthdayApp/display.js","./script.js":"BirthdayApp/script.js"}],"BirthdayApp/script.js":[function(require,module,exports) {
+},{"./edit.js":"BirthdayApp/edit.js","./delete.js":"BirthdayApp/delete.js"}],"BirthdayApp/script.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -678,8 +676,6 @@ var _display = require("./display.js");
 var _add = require("./add.js");
 
 var _click = require("./click.js");
-
-var _filterNameAndMonth = require("./filterNameAndMonth.js");
 
 const peps = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/b17e08696906abeaac8bc260f57738eaa3f6abb1/birthdayPeople.json"; //Drag the elements from the html
 
@@ -710,14 +706,12 @@ async function fetchPeople() {
   (0, _localstorage.restoreFromLocalStorage)(result);
   window.addEventListener("click", _click.handleClick);
   addBtn.addEventListener("click", _add.addListOfPeople);
-  filterNameInput.addEventListener("input", _filterNameAndMonth.filterByNamesAndMonths);
-  filterMonthInput.addEventListener("change", _filterNameAndMonth.filterByNamesAndMonths);
   main.addEventListener("itemUpdated", _localstorage.setItemOfBirthdayToLocalStorage);
   (0, _localstorage.restoreFromLocalStorage)();
 }
 
 fetchPeople();
-},{"./localstorage.js":"BirthdayApp/localstorage.js","./display.js":"BirthdayApp/display.js","./add.js":"BirthdayApp/add.js","./click.js":"BirthdayApp/click.js","./filterNameAndMonth.js":"BirthdayApp/filterNameAndMonth.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./localstorage.js":"BirthdayApp/localstorage.js","./display.js":"BirthdayApp/display.js","./add.js":"BirthdayApp/add.js","./click.js":"BirthdayApp/click.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -745,7 +739,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57387" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52192" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

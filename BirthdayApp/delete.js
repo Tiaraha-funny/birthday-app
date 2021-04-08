@@ -41,8 +41,8 @@ function deletePersonBirthday(idItem) {
           const filteredPeople = result.filter((person) => person.id !== idItem);
           console.log("I am ready to delete this one", filteredPeople);
           body.style.overflow="unset";
-          destroyModalEditDeleteOrCancel(popup);
           updateResult(filteredPeople);
+          destroyModalEditDeleteOrCancel(popup);
           displayList(filteredPeople);
           main.dispatchEvent(new CustomEvent("itemUpdated"));
         }

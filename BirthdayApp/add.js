@@ -12,6 +12,7 @@ function addListOfPeople(id) {
     popup.classList.add("person");
     result.find((person) => person.id !== id);
     const addHtml = `
+    <div class="wrapper">
       <div class="form add-form">
         <h2>Do you want to add this lists?</h2>
         <label>Enter the last Name</label><br>
@@ -23,6 +24,7 @@ function addListOfPeople(id) {
         <div class="buttons">
           <button type="submit addBtn" class="sub">Submit</button>
           <button type="button" id="close-button-cancel" name="cancel" class="cancel">Cancel</button>
+        </div>
         </div>
         <button id="close-button-x" class="closeButton"><small>X</samll></button>
     </div>
@@ -59,7 +61,7 @@ function addListOfPeople(id) {
         lastName: formEl.lastName.value,
         firstName: formEl.firstName.value,
         birthday: formEl.birthday.value,
-        id: Date.now(),
+        id: Date.now().toString(),
       };
 
       result.unshift(newBirthday);

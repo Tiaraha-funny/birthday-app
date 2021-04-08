@@ -1,4 +1,4 @@
-import { result, main, updateResult } from "./script.js";
+import { result, filterNameInput, filterMonthInput, main, updateResult } from "./script.js";
 import { editSvg, deleteSvg } from "./icons-SVGs/svg.js";
 
 // Maping all the people in the list from the fetch function
@@ -143,15 +143,57 @@ const htmlGenerator = (array) => {
     .join("");
 };
 
+function generateHtml (array) {
+  const html = htmlGenerator(array);
+  main.innerHTML = html;
+}
+
 function displayList(array) {
   calculateDaysToBirthday(array);
   const sortedArray = array.sort((personA, personB) => personA.daysToBirthday - personB.daysToBirthday);
-  const html = htmlGenerator(sortedArray);
-  main.innerHTML = html;
+
+  generateHtml(sortedArray)
+
+  const filterBirthdayByNames = (people) => {
+    console.log(filterNameInput.value);
+    const checkInputName = filterNameInput.value.toLowerCase();
+    console.log(checkInputName);
+    const filterInputName = people.filter(
+      (name) =>
+        name.firstName.toLowerCase().includes(checkInputName) ||
+        name.lastName.toLowerCase().includes(checkInputName)
+    );
+    console.log(filterInputName)
+    return filterInputName;
+  };
+
+const filterBirthdayByMonths = (people) => {
+    const checkSelectMonth = filterMonthInput.value;
+    const filterSelectMonth = people.filter((month) => {
+        if(checkSelectMonth === "all") {
+            return true
+        }
+      const fullMonth = new Date(month.birthday).toLocaleString("en-US", {
+        month: "long",
+      });
+      return fullMonth.toLowerCase().includes(checkSelectMonth);
+    });
+    return filterSelectMonth;
+  };
+
+  const filterByNamesAndMonths = () => {
+    generateHtml(filterBirthdayByMonths(filterBirthdayByNames(sortedArray)));      
+ }
+
+
+ filterNameInput.addEventListener("input", filterByNamesAndMonths);
+ filterMonthInput.addEventListener("change", filterByNamesAndMonths);
+
 }
+
 
 function displayPeopleBirthdayList() {
   displayList(result);
 }
 
-export { displayPeopleBirthdayList, displayList };
+export { displayPeopleBirthdayList, displayList};

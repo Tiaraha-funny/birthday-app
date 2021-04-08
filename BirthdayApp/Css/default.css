@@ -172,6 +172,7 @@ button {
 
 @media(min-width: 1440px) {
 	main, .headings, .main {
+		max-width: 779px;
 		width: 70%;
 		margin: auto;
 	}
@@ -193,6 +194,7 @@ button {
 
 	ul {
 		height: 139px;
+		max-width: 779px;
 	}
 
 	input {

@@ -5,7 +5,6 @@ import {
 import { displayPeopleBirthdayList } from "./display.js";
 import { addListOfPeople } from "./add.js";
 import { handleClick } from "./click.js";
-import { filterByNamesAndMonths } from "./filterNameAndMonth.js";
 
 const peps =
   "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/b17e08696906abeaac8bc260f57738eaa3f6abb1/birthdayPeople.json";
@@ -36,8 +35,6 @@ async function fetchPeople() {
   window.addEventListener("click", handleClick);
   addBtn.addEventListener("click", addListOfPeople);
 
-  filterNameInput.addEventListener("input", filterByNamesAndMonths);
-  filterMonthInput.addEventListener("change", filterByNamesAndMonths);
 
   main.addEventListener("itemUpdated", setItemOfBirthdayToLocalStorage);
   restoreFromLocalStorage();
