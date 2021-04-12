@@ -404,7 +404,7 @@ function addListOfPeople(id) {
 
     const addHtml = `
     <div class="wrapper">
-      <div class="form add-form">
+      <div class="form">
         <h2>Do you want to add this lists?</h2>
         <label>Enter the last Name</label><br>
         <input type="text" name="lastName" id="lastName" required><br>

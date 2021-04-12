@@ -468,6 +468,9 @@ button {
 
 
 @media (min-width: 700px) {
+    #root {
+        height: inherit;
+    }
 
     form label {
         line-height: 50px;
