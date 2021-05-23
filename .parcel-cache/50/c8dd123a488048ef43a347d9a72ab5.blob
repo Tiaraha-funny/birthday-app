@@ -1,0 +1,99 @@
+.cancel {
+	border: solid #5F6C7B 1px;
+}
+
+.yes-delete {
+	background-color: #EF4565;
+	color: #ffffff;
+    margin-bottom: 20px;
+	height: 49px;
+}
+
+.delBtn {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+} 
+
+.yes {
+    margin-right: 30px;
+    margin-inline-start: 40px;
+}
+
+.closeButton {
+	background-color: transparent;
+	position: absolute;
+    top: 27px;
+    right: 40px;
+    padding: 0;
+    margin: 0;
+    width: auto;
+	border: none;
+}
+
+.closeButton:focus {
+    border: 2px solid #094067;
+}
+
+.closeButton > small {
+    font-weight: 100;
+    font-size: 30px;
+    width: 20px;
+    height: 20px;
+    color: #094067;
+}
+
+.buttons {
+	display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+	flex-wrap: wrap;
+	margin: 0;
+    margin-top: 3rem;
+}
+
+.buttons .sub {
+	border: 1px solid  #5F6C7B;
+	background-color: #EF4565;
+	color: #ffffff;
+	margin-right: 20px;
+	outline: none;
+	border: none;
+}
+
+
+@media (min-width: 700px) {
+    .buttons {
+		margin-block-start: 40px;
+		margin-block-end: 40px;
+		justify-content: flex-start;
+	}
+
+	.cancel, .yes-delete {
+		width: 150px;
+	}
+    .sub {
+		width: 110px;
+	}	
+
+	.form > .buttons {
+	flex-wrap: nowrap;
+	width: max-content;
+	}
+}
+
+@media(min-width: 1440px) {
+	.buttons {
+		padding-block-end: 200px;
+	}
+
+	.sub, .cancel {
+		width: 158px;
+    	height: 50px;
+	}
+
+	.delBtn {
+		margin: auto;
+	}
+
+}

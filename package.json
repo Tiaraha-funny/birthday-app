@@ -10,7 +10,9 @@
     "jquery": "^3.5.1",
     "regenerator-runtime": "^0.13.7"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  },
   "scripts": {
     "start": "parcel index.html --open"
   },
@@ -25,6 +27,6 @@
   },
   "homepage": "https://github.com/Tiaraha-funny/birthday-app#readme",
   "browserslist": [
-		"last 1 chrome versions"
-	]
+    "last 1 chrome versions"
+  ]
 }

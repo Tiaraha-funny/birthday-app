@@ -229,155 +229,151 @@ button {
 }
 
 .main button {
-	background-color: #EF4565;
-	border: none;
-	border-radius: 5px;
-	font-size: 18px;
-	margin-top: 16px;
-	margin-bottom: 32px;
-	outline: none;
-	width: 55%;
-	color: #ffffff;
-	height: 60px;
-	text-align: center;
+  background-color: #ef4565;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  margin-top: 16px;
+  margin-bottom: 32px;
+  outline: none;
+  width: 55%;
+  color: #ffffff;
+  height: 60px;
+  text-align: center;
 }
 
 .filter_birthday div span {
-	font-weight: 600;
-	font-size: 18px;
-	line-height: 21px;
-	color: #094067;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  color: #094067;
 }
 
-
 .span {
-	color: #5F6C7B;
-	font-size: 24px;
-	display: flex;
-	font-family: "Rubik";
-	font-weight: 600;
-	flex-wrap: wrap;
+  color: #5f6c7b;
+  font-size: 24px;
+  display: flex;
+  font-family: 'Rubik';
+  font-weight: 600;
+  flex-wrap: wrap;
 }
 
 .age {
-	color: #EF4565;
-	margin-left: 5px;
-	margin-right: 5px;
+  color: #ef4565;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .buttons .add {
-	background-color: #EF4565;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-right: 20px;
-	font-size: 18px;
-	border-radius: 5px;
-	color: #ffffff;
+  background-color: #ef4565;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  color: #ffffff;
 }
 
 .red-name {
-	color: #EF4565;
+  color: #ef4565;
 }
 
 .save {
-	background-color: #0000ff;		
+  background-color: #0000ff;
 }
 .save:hover {
-	background-color: #ffc6c7;
+  background-color: #ffc6c7;
 }
 
 .container {
-	padding: 0;
-    border-radius: 5px;
+  padding: 0;
+  border-radius: 5px;
 }
-  
+
 .filterbtn {
-	margin-right: 0px;
+  margin-right: 0px;
 }
 
 .filter_birthday {
-	display: block;
+  display: block;
 }
 
 #name {
-	padding: 12px;
-	height: 36px;
+  padding: 12px;
+  height: 36px;
 }
 
 .filterMonth {
-	border: none;
-	width: 100%;
+  border: none;
+  width: 100%;
+  background-color: white;
 }
 
-
 .headings {
-	align-items: center;
+  align-items: center;
 }
 
 .names {
-	margin: 0;
+  margin: 0;
 }
 
 .rounded-circle {
-	width: 104px;
-    height: 106px;
+  width: 104px;
+  height: 106px;
 }
 
-
 @media (min-width: 700px) {
-	.filter_birthday {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		flex-wrap: wrap;
-		transition: all 0.5s;
-	}
-	.main button {
-		width: auto;
-		padding: 18px;
-		padding-left: 27px;
-		padding-right: 27px;
-		margin-top: auto;
-    	margin-bottom: 19px;
-	}
+  .filter_birthday {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    transition: all 0.5s;
+  }
+  .main button {
+    width: auto;
+    padding: 18px;
+    padding-left: 27px;
+    padding-right: 27px;
+    margin-top: auto;
+    margin-bottom: 19px;
+  }
 
-	.rounded-circle {
-		width: 104px;
-		height: 106px;
-		margin-block-start: 19px;
-		margin-block-end: 19px;
-		margin-inline-start: 40px;
-		margin-inline-end: 35px;
-	}
-	.names {
-		margin-block-start: 30px;
-	}
-
-
+  .rounded-circle {
+    width: 104px;
+    height: 106px;
+    margin-block-start: 19px;
+    margin-block-end: 19px;
+    margin-inline-start: 40px;
+    margin-inline-end: 35px;
+  }
+  .names {
+    margin-block-start: 30px;
+  }
 }
 
 @media (min-width: 1440px) {
-	.filter_birthday {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-	}
+  .filter_birthday {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-	.filter_birthday p  {
-		margin-bottom: 40px;
-	}
-	.select-wrapper {
-		margin-block-end: 28px;
-	}
+  .filter_birthday p {
+    margin-bottom: 40px;
+  }
+  .select-wrapper {
+    margin-block-end: 28px;
+  }
 
-	.main button {
-		margin-block-end: 29px;
-	}
-
+  .main button {
+    margin-block-end: 29px;
+  }
 }
+
 .person {
 	background: rgba(255, 255, 255, 0.8);
     position: fixed;

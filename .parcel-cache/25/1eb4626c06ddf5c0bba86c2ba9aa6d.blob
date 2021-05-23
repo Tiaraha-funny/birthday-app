@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Rubik';
+    src: url('690c026403de78667762681abee324a4') format('woff2'),
+        url('5a646720ebaf8cd2266eadf3f4c78a99') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('7b71b319bd2ab4fd7e501480ec8ce09b') format('woff2'),
+        url('4be3bface21f1e610e1aa9d6cd302661') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('66c5b4a902c8de65c56fe7697db4fc1d') format('woff2'),
+        url('38f795dff44f0610833f61efb1039e0b') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
